@@ -1,0 +1,25 @@
+{
+  "name": "nossas-memorias",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase": "^11.8.1",
+    "firebase-admin": "^13.4.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^4.1.0",
+    "pg": "^8.16.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
+}

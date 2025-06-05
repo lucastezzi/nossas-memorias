@@ -1,0 +1,1115 @@
+/* Importação de fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #e44d7d; /* Um rosa mais elegante */
+    --secondary-color: #f78ca0; /* Rosa claro complementar */
+    --accent-color: #ff6f61;   /* Um toque de coral para destaque */
+    --text-color: #333;
+    --light-text-color: #f8f8f8;
+    --bg-light: #f9f5f6; /* Branco levemente rosado */
+    --card-bg: #fff;
+    --border-radius: 12px;
+    --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* --- ADICIONE ESTAS LINHAS --- */
+    flex-direction: column; /* Organiza os filhos em coluna (um abaixo do outro) */
+    align-items: center; /* Centraliza os filhos horizontalmente */
+    min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da viewport */
+    /* --- FIM DAS LINHAS ADICIONADAS --- */
+}
+
+/* --- ESTILOS DA PÁGINA INICIAL (LANDING PAGE) --- */
+.landing-page-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #6cb1cc; 
+    background-image: url("estrelas.png"); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    color: var(--light-text-color);
+    text-align: center;
+    flex-direction: column;
+}
+
+.landing-container {
+    background-color: rgba(255, 255, 255, 0.2); 
+    padding: 40px 60px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    max-width: 90%;
+}
+
+.landing-container h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.landing-container p {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.surprise-button {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    border: none;
+    padding: 18px 40px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition), transform 0.2s ease, box-shadow var(--transition);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.surprise-button:hover {
+    background-color: #e06054;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para o container de background dos corações */
+.heart-background-container {
+    position: fixed; /* Fica fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interagir com os elementos abaixo */
+    z-index: -1; /* Coloca no fundo */
+    overflow: hidden; /* Garante que os corações que saem não criem scroll */
+}
+
+/* Animação para os corações caírem */
+@keyframes fallSlow {
+    0% {
+        transform: translateY(-10vh) translateX(var(--random-x));
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--random-x));
+        opacity: 0;
+    }
+}
+
+.falling-heart {
+    position: absolute;
+    color: #ff69b4; /* Cor rosa dos corações */
+    font-size: 2em; /* Tamanho dos corações - ajuste conforme necessário */
+    animation: fallSlow linear infinite;
+    user-select: none; /* Impede a seleção do texto */
+    pointer-events: none; /* Impede a interação com os corações */
+}
+
+/* --- ESTILOS DA RAPOSINHA NO CANTO --- */
+.raposinha-na-lua {
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    width: 200px; 
+    z-index: 999; 
+    pointer-events: none; 
+}
+
+/* --- ESTILOS GERAIS PARA A GALERIA (CONTINUAÇÃO DO SEU CÓDIGO ORIGINAL) --- */
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--light-text-color);
+    padding: 70px 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+}
+
+header p {
+    font-size: 1.3em;
+    margin: 10px 0;
+    font-weight: 300;
+}
+
+/* Animação de corações no header (mais sutis) */
+header::before,
+header::after {
+    content: '❤️';
+    position: absolute;
+    font-size: 2em;
+    opacity: 0.3;
+    animation: floatHeart 10s infinite ease-in-out;
+}
+
+header::before {
+    top: 10px;
+    left: 20px;
+    transform: rotate(15deg);
+}
+
+header::after {
+    bottom: 15px;
+    right: 30px;
+    transform: rotate(-20deg) scale(1.2);
+    animation-delay: 2s;
+}
+
+/* Nota: A keyframe @keyframes floatHeart já estava definida e funciona para ambos os corações */
+
+/* --- Seção de Upload (AJUSTES) --- */
+.upload-section {
+    background-color: var(--card-bg);
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 700px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+    /* Remover display: flex e align-items: center daqui se você quiser que o formulário ocupe a largura total */
+    /* Para centralizar o FORM, faça isso no próprio FORM ou mantenha o text-align: center na SECTION */
+    text-align: center; /* Centraliza h2 e o formulário como um bloco */
+}
+
+/* --- ESTILOS PARA ALINHAR H2 E LOOPY (REAJUSTADOS) --- */
+.upload-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o cabeçalho completo */
+    margin-bottom: 30px;
+    width: 100%; /* Garante que o header ocupe a largura completa do upload-section */
+}
+
+.upload-section h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 3em;
+    margin-bottom: 0;
+    margin-right: 15px; /* Espaço entre o título e o ícone Loopy */
+}
+
+.loopy-header-icon {
+    /* Removida a margin-top aqui para evitar deslocamento vertical */
+    width: 70px;
+    height: auto;
+    margin-left: 0; /* Remove margem desnecessária */
+}
+
+/* --- Formulário (AJUSTES) --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px; /* Limita a largura máxima do formulário para não ficar muito esticado */
+    width: 100%; /* Garante que ocupe a largura total disponível dentro do max-width */
+    margin: 0 auto; /* Centraliza o formulário */
+    text-align: left; /* Garante que labels e inputs se alinhem à esquerda dentro do formulário */
+}
+
+.form-group {
+    margin-bottom: 0; /* Remover margin-bottom aqui, já que o gap do form lida com o espaçamento */
+    text-align: left;
+    /* Ajustes para flexbox em form-group */
+    display: flex;
+    flex-direction: column; /* Coloca label e input/textarea em colunas */
+    /* remove align-items: center se quiser que a label e input comecem na esquerda */
+    /* justify-content: flex-start; */ /* Desnecessário se for column */
+}
+
+.form-group label {
+    margin-bottom: 8px; /* Adiciona margem de volta entre label e input */
+    margin-right: 0; /* Remove margem desnecessária */
+    white-space: normal; /* Permite que o texto da label quebre se for longo */
+}
+
+.form-group input::file-selector-button {
+    background-color: var(--secondary-color);
+    color: var(--light-text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group input::file-selector-button:hover {
+    background-color: #f56a7f;
+}
+
+.form-group input,
+.form-group textarea {
+    /* Use width: 100% para preencher o form-group */
+    width: 100%; 
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+    transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    border: none;
+    padding: 15px;
+    /* Remover margens fixas e usar width: 100% ou max-width para controle */
+    width: 100%; /* Ocupa a largura total do formulário */
+    max-width: 250px; /* Define uma largura máxima para o botão */
+    margin: 20px auto 0 auto; /* Centraliza o botão */
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition), transform 0.2s ease, box-shadow var(--transition);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover {
+    background-color: #e06054;
+    transform: translateY(-2px);
+}
+
+#message {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+}
+
+#message.success {
+    background-color: #e6ffe6;
+    color: #2e8b57;
+    border: 1px solid #b8e9b8;
+}
+
+#message.error {
+    background-color: #ffe6e6;
+    color: #b22222;
+    border: 1px solid #f5baba;
+}
+
+#message.hidden {
+    display: none;
+}
+
+/* Galeria de Fotos */
+.gallery-section {
+    padding: 0 20px;
+    margin-bottom: 50px;
+}
+
+.gallery-section h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 280px; 
+    object-fit: contain; 
+    background-color: #f0f0f0; 
+    background: linear-gradient(45deg, #f0f0f0, #e0e0e0); 
+    display: block;
+    border-bottom: 4px solid var(--secondary-color);
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+.item-details {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; 
+}
+
+.item-details h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.item-details p {
+    font-size: 1.05em;
+    color: var(--text-color);
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+footer p {
+    margin: 8px 0;
+    font-size: 1em;
+    font-weight: 300;
+}
+
+/* Mensagem de Carregamento e Sem Memórias */
+#loadingMessage,
+.no-memories,
+.error-loading {
+    text-align: center;
+    font-size: 1.1em;
+    color: #777;
+    padding: 40px;
+}
+
+.no-memories {
+    font-style: italic;
+}
+
+.error-loading {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Estilo para o botão de exclusão */
+.delete-button {
+    background-color: #dc3545;
+    color: var(--light-text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+    align-self: flex-end; 
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    /* Landing Page */
+    .landing-container h1 {
+        font-size: 3.5em;
+    }
+    .landing-container p {
+        font-size: 1.2em;
+    }
+    .surprise-button {
+        font-size: 1.3em;
+        padding: 15px 30px;
+    }
+
+    header {
+        padding: 50px 20px;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 3em;
+    }
+
+    header p {
+        font-size: 1.1em;
+    }
+
+    .upload-section {
+        padding: 30px;
+        margin: 30px auto;
+    }
+
+    .upload-section h2 {
+        font-size: 2.5em;
+    }
+
+    .gallery-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .gallery-item img {
+        height: 240px;
+    }
+
+    .item-details h3 {
+        font-size: 1.8em;
+    }
+
+    /* Ajustes para Loopy */
+    .loopy-label-icon { /* Note: this class doesn't exist in your HTML, assuming it's for the small Loopy icon by labels */
+        width: 25px; 
+        margin-right: 10px;
+    }
+    /* Removi a margin-top do .loopy-header-icon nas media queries menores também, já que foi removida da versão principal */
+    .loopy-header-icon {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) { /* Este breakpoint pode ser usado para o iPhone 14 Pro Max e similares (430px) */
+    /* Landing Page */
+    .landing-container {
+        padding: 30px;
+    }
+    .landing-container h1 {
+        font-size: 2.8em;
+    }
+    .landing-container p {
+        font-size: 1em;
+    }
+    .surprise-button {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+
+    header {
+        padding: 40px 15px;
+    }
+
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+
+    .upload-section {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .upload-section h2 {
+        font-size: 2em;
+    }
+
+    .form-group {
+        margin-bottom: 15px; /* Reduz um pouco o espaçamento entre os grupos em telas menores */
+    }
+
+    .gallery-container {
+        padding: 15px;
+        gap: 20px;
+        grid-template-columns: 1fr; /* Força uma coluna única em telas pequenas */
+    }
+
+    .gallery-item img {
+        height: 200px;
+    }
+
+    .item-details {
+        padding: 15px;
+    }
+
+    .item-details h3 {
+        font-size: 1.6em;
+    }
+
+    /* Ajustes para Loopy */
+    .loopy-label-icon {
+        width: 20px;
+        margin-right: 8px;
+    }
+    .loopy-header-icon {
+        margin-top: 0; /* Garante que a margem superior seja 0 também aqui */
+        width: 50px; /* Reduz o tamanho do Loopy no cabeçalho em telas pequenas */
+    }
+
+    /* Ajustes finos para o submit button em telas pequenas */
+    .submit-button {
+        padding: 12px;
+        font-size: 1em;
+        max-width: 200px; /* Limita a largura máxima do botão em telas pequenas */
+    }
+}
+
+/* Estilo para o botão de slideshow */
+.slideshow-button {
+    display: inline-block;
+    background-color: var(--accent-color); 
+    color: var(--light-text-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.slideshow-button:hover {
+    background-color: #e06054;
+}
+/* --- ESTILOS DO POP-UP DE MENSAGEM DE AMOR --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 10000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 15% auto; 
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 80%; 
+    max-width: 500px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+    animation: fadeIn 0.5s; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsividade para o modal */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    .modal-content h2 {
+        font-size: 2em;
+    }
+    .modal-content p {
+        font-size: 1em;
+    }
+}
+
+/* ... seu CSS existente ... */
+
+/* --- INÍCIO DAS REGRAS PARA A ANIMAÇÃO DE TULIPAS NA LANDING PAGE --- */
+
+/* Animação para as flores caírem de forma mais espaçada e uniforme */
+@keyframes floatDownFlower {
+    0% {
+        transform: translateY(-100vh) scale(0.8); /* Começa acima da tela, ligeiramente menor */
+        opacity: 0;
+    }
+    20% {
+        opacity: 1; /* Fica visível rapidamente */
+    }
+    80% {
+        opacity: 1; /* Mantém opacidade */
+    }
+    100% {
+        transform: translateY(0) scale(1); /* Cai até a parte de baixo da tela, tamanho normal */
+        opacity: 0; /* Desaparece suavemente */
+    }
+}
+
+.animated-flower { /* Esta é a classe que seu JavaScript adiciona às tulipas */
+    position: absolute;
+    top: 0; /* Começa do topo */
+    width: 60px; /* Tamanho da tulipa - ajuste se precisar para sua imagem. */
+    height: auto; /* Para manter a proporção da imagem */
+    animation-name: floatDownFlower; /* Usa a animação definida acima */
+    animation-timing-function: ease-in; /* Queda que acelera um pouco no começo */
+    animation-fill-mode: forwards; /* Mantém o estado final da animação */
+    pointer-events: none; /* Não interfere com cliques */
+    z-index: 999; /* Garante que fique por cima de outros elementos, mas abaixo do modal */
+}
+
+/* O container para as flores na landing page */
+.rose-animation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 990; /* Um pouco abaixo das flores para que elas fiquem por cima */
+    display: none; /* Escondido por padrão, JavaScript o mostrará */
+}
+/* --- FIM DAS REGRAS PARA A ANIMAÇÃO DE TULIPAS NA LANDING PAGE --- */
+
+/* Certifique-se que o body não tenha overflow para a animação */
+/* Esta regra já está no seu style.css, apenas um lembrete */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* REMOVA OU COMENTE ESTAS REGRAS SE ELAS ESTIVEREM NO SEU style.css e não forem mais usadas para a animação principal */
+/* .animated-rose { ... } */
+/* @keyframes fallAndRotate { ... } */
+
+/* --- ESTILOS DO CONTADOR DE TEMPO --- */
+/* Mantidos como estavam na versão anterior, sem alterações */
+.time-together-section {
+    text-align: center;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 740px;
+}
+
+.time-together-section h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 2.8em;
+    margin-bottom: 15px;
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: #e44d7d;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px #ac3a5e;
+}
+
+.countdown-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5em;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #bbb;
+    text-transform: uppercase;
+}
+
+.countdown-separator {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #333;
+    margin: 0 5px;
+    line-height: 1;
+}
+
+/* Responsividade para o contador */
+@media (max-width: 768px) {
+    .countdown-display {
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .countdown-number {
+        font-size: 2.8em;
+    }
+    .countdown-label {
+        font-size: 0.7em;
+    }
+    .countdown-separator {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-display {
+        gap: 10px;
+        padding: 10px 15px;
+    }
+    .countdown-number {
+        font-size: 2em;
+    }
+    .countdown-label {
+        font-size: 0.6em;
+    }
+    .countdown-separator {
+        font-size: 1.5em;
+    }
+}
+/* --- ESTILOS DO PLAYER DE MÚSICA ESTILO SPOTIFY (SLIDESHOW) --- */
+.audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; 
+    background-color: #121212; 
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-top: 30px;
+}
+
+.spotify-label {
+    color: #b3b3b3; 
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.spotify-button {
+    background-color: #1DB954; 
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.spotify-button:hover {
+    background-color: #1ed760; 
+    transform: scale(1.02);
+}
+
+.spotify-button:active {
+    transform: scale(0.98);
+}
+
+.spotify-volume-slider {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 120px; 
+    height: 6px;
+    background: #535353; 
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    border-radius: 3px;
+}
+
+.spotify-volume-slider:hover {
+    opacity: 1;
+}
+
+.spotify-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #1DB954; 
+    border-radius: 50%; 
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+.spotify-volume-slider::-moz-range-thumb { 
+    width: 16px;
+    height: 16px;
+    background: #1DB954;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive adjustments for audio controls */
+@media (max-width: 480px) {
+    .audio-controls {
+        flex-direction: column; 
+        gap: 10px;
+        padding: 10px 15px;
+    }
+    .spotify-volume-slider {
+        width: 100%; 
+    }
+}
+:root{
+  --primary: #fff;
+  --bg-color: rgb(5, 53, 61);
+  --bg-envelope-color: #f5edd1;
+  --envelope-tab: #ecdeb8;
+  --envelope-cover: #e6cfa7;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --txt-color: #444;
+  --heart-color: rgb(252, 8, 231);
+}
+.container {
+    margin-top: 150px;
+  display: grid;
+  place-items: center;
+}
+.container > .envelope-wrapper {
+  background: var(--bg-envelope-color);
+  box-shadow: 0 0 40px var(--shadow-color);
+}
+.envelope-wrapper > .envelope {
+  position: relative;
+  width: 300px;
+  height: 230px;
+}
+.envelope-wrapper > .envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  border-top: 130px solid var(--envelope-tab);
+  border-right: 150px solid transparent;
+  border-left: 150px solid transparent;
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.7s;
+}
+.envelope-wrapper > .envelope::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 0px;
+  height: 0px;
+  border-top: 130px solid transparent;
+  border-right: 150px solid var(--envelope-cover);
+  border-bottom: 100px solid var(--envelope-cover);
+  border-left: 150px solid var(--envelope-cover);
+}
+.envelope > .letter {
+  position: absolute;
+  right: 20%;
+  bottom: 0;
+  width: 54%;
+  height: 80%;
+  background: var(--primary);
+  text-align: center;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 0 5px var(--shadow-color);
+  padding: 20px 10px;
+}
+
+.envelope > .letter > .text {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: var(--txt-color);
+  text-align: left;
+  font-size: 10px;
+}
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  background: var(--heart-color);
+  z-index: 4;
+  transform: translate(-50%, -20%) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
+  box-shadow: 0 1px 6px var(--shadow-color);
+  cursor: pointer;
+}
+.heart:before, 
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: var(--heart-color);
+  border-radius: 50%;
+}
+.heart:before {
+  top: -7.5px;
+}
+.heart:after {
+  right: 7.5px;
+}
+.flap > .envelope:before {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+.flap > .envelope > .letter {
+  bottom: 200px;
+  transform: scale(1.5);
+  transition-delay: 1s;
+}
+.flap > .heart {
+  transform: rotate(90deg);
+  transition-delay: 0.4s;
+}
+/* style.css */
+
+/* ... (seus estilos existentes) ... */
+
+/* --- ESTILOS DO QUIZ DE RELACIONAMENTO --- */
+/* (Mantenha todos os estilos do quiz que eu te dei na resposta anterior,
+   como .quiz-section, .quiz-section-header, .quiz-header-icon,
+   .quiz-question, .quiz-options label, input[type="radio"], etc.) */
+
+/* Adicione/Ajuste estas classes para feedback visual das respostas */
+.quiz-options.correct label input[type="radio"]:checked + span::after { /* Adicione um span ao lado do input para estilização mais fácil */
+    /* Exemplo: Um checkmark verde ou borda verde */
+    border: 2px solid green;
+    box-shadow: 0 0 5px green;
+}
+
+.quiz-options.incorrect label input[type="radio"]:checked + span::after {
+    /* Exemplo: Um X vermelho ou borda vermelha */
+    border: 2px solid red;
+    box-shadow: 0 0 5px red;
+}
+
+/* Para destacar a opção correta, você pode adicionar uma classe 'highlight-correct'
+   dinamicamente via JS e estilizá-la aqui.
+   Por enquanto, o feedback é apenas visual nas caixas de rádio. */
+
+.quiz-result .score-message.perfect {
+    color: #1DB954; /* Verde Spotify para sucesso total */
+    font-size: 1.4em;
+    animation: bounceIn 0.8s; /* Animação para o resultado perfeito */
+}
+
+.quiz-result .score-message.error {
+    color: var(--accent-color); /* A cor de destaque para erro */
+    font-size: 1.2em;
+}
+
+/* Animação para o resultado perfeito (opcional) */
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+/* Classes para esconder/mostrar elementos */
+.hidden {
+    display: none;
+}

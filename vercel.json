@@ -1,0 +1,23 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gallery",
+      "destination": "/gallery.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
+  "public": true,
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "outputDirectory": "public"
+}

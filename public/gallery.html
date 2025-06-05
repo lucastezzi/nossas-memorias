@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor em Imagens ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <div class="heart-background-container" id="heartBackgroundContainer"></div>
+
+
+    <header>
+        <h1>Para o Meu Amor Eterno ❤️</h1>
+        <p>Quero gravar cada momento nosso juntos!</p>
+        <p>Cada momento com você.</p>
+        <a href="slideshow.html" class="slideshow-button">Ver Apresentação de Slides</a>
+    </header>
+
+    <main>
+       <section class="time-together-section">
+    <h2>Estamos juntos há:</h2>
+    <div id="countdown" class="countdown-display">
+        <div class="countdown-segment">
+            <span id="days" class="countdown-number">00</span>
+            <span class="countdown-label">DIAS</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-segment">
+            <span id="hours" class="countdown-number">00</span>
+            <span class="countdown-label">HORAS</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-segment">
+            <span id="minutes" class="countdown-number">00</span>
+            <span class="countdown-label">MINUTOS</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-segment">
+            <span id="seconds" class="countdown-number">00</span>
+            <span class="countdown-label">SEGUNDOS</span>
+        </div>
+    </div>
+</section>
+<div class="container">
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="letter">
+                    <div class="text">
+                        <strong>Para a MINHA Princesa</strong>
+                        <p>
+                            Essa carta vai pra dona do meu sorriso mais radiante, da pessoa mais incrível do universo. Você é pra mim o que a Sally é pro McQueen. Agradeço a Deus todos os dias por ele ter colocado você em minha vida. Eu te amo INFINITOS MUITOS, lindona.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const envelope = document.querySelector('.envelope-wrapper');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('flap');
+        });
+    </script>
+
+        <section class="upload-section">
+            <div class="upload-section-header">
+                <img src="loopy.png" alt="Loopy Personagem" class="loopy-header-icon">
+                <h2>Nova Memória</h2>
+            </div>
+            
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="photo">Selecione a Foto:</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Data do Evento:</label>
+                    <input type="date" id="eventDate" name="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">O que fizemos esse dia?</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Adicionar</button>
+            </form>
+            <p id="message" class="hidden"></p>
+        </section>
+
+        <section class="gallery-section">
+            <h2>Nossas Memórias Mais Preciosas</h2>
+            <div class="gallery-container" id="galleryContainer">
+                <p id="loadingMessage">Carregando memórias...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Feito com todo o meu amor para você, neste Dia dos Namorados! 🥰</p>
+        <p>&copy; Nosso Amor Eterno 2025</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // --- LÓGICA DO CONTADOR DE TEMPO ---
+        // Defina a data de início do relacionamento: 28 de dezembro de 2024
+        const startDate = new Date('2024-12-28T00:00:00'); 
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = now.getTime() - startDate.getTime(); // Diferença em milissegundos
+
+            // Calcula dias, horas, minutos, segundos
+            const seconds = Math.floor((diff / 1000) % 60);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            // Formata para ter sempre dois dígitos (00, 01, etc.)
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Atualiza o contador a cada segundo
+        setInterval(updateCountdown, 1000);
+
+        // Atualiza uma vez imediatamente para evitar atraso inicial
+        updateCountdown();
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const heartContainer = document.getElementById('heartBackgroundContainer');
+        const numberOfHearts = 15; // Ajuste a quantidade de corações visíveis simultaneamente
+        const heartEmoji = '❤️'; // Caractere do coração
+
+        // Cria um certo número de corações inicialmente para preencher a tela
+        for (let i = 0; i < numberOfHearts; i++) {
+            createFallingHeart();
+        }
+
+        // Cria um novo coração a cada X milissegundos para um fluxo contínuo
+        // O intervalo deve ser menor do que a duração da animação para garantir um fluxo constante
+        setInterval(createFallingHeart, 2000); // Cria um novo coração a cada 2 segundos
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.textContent = heartEmoji;
+
+            // Posição horizontal inicial aleatória na largura da tela
+            const startPosition = Math.random() * 100; // de 0 a 100vw
+            heart.style.left = `${startPosition}vw`;
+
+            // Atraso aleatório para o início da animação de cada coração
+            const delay = Math.random() * 5; // atraso entre 0 e 5 segundos
+            heart.style.animationDelay = `${delay}s`;
+
+            // Duração da animação aleatória para velocidade de queda variada
+            const duration = 15 + Math.random() * 10; // entre 15 e 25 segundos (quanto maior, mais lento)
+            heart.style.animationDuration = `${duration}s`;
+
+            // Define o valor da variável CSS para um movimento horizontal leve e aleatório
+            const randomXOffset = (Math.random() - 0.5) * 100; // Desvio horizontal de até 50px para cada lado
+            heart.style.setProperty('--random-x', randomXOffset + 'px');
+
+            heartContainer.appendChild(heart);
+
+            // Remove o coração do DOM após a animação para otimizar a memória
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+    });
+    
+</script>
+</body>
+</html>

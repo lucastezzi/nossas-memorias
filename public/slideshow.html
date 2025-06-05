@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Memórias em Slideshow ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Variáveis de Cores (Se você já tem no style.css, pode remover daqui) */
+        :root {
+            --primary-color: #d1495b; /* Vermelho-rosado profundo e elegante */
+            --secondary-color: #ff8c9a; /* Rosa suave e vibrante, complementar */
+            --accent-color: #4CAF50; /* Um verde-esmeralda como destaque, moderno */
+            --text-color: #2c3e50; /* Preto quase azul, mais suave que puro preto */
+            --light-text-color: #ecf0f1; /* Cinza muito claro, quase branco para textos em fundos escuros */
+            --muted-text-color: #7f8c8d; /* Cinza médio para textos secundários em fundos claros */
+            --bg-light: #fefefe; /* Fundo mais próximo do branco puro para claridade */
+            --card-bg: #ffffff; /* Fundo de card branco */
+            --border-color-light: #e0e0e0; /* Borda suave */
+
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 18px;
+
+            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 0, 0, 0.05);
+
+            --transition-fast: 0.2s ease-out;
+            --transition-default: 0.3s ease-in-out;
+            --transition-slow: 0.5s ease-in-out;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            flex-direction: column;
+            align-items: center;
+            /* justify-content: center; REMOVIDO: Isso empurraria o conteúdo para o meio, mesmo com scroll. */
+            min-height: 100vh; /* Garante que o body ocupa a altura total da viewport */
+        }
+
+        /* --- Estilos específicos para o slideshow --- */
+        .slideshow-container {
+            position: relative;
+            max-width: 850px;
+            width: 90%; /* Ajuste para responsividade */
+            margin: auto; /* Centraliza horizontalmente */
+            overflow: hidden; /* Oculta partes dos slides que estiverem fora */
+            border-radius: var(--border-radius-lg); /* Usar variável */
+            box-shadow: var(--shadow-lg); /* Sombra mais sofisticada */
+            background-color: rgba(255, 255, 255, 0.98); /* Quase branco, ligeiramente transparente */
+            padding: 30px; /* Padding interno */
+            margin-top: 50px;
+            margin-bottom: 50px; /* Adiciona espaço abaixo do slideshow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        /* NOVO: Wrapper para os slides para controlar a altura fixa */
+        .slides-wrapper {
+            position: relative; /* Essencial para os slides absolutos */
+            width: 100%;
+            height: 520px; /* Ajuste esta altura conforme suas imagens e legendas */
+            overflow: hidden; /* Para garantir que o conteúdo não vaze */
+            /* margin-bottom: 20px; Este margin foi movido para o slideshow-container */
+        }
+
+        /* Botão de Voltar */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.4);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color var(--transition-default), transform var(--transition-fast), box-shadow var(--transition-default);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .slide {
+            position: absolute; /* Para sobrepor e permitir transições suaves */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Ocupa 100% da altura fixa do slides-wrapper */
+            text-align: center;
+            opacity: 0; /* Invisível por padrão */
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; /* Transição de opacidade e zoom */
+            transform: scale(1.02); /* Leve zoom inicial */
+            z-index: 1;
+            display: flex; /* Para centralizar conteúdo verticalmente dentro do slide */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px; /* Adiciona padding lateral ao slide */
+            box-sizing: border-box; /* Garante que padding não adicione largura */
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .slide img {
+            max-width: 100%;
+            /* Ajuste de altura da imagem. Calc para subtrair espaço das legendas. */
+            /* Se as legendas forem maiores ou menores, ajuste os 100px. */
+            height: calc(100% - 100px); 
+            object-fit: contain; /* Mantém a imagem inteira, sem cortar */
+            /* Se quiser que a imagem preencha a área, mesmo cortando, use object-fit: cover; */
+            border-radius: var(--border-radius-md);
+            margin-bottom: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+        
+        .slide img:hover {
+            transform: scale(1.01);
+        }
+
+        .slide-caption {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .slide-date {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.9em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Botões de navegação fixos */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            /* TOP: 50% em relação ao slideshow-container */
+            top: 50%; 
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 32px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            border-radius: 50%;
+            user-select: none;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            z-index: 3; /* Garante que os botões fiquem acima dos slides */
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            transform: scale(1.15) translateY(-50%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        }
+
+        /* --- ESTILOS DO PLAYER DE MÚSICA ESTILO SPOTIFY --- */
+        /* Mantendo seu CSS original do player, com os ajustes de variáveis que fizemos antes */
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background-color: #121212;
+            padding: 20px 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            margin-top: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 480px; /* Ajustado de max-content para fixo */
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Borda sutil */
+        }
+
+        .player-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .music-cover {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-grow: 1;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+            outline: none;
+        }
+
+        .control-button:hover {
+            color: white;
+            transform: translateY(-2px) scale(1.1);
+        }
+
+        .control-button.active {
+            color: #1DB954;
+            transform: scale(1.1);
+        }
+
+        .play-pause-button {
+            background-color: #1DB954;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #121212;
+            box-shadow: 0 0px 8px rgba(0, 0, 0, 0.4);
+            line-height: 1;
+            padding-top: 2px;
+            flex-shrink: 0;
+            transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .play-pause-button:hover {
+            background-color: #1ed760;
+            transform: scale(1.08);
+            box-shadow: 0 0px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .play-pause-button:active {
+            transform: scale(0.96);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #b3b3b3;
+            font-size: 0.85em;
+        }
+
+        .progress-bar {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            background: #535353;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background var(--transition-default);
+        }
+        .progress-bar::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, #1DB954 var(--progress, 0%), #535353 var(--progress, 0%));
+            border-radius: 3px;
+        }
+        .progress-bar::-moz-range-track {
+            background: linear-gradient(to right, #1DB954 var(--progress, 0%), #535353 var(--progress, 0%));
+            border-radius: 3px;
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+            margin-top: -4.5px;
+            transition: background var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .progress-bar::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+            transition: background var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .progress-bar:hover::-webkit-slider-thumb,
+        .progress-bar:active::-webkit-slider-thumb {
+            background: #1DB954;
+            transform: scale(1.1);
+        }
+        .progress-bar:hover::-moz-range-thumb,
+        .progress-bar:active::-moz-range-thumb {
+            background: #1DB954;
+            transform: scale(1.1);
+        }
+
+        /* Estilos para o background de corações caindo */
+        .heart-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        @keyframes fallSlow {
+            0% {
+                transform: translateY(-5vh) translateX(var(--random-x, 0)); /* Começa um pouco acima */
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(110vh) translateX(var(--random-x, 0));
+                opacity: 0;
+            }
+        }
+
+        .falling-heart {
+            position: absolute;
+            color: #ff8c9a;
+            font-size: 2.2em;
+            animation: fallSlow linear infinite;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* --- Responsive adjustments --- */
+        @media (max-width: 768px) {
+            .slideshow-container {
+                padding: 20px;
+            }
+            .slides-wrapper {
+                height: 450px; /* Ajuste para tablets */
+            }
+            .slide img {
+                height: calc(100% - 90px); /* Ajuste de altura para imagem */
+            }
+            .prev, .next {
+                width: 40px;
+                height: 40px;
+                font-size: 28px;
+            }
+            header h1 {
+                font-size: 2.8em;
+            }
+            header p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .audio-player-container {
+                padding: 15px 20px;
+                width: 95%;
+            }
+            .player-top-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .music-cover {
+                width: 60px;
+                height: 60px;
+            }
+            .player-controls {
+                gap: 20px;
+            }
+            .play-pause-button {
+                width: 48px;
+                height: 48px;
+                font-size: 28px;
+            }
+            .progress-bar-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+            .slide-caption {
+                font-size: 1em;
+            }
+            .slide-date {
+                font-size: 1.6em;
+            }
+            .back-button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+                top: 15px;
+                left: 15px;
+            }
+            .slideshow-container {
+                padding: 15px;
+            }
+            .slides-wrapper {
+                height: 350px; /* Ajuste para celulares */
+            }
+            .slide img {
+                height: calc(100% - 80px); /* Ajuste de altura para imagem */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-background-container" id="slideshow-heart-container"></div>
+
+    <a href="gallery.html" class="back-button">← Voltar para a Galeria</a>
+
+    <header>
+        <h1>Momentos Inesquecíveis ❤️</h1>
+        <p>Uma viagem através de nossas memórias mais especiais.</p>
+    </header>
+
+    <div class="audio-player-container">
+        <audio id="background-music" loop>
+            <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+
+        <div class="player-top-row">
+            <img src="capa.jpg" alt="Capa da Música" class="music-cover">
+            <div class="player-controls">
+                <button class="control-button" id="shuffle-button" title="Embaralhar"><i class="fa-solid fa-shuffle"></i></button>
+                <button class="control-button" id="prev-button" title="Música Anterior"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fa-solid fa-play"></i></button>
+                <button class="control-button" id="next-button" title="Próxima Música"><i class="fa-solid fa-forward-step"></i></button>
+                <button class="control-button" id="repeat-button" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
+            </div>
+        </div>
+        <div class="progress-bar-container">
+            <span id="current-time">0:00</span>
+            <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
+            <span id="duration-time">0:00</span>
+        </div>
+    </div>
+
+    <main class="slideshow-container">
+        <div id="slides-wrapper" class="slides-wrapper">
+            <p id="loadingSlides" style="text-align:center; padding-top: 100px;">Carregando fotos para o slideshow...</p>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+        <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
+    </main>
+
+    <footer>
+        <p>Feito com todo o meu amor para você! 🥰</p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        let memoriesData = [];
+        const RENDER_API_URL = 'https://web-production-14bba.up.railway.app'; // Certifique-se que esta URL é pública e acessível.
+
+        // --- Lógica do Player de Música ---
+        const music = document.getElementById('background-music');
+        const playPausePlayerButton = document.getElementById('play-pause-player');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeSpan = document.getElementById('current-time');
+        const durationTimeSpan = document.getElementById('duration-time');
+        const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
+        const shuffleButton = document.getElementById('shuffle-button');
+        const repeatButton = document.getElementById('repeat-button');
+
+        // Playlist de exemplo - adicione mais músicas conforme necessário
+        const playlist = [
+            { src: "Ed Sheeran - Perfect.mp3", cover: "capa.jpg" },
+            // { src: "caminho/para/sua/outra_musica.mp3", cover: "caminho/para/sua/outra_capa.jpg" },
+            // { src: "caminho/para/sua/mais_uma_musica.mp3", cover: "caminho/para/sua/mais_uma_capa.jpg" }
+        ];
+        let currentSongIndex = 0;
+        let isShuffled = false;
+        let shuffledPlaylist = [];
+
+        // Tenta tocar a música automaticamente, caso contrário exibe o botão de play
+        music.play().catch(error => {
+            console.log("Reprodução automática bloqueada. Clique para tocar a música.", error);
+            // Atualiza o ícone para play se a reprodução automática falhar
+            playPausePlayerButton.innerHTML = '<i class="fa-solid fa-play"></i>';
+        });
+
+        playPausePlayerButton.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playPausePlayerButton.innerHTML = '<i class="fa-solid fa-pause"></i>'; // Ícone de Pause
+            } else {
+                music.pause();
+                playPausePlayerButton.innerHTML = '<i class="fa-solid fa-play"></i>'; // Ícone de Play
+            }
+        });
+
+        music.addEventListener('timeupdate', () => {
+            if (!isNaN(music.duration)) {
+                const progress = (music.currentTime / music.duration) * 100;
+                progressBar.value = progress;
+                // Atualiza a propriedade CSS customizada para preencher a barra
+                progressBar.style.setProperty('--progress', `${progress}%`);
+                currentTimeSpan.textContent = formatTime(music.currentTime);
+            }
+        });
+
+        music.addEventListener('loadedmetadata', () => {
+            if (!isNaN(music.duration)) {
+                durationTimeSpan.textContent = formatTime(music.duration);
+                progressBar.max = 100;
+            }
+        });
+
+        progressBar.addEventListener('input', () => {
+            if (!isNaN(music.duration)) {
+                const time = (progressBar.value / 100) * music.duration;
+                music.currentTime = time;
+            }
+        });
+
+        // Quando a música termina, toca a próxima se não estiver em loop infinito
+        music.addEventListener('ended', () => {
+            if (!music.loop) {
+                playNextSong();
+            }
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function playNextSong() {
+            const currentList = isShuffled ? shuffledPlaylist : playlist;
+            if (currentList.length > 0) {
+                currentSongIndex = (currentSongIndex + 1) % currentList.length;
+                loadAndPlaySong(currentList[currentSongIndex]);
+            }
+        }
+
+        function playPrevSong() {
+            const currentList = isShuffled ? shuffledPlaylist : playlist;
+            if (currentList.length > 0) {
+                currentSongIndex = (currentSongIndex - 1 + currentList.length) % currentList.length;
+                loadAndPlaySong(currentList[currentSongIndex]);
+            }
+        }
+
+        function loadAndPlaySong(song) {
+            music.src = song.src;
+            document.querySelector('.music-cover').src = song.cover;
+            music.load();
+            music.play();
+            playPausePlayerButton.innerHTML = '<i class="fa-solid fa-pause"></i>'; // Ícone de Pause
+        }
+
+        nextButton.addEventListener('click', playNextSong);
+        prevButton.addEventListener('click', playPrevSong);
+
+        shuffleButton.addEventListener('click', () => {
+            isShuffled = !isShuffled;
+            if (isShuffled) {
+                // Cria uma cópia da playlist e a embaralha
+                shuffledPlaylist = [...playlist];
+                for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
+                }
+                shuffleButton.classList.add('active'); // Adiciona classe para feedback visual
+                currentSongIndex = 0; // Reinicia o índice para a primeira música embaralhada
+                loadAndPlaySong(shuffledPlaylist[currentSongIndex]);
+            } else {
+                shuffleButton.classList.remove('active');
+                // Se o shuffle for desativado, volta para a música original na playlist original
+                // Encontra o índice da música atual na playlist original
+                const currentSongSrc = music.src.split('/').pop(); // Pega apenas o nome do arquivo
+                currentSongIndex = playlist.findIndex(song => song.src.includes(currentSongSrc));
+                if (currentSongIndex === -1) currentSongIndex = 0; // Fallback se não encontrar
+                loadAndPlaySong(playlist[currentSongIndex]);
+            }
+            alert(`Shuffle ${isShuffled ? 'ativado' : 'desativado'}`);
+        });
+
+        repeatButton.addEventListener('click', () => {
+            music.loop = !music.loop;
+            repeatButton.classList.toggle('active', music.loop); // Adiciona/remove classe baseado no estado do loop
+            alert(`Repetição ${music.loop ? 'ativada' : 'desativada'}`);
+        });
+
+        // Carrega a primeira música da playlist ao iniciar
+        if (playlist.length > 0) {
+            loadAndPlaySong(playlist[currentSongIndex]);
+        }
+
+        // --- FIM Lógica do Player de Música ---
+
+        // --- Lógica do Slideshow ---
+        let slideshowInterval;
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            if (slides.length === 0) {
+                // Se não há slides, ensure que a mensagem de carregamento/erro está visível e os botões não.
+                const loadingMessage = document.getElementById('loadingSlides');
+                if (loadingMessage) loadingMessage.style.display = 'block';
+                document.querySelector('.slideshow-container .prev').style.display = 'none';
+                document.querySelector('.slideshow-container .next').style.display = 'none';
+                return;
+            }
+
+            // Garante que os botões estão visíveis se há slides
+            document.querySelector('.slideshow-container .prev').style.display = 'flex';
+            document.querySelector('.slideshow-container .next').style.display = 'flex';
+
+
+            // Remove 'active' class from all slides
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+
+            if (n > slides.length - 1) {slideIndex = 0}
+            else if (n < 0) {slideIndex = slides.length - 1}
+            else {slideIndex = n;}
+
+            // Add 'active' class to the current slide
+            slides[slideIndex].classList.add('active');
+        }
+
+        function plusSlides(n) {
+            stopSlideshowInterval();
+            showSlides(slideIndex += n);
+            startSlideshowInterval();
+        }
+
+        function startSlideshowInterval() {
+            // Evita que o slideshow inicie se não há slides (e a API falhou, por exemplo)
+            if (memoriesData.length === 0) return;
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(() => {
+                plusSlides(1);
+            }, 6000); // Avança a cada 6 segundos
+        }
+
+        function stopSlideshowInterval() {
+            clearInterval(slideshowInterval);
+        }
+
+        async function loadSlideshowMemories() {
+            try {
+                const loadingMessage = document.getElementById('loadingSlides');
+                if (loadingMessage) {
+                    loadingMessage.textContent = 'Carregando fotos para o slideshow...';
+                    loadingMessage.style.display = 'block'; // Garante que a mensagem esteja visível
+                }
+                
+                // Esconde os botões de navegação enquanto carrega
+                document.querySelector('.slideshow-container .prev').style.display = 'none';
+                document.querySelector('.slideshow-container .next').style.display = 'none';
+
+
+                const response = await fetch(`${RENDER_API_URL}/api/memories`);
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar memórias para o slideshow.');
+                }
+                memoriesData = await response.json();
+
+                memoriesData.sort((a, b) => {
+                    const dateA = new Date(a.event_date);
+                    const dateB = new Date(b.event_date);
+                    return dateA - dateB;
+                });
+
+                const slidesWrapper = document.getElementById('slides-wrapper');
+                slidesWrapper.innerHTML = ''; // Limpa a mensagem de carregamento e quaisquer slides antigos
+
+                if (memoriesData.length === 0) {
+                    slidesWrapper.innerHTML = '<p id="loadingSlides" style="text-align:center; color:red; padding-top: 100px;">Nenhuma memória para o slideshow. Adicione algumas na galeria!</p>';
+                } else {
+                    memoriesData.forEach((memory, index) => {
+                        const slideDiv = document.createElement('div');
+                        slideDiv.classList.add('slide');
+                        slideDiv.innerHTML = `
+                            <img src="${memory.image_path}" alt="Memória de ${memory.event_date}">
+                            <div class="slide-caption">${memory.description}</div>
+                            <div class="slide-date">${new Date(memory.event_date).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                        `;
+                        slidesWrapper.appendChild(slideDiv);
+                    });
+                    showSlides(slideIndex); // Exibe o primeiro slide
+                    startSlideshowInterval(); // Inicia o intervalo
+                }
+
+            } catch (error) {
+                console.error('Erro ao carregar memórias para slideshow:', error);
+                const slidesWrapper = document.getElementById('slides-wrapper');
+                slidesWrapper.innerHTML = '<p id="loadingSlides" style="text-align:center; color:red; padding-top: 100px;">Não foi possível carregar as memórias para o slideshow.</p>';
+            }
+        }
+
+        // Pause/Resume slideshow on hover
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        slideshowContainer.addEventListener('mouseover', stopSlideshowInterval);
+        slideshowContainer.addEventListener('mouseleave', () => {
+            if (memoriesData.length > 0) { // Só reinicia se houver slides
+                startSlideshowInterval();
+            }
+        });
+
+        // NOVO: Lógica para gerar corações caindo
+        function createFallingHeart() {
+            const heart = document.createElement('span');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️'; // Ou outro emoji de coração: '💖', '💕'
+
+            const startX = Math.random() * window.innerWidth;
+            const randomSize = Math.random() * (2.5 - 1.5) + 1.5;
+            const randomDuration = Math.random() * (10 - 6) + 6;
+            const randomDelay = Math.random() * 5;
+
+            heart.style.left = `${startX}px`;
+            heart.style.fontSize = `${randomSize}em`;
+            heart.style.animationDuration = `${randomDuration}s`;
+            heart.style.animationDelay = `${randomDelay}s`;
+            // Ajusta o translateX para criar um movimento lateral sutil
+            heart.style.setProperty('--random-x', `${(Math.random() - 0.5) * 100}px`); // De -50px a +50px lateralmente
+
+            document.getElementById('slideshow-heart-container').appendChild(heart);
+
+            // Remove o coração após a animação para não sobrecarregar o DOM
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // Gera um novo coração a cada 800ms
+        let heartInterval = setInterval(createFallingHeart, 800);
+
+
+        // Carrega as memórias ao carregar a página
+        document.addEventListener('DOMContentLoaded', loadSlideshowMemories);
+    </script>
+</body>
+</html>
