@@ -2357,11 +2357,14 @@ html, body {
     padding: 0;
 }
 
-body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do slideshow.html se quiser */
+/* ... (seu CSS existente, incluindo as variáveis :root e estilos gerais) ... */
+
+/* --- ESTILOS GERAIS DA APRESENTAÇÃO IMERSIVA --- */
+body.slideshow-page-body {
     background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semitransparente */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Centraliza o conteúdo principal (slideshow container) */
     align-items: center;
     overflow: hidden; /* Esconde barras de rolagem */
     position: fixed; /* Fixa na tela para cobrir tudo */
@@ -2372,22 +2375,21 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
     z-index: 9999; /* Garante que esteja acima de todo o resto */
 }
 
-
-/* Botão "Fechar Apresentação" */
+/* Botão "Fechar Apresentação" (mantido como antes) */
 .close-slideshow-button {
-    position: fixed; /* Fixo na viewport */
+    position: fixed;
     top: 20px;
-    left: 20px; /* Posicionado no canto superior esquerdo */
-    background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil */
-    color: var(--light-text-color); /* Texto claro */
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--light-text-color);
     border: none;
     padding: 10px 20px;
-    border-radius: 25px; /* Mais arredondado */
+    border-radius: 25px;
     text-decoration: none;
     font-size: 1em;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 10001; /* Acima de tudo */
+    z-index: 10001;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -2400,68 +2402,68 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Player de Áudio no Overlay */
+/* Player de Áudio no Overlay: Posicionamento e Tamanho Ajustados */
 .audio-player-container.overlay-player-fixed {
     position: fixed; /* Fixo na tela */
-    bottom: 20px;
+    top: 20px; /* **NOVO: Posiciona no topo, abaixo do botão fechar** */
     left: 50%;
     transform: translateX(-50%); /* Centraliza horizontalmente */
-    width: 90%; /* Ocupa uma boa largura */
+    width: 90%;
     max-width: 450px; /* Limite de largura */
-    background-color: rgba(18, 18, 18, 0.9); /* Fundo mais escuro e opaco */
+    background-color: rgba(18, 18, 18, 0.9);
     padding: 15px 25px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-    z-index: 10000; /* Acima do slideshow, mas abaixo do botão de fechar */
+    z-index: 10000;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: slideInUp 0.8s forwards; /* Animação de entrada */
+    animation: slideInDown 0.8s forwards; /* **NOVO: Animação de entrada vindo de cima** */
 }
 
-@keyframes slideInUp {
+/* Animação de entrada do player (de cima para baixo) */
+@keyframes slideInDown {
     from {
-        transform: translateX(-50%) translateY(100px);
+        transform: translateX(-50%) translateY(-100px); /* Começa acima */
         opacity: 0;
     }
     to {
-        transform: translateX(-50%) translateY(0);
+        transform: translateX(-50%) translateY(0); /* Desliza para a posição final */
         opacity: 1;
     }
 }
 
-/* Oculta o header e footer padrão do slideshow, se existirem (para esta versão, eles foram removidos do HTML) */
-.slideshow-page-body header,
-.slideshow-page-body footer {
-    display: none;
-}
 
 /* Estilo do Slideshow Container para a Apresentação */
 .slideshow-container.full-screen-presentation {
-    width: 100vw; /* Ocupa a largura total da viewport */
-    height: 100vh; /* Ocupa a altura total da viewport */
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     border-radius: 0;
     box-shadow: none;
-    background-color: transparent; /* A cor de fundo será a do body */
+    background-color: transparent;
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
-    position: relative; /* Essencial para os slides absolutos */
+    position: relative;
+    /* Ajusta o padding para compensar o player e o botão de fechar */
+    padding-top: 150px; /* Espaço para o player no topo */
+    padding-bottom: 50px; /* Pequeno espaço na parte inferior */
+    box-sizing: border-box; /* Garante que o padding não adicione tamanho total */
 }
 
 .slideshow-container.full-screen-presentation .slides-wrapper {
     width: 100%;
-    height: 100%; /* Ocupa 100% da altura e largura da apresentação */
-    display: flex; /* Para centralizar o slide atual */
+    height: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .slideshow-container.full-screen-presentation .slide {
-    position: absolute; /* Para sobrepor e animar */
+    position: absolute;
     width: 100%;
     height: 100%;
-    padding: 20px; /* Padding interno para as imagens */
+    padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -2471,38 +2473,39 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
 }
 
 .slideshow-container.full-screen-presentation .slide img {
-    max-width: 95%; /* Um pouco de margem */
-    max-height: 80%; /* Para deixar espaço para o texto e player */
-    object-fit: contain; /* Garante que a imagem inteira seja visível */
-    border-radius: var(--border-radius-lg); /* Mantém cantos arredondados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
-    transition: transform 0.5s ease-out; /* Transição mais suave no hover */
+    max-width: 95%;
+    /* Ajustado para não sobrepor o player de música e as legendas */
+    max-height: calc(100% - 150px); /* 150px para margem e legendas */
+    object-fit: contain;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s ease-out;
 }
 
 .slideshow-container.full-screen-presentation .slide img:hover {
-    transform: scale(1.02); /* Leve zoom no hover */
+    transform: scale(1.02);
 }
 
 .slideshow-container.full-screen-presentation .slide-caption,
 .slideshow-container.full-screen-presentation .slide-date {
-    position: relative; /* Relativo ao slide para fluxo normal */
-    margin-top: 15px; /* Espaço entre imagem e texto */
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente para o texto */
+    position: relative;
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 8px 15px;
     border-radius: 8px;
-    color: var(--light-text-color); /* Texto claro */
+    color: var(--light-text-color);
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-    max-width: 80%;
-    word-wrap: break-word; /* Quebra texto longo */
+    max-width: 90%; /* Aumenta a largura máxima para acomodar texto */
+    word-wrap: break-word;
 }
 
 .slideshow-container.full-screen-presentation .slide-date {
-    font-size: 2.2em; /* Data maior */
+    font-size: 2.2em;
     margin-bottom: 10px;
 }
 
 .slideshow-container.full-screen-presentation .slide-caption {
-    font-size: 1.2em; /* Legenda maior */
+    font-size: 1.2em;
     font-weight: 400;
 }
 
@@ -2510,7 +2513,7 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
 /* Botões de navegação no modo apresentação */
 .slideshow-container.full-screen-presentation .prev,
 .slideshow-container.full-screen-presentation .next {
-    background-color: rgba(255, 255, 255, 0.1); /* Mais sutil */
+    background-color: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.6);
     width: 55px;
     height: 55px;
@@ -2522,7 +2525,7 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
 .slideshow-container.full-screen-presentation .next:hover {
     background-color: rgba(255, 255, 255, 0.25);
     color: white;
-    transform: scale(1.18) translateY(-50%); /* Aumenta um pouco mais no hover */
+    transform: scale(1.18) translateY(-50%);
 }
 
 /* Mensagens de carregamento e erro dentro da apresentação */
@@ -2534,7 +2537,7 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
 }
 
 .loading-slides.error-loading {
-    color: #ff6f61; /* Cor de erro em fundo escuro */
+    color: #ff6f61;
 }
 
 
@@ -2547,9 +2550,9 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
         left: 15px;
     }
     .audio-player-container.overlay-player-fixed {
-        max-width: 95%; /* Ocupa quase toda a largura em telas menores */
+        max-width: 95%;
         padding: 12px 15px;
-        bottom: 10px; /* Mais perto da borda inferior */
+        top: 15px; /* Ajusta a posição para telas menores */
     }
     .audio-player-container.overlay-player-fixed .player-top-row {
         flex-direction: column;
@@ -2561,10 +2564,16 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
         justify-content: center;
     }
     .audio-player-container.overlay-player-fixed .song-info {
-        margin-top: 10px; /* Espaço entre capa e info da música */
+        margin-top: 10px;
+    }
+
+    /* Ajuste para o slideshow-container quando o player está no topo */
+    .slideshow-container.full-screen-presentation {
+        padding-top: 180px; /* Mais espaço para o player em tablets */
+        padding-bottom: 20px;
     }
     .slideshow-container.full-screen-presentation .slide img {
-        max-height: 70%; /* Mais espaço para o player em mobile */
+        max-height: calc(100% - 180px); /* Ajusta para deixar espaço para player e legendas */
     }
     .slideshow-container.full-screen-presentation .slide-date {
         font-size: 1.8em;
@@ -2587,6 +2596,7 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
     }
     .audio-player-container.overlay-player-fixed {
         padding: 10px 10px;
+        top: 10px; /* Mais perto da borda superior em telas muito pequenas */
     }
     .audio-player-container.overlay-player-fixed .music-cover {
         width: 50px;
@@ -2597,8 +2607,14 @@ body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do sli
         height: 40px;
         font-size: 24px;
     }
+
+    /* Ajuste para o slideshow-container em telas muito pequenas */
+    .slideshow-container.full-screen-presentation {
+        padding-top: 160px; /* Ajusta espaço para o player e botão de fechar */
+        padding-bottom: 10px;
+    }
     .slideshow-container.full-screen-presentation .slide img {
-        max-height: 65%; /* Ainda mais ajuste para telas muito pequenas */
+        max-height: calc(100% - 160px); /* Ajusta para deixar espaço para player e legendas */
     }
     .slideshow-container.full-screen-presentation .slide-date {
         font-size: 1.5em;
