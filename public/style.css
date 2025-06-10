@@ -2363,6 +2363,9 @@ html, body {
 /* ... (seu CSS existente, incluindo as variáveis :root e estilos gerais) ... */
 
 /* Estilos para o background de corações caindo (mantidos como antes) */
+/* ... (seu CSS existente, incluindo as variáveis :root e estilos gerais) ... */
+
+/* Estilos para o background de corações caindo (mantidos como antes) */
 .heart-background-container {
     position: fixed;
     top: 0;
@@ -2417,61 +2420,91 @@ html, body {
     padding: 0;
 }
 
-/* Botão "Fechar Apresentação" */
+/* NOVO: Header personalizado para o Slideshow */
+.slideshow-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0)); /* Gradiente sutil */
+    color: var(--light-text-color);
+    z-index: 10002; /* Acima do botão de fechar */
+    pointer-events: none; /* Não interfere com cliques */
+    opacity: 0; /* Inicia invisível e anima */
+    animation: fadeInHeader 1s forwards 0.5s; /* Animação de fade-in com delay */
+}
+
+@keyframes fadeInHeader {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slideshow-header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* NOVO: Botão "Fechar Apresentação" (Estilo Aprimorado) */
 .close-slideshow-button {
-    position: fixed; /* Fixo na viewport */
+    position: fixed;
     top: 20px;
-    left: 20px; /* Posicionado no canto superior esquerdo */
-    background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil */
-    color: var(--light-text-color); /* Texto claro */
+    left: 50%; /* Centraliza o botão */
+    transform: translateX(-50%); /* Ajusta a centralização */
+    background-color: var(--primary-color); /* Cor principal do seu tema */
+    color: var(--light-text-color);
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px; /* Mais arredondado */
+    padding: 12px 25px; /* Mais preenchimento */
+    border-radius: 30px; /* Mais arredondado */
     text-decoration: none;
-    font-size: 1em;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 10001; /* Acima de tudo */
+    font-size: 1.1em; /* Tamanho maior */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 10003; /* Garante que esteja acima do header */
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px; /* Mais espaço entre ícone e texto */
     cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra para destaque */
+    pointer-events: all; /* Permite cliques */
 }
 
 .close-slideshow-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background-color: #d1305f; /* Um tom ligeiramente mais escuro no hover */
+    transform: translateX(-50%) translateY(-3px); /* Move para cima no hover */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 /* Player de Áudio no Overlay: Posicionamento e Tamanho Ajustados */
 .audio-player-container.overlay-player-fixed {
-    position: fixed; /* Fixo na tela */
-    top: 20px; /* Posiciona no topo, abaixo do botão fechar */
+    position: fixed;
+    bottom: 20px; /* NOVO: Posiciona na parte inferior da tela */
     left: 50%;
-    transform: translateX(-50%); /* Centraliza horizontalmente */
+    transform: translateX(-50%);
     width: 90%;
-    max-width: 450px; /* Limite de largura */
-    background-color: rgba(18, 18, 18, 0.9);
+    max-width: 500px; /* Aumenta um pouco o max-width */
+    background-color: #121212; /* Cor sólida, sem transparência */
     padding: 15px 25px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     z-index: 10000;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: slideInDown 0.8s forwards; /* Animação de entrada vindo de cima */
-    /* NOVO: Altura ajustada para ser mais compacta */
-    height: auto; /* Deixa a altura se ajustar ao conteúdo */
-    min-height: 100px; /* Altura mínima para garantir que o conteúdo do player não encolha demais */
-    display: flex; /* Garante que o conteúdo do player esteja alinhado */
+    animation: slideInUpPlayer 0.8s forwards 0.5s; /* Animação de entrada vindo de baixo, com delay */
+    height: auto;
+    min-height: 100px;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-/* Animação de entrada do player (de cima para baixo) */
-@keyframes slideInDown {
+/* Animação de entrada do player (de baixo para cima) */
+@keyframes slideInUpPlayer {
     from {
-        transform: translateX(-50%) translateY(-100px); /* Começa acima */
+        transform: translateX(-50%) translateY(100px); /* Começa abaixo */
         opacity: 0;
     }
     to {
@@ -2490,24 +2523,23 @@ html, body {
     box-shadow: none;
     background-color: transparent;
     display: flex;
-    flex-direction: column; /* NOVO: Para alinhar player e slides verticalmente */
-    justify-content: center;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo principal */
     align-items: center;
     position: relative;
-    
-    /* NOVO: Ajusta o padding para compensar o player e o botão de fechar */
-    /* Remove padding-top e padding-bottom fixos daqui para usar flexbox */
-    box-sizing: border-box; /* Garante que o padding não adicione tamanho total */
+    /* Ajusta o padding para compensar o HEADER e o PLAYER */
+    padding-top: 100px; /* Espaço para o header e botão de fechar */
+    padding-bottom: 150px; /* Espaço para o player na parte inferior */
+    box-sizing: border-box;
 }
 
 .slideshow-container.full-screen-presentation .slides-wrapper {
     width: 100%;
-    /* NOVO: Altura flexível para ocupar o espaço restante */
     flex-grow: 1; /* Ocupa todo o espaço vertical disponível */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Para os slides absolutos dentro */
+    position: relative;
 }
 
 .slideshow-container.full-screen-presentation .slide {
@@ -2525,9 +2557,8 @@ html, body {
 
 .slideshow-container.full-screen-presentation .slide img {
     max-width: 95%;
-    /* NOVO: A altura máxima da imagem agora é calculada em função do espaço restante no slide */
-    /* Ocupa 100% da altura do slide, menos o espaço das legendas */
-    max-height: calc(100% - 120px); /* 120px é uma estimativa para a altura da legenda */
+    /* A altura máxima da imagem agora é calculada em função do espaço restante no slide-wrapper */
+    max-height: calc(100% - 120px); /* 120px é uma estimativa para a altura da legenda/margem */
     object-fit: contain;
     border-radius: var(--border-radius-lg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -2599,52 +2630,51 @@ html, body {
         padding: 8px 15px;
         font-size: 0.9em;
         top: 15px;
-        left: 15px;
+    }
+    .slideshow-header h1 {
+        font-size: 2.5em;
     }
     .audio-player-container.overlay-player-fixed {
         max-width: 95%;
         padding: 12px 15px;
-        top: 15px;
-        /* NOVO: Ajuste a altura mínima para o player em telas menores */
+        bottom: 15px; /* Volta para o bottom em telas menores */
+        top: auto; /* Remove o top fixo */
         min-height: 90px;
+        animation: slideInUpPlayer 0.8s forwards 0.5s; /* Mantém animação de subir */
     }
     .audio-player-container.overlay-player-fixed .player-top-row {
-        flex-direction: row; /* Volta para linha em tablets */
+        flex-direction: row;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
     }
     .audio-player-container.overlay-player-fixed .player-controls {
-        flex-grow: 1; /* Permite que os controles cresçam */
-        justify-content: flex-end; /* Alinha à direita na linha */
+        flex-grow: 1;
+        justify-content: flex-end;
         gap: 15px;
     }
     .audio-player-container.overlay-player-fixed .song-info {
-        margin-top: 0; /* Remove margem extra */
+        margin-top: 0;
         text-align: left;
         flex-grow: 1;
-        width: auto; /* Deixa a largura se ajustar */
+        width: auto;
     }
     .audio-player-container.overlay-player-fixed .music-cover {
-        margin-right: 10px; /* Espaço entre a capa e a info da música */
+        margin-right: 10px;
     }
 
     /* Ajuste para o slideshow-container quando o player está no topo */
     .slideshow-container.full-screen-presentation {
-        /* NOVO: Ajusta o padding dinamicamente baseado na altura do player */
-        padding-top: calc(100px + 20px + 20px); /* Altura estimada do player + top + bottom padding do player */
-        padding-bottom: 20px;
-        justify-content: flex-start; /* Alinha o conteúdo ao topo para dar espaço ao player */
+        padding-top: 100px; /* Espaço para o header */
+        padding-bottom: 150px; /* Espaço para o player no bottom */
+        justify-content: flex-start;
     }
     .slideshow-container.full-screen-presentation .slides-wrapper {
-        height: auto; /* Deixa a altura se ajustar */
+        height: auto;
         flex-grow: 1;
     }
     .slideshow-container.full-screen-presentation .slide img {
-        /* max-height: calc(100% - 120px); -- Mantém a lógica de legenda */
-        /* Removido o cálculo fixo para a imagem, pois o flexbox do slides-wrapper vai gerenciar */
-        /* Apenas as propriedades de max-width e object-fit são mais importantes aqui */
-        max-height: calc(100vh - 180px - 120px); /* 180px do player + 120px da legenda/margem */
+        max-height: calc(100% - 120px); /* 120px da legenda/margem */
     }
     .slideshow-container.full-screen-presentation .slide-date {
         font-size: 1.8em;
@@ -2665,10 +2695,13 @@ html, body {
         padding: 6px 12px;
         font-size: 0.8em;
     }
+    .slideshow-header h1 {
+        font-size: 2em;
+    }
     .audio-player-container.overlay-player-fixed {
         padding: 10px 10px;
-        top: 10px;
-        min-height: 80px; /* Altura mínima para celulares */
+        bottom: 10px; /* Mais perto da borda inferior */
+        min-height: 80px;
     }
     .audio-player-container.overlay-player-fixed .music-cover {
         width: 50px;
@@ -2680,24 +2713,23 @@ html, body {
         font-size: 24px;
     }
     .audio-player-container.overlay-player-fixed .progress-bar-container {
-        flex-direction: column; /* Volta para coluna em celulares */
+        flex-direction: column;
         align-items: center;
         gap: 5px;
-        margin-top: 10px; /* Espaço entre controles e barra */
+        margin-top: 10px;
     }
     .audio-player-container.overlay-player-fixed .volume-control {
-        flex-direction: row; /* Mantém em linha, mas pode ser coluna se preferir */
+        flex-direction: row;
         justify-content: center;
         margin-top: 10px;
     }
 
-    /* Ajuste para o slideshow-container em telas muito pequenas */
     .slideshow-container.full-screen-presentation {
-        padding-top: 160px; /* Ajusta espaço para o player e botão de fechar */
-        padding-bottom: 10px;
+        padding-top: 80px; /* Ajusta espaço para o header */
+        padding-bottom: 120px; /* Ajusta espaço para o player */
     }
     .slideshow-container.full-screen-presentation .slide img {
-        max-height: calc(100vh - 160px - 120px); /* 160px do player + 120px da legenda/margem */
+        max-height: calc(100% - 100px); /* Ajuste final para legendas e espaço em telas muito pequenas */
     }
     .slideshow-container.full-screen-presentation .slide-date {
         font-size: 1.5em;
