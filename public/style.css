@@ -1774,5 +1774,842 @@ footer p {
         font-size: 1.1em;
     }
 }
+/* ... (seu CSS existente, incluindo as variáveis :root e estilos gerais) ... */
 
-/* ... (restante do seu CSS, como estilos de landing page, etc.) ... */
+/* Variáveis de Cores (Se você já tem no style.css, pode remover daqui) */
+/* Remova este bloco se já tiver variáveis no seu style.css, e use as que já existem.
+   Caso contrário, certifique-se de que estas variáveis estejam no seu :root principal. */
+:root {
+    --primary-color: #e44d7d; /* Um rosa mais elegante */
+    --secondary-color: #f78ca0; /* Rosa claro complementar */
+    --accent-color: #ff6f61;   /* Um toque de coral para destaque */
+    --text-color: #333;
+    --light-text-color: #f8f8f8;
+    --bg-light: #f9f5f6; /* Branco levemente rosado */
+    --card-bg: #fff;
+    --border-radius: 12px;
+    --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease-in-out;
+    --border-radius-sm: 8px; /* Adicionado para consistência */
+    --border-radius-md: 12px; /* Adicionado para consistência */
+    --border-radius-lg: 18px; /* Adicionado para consistência */
+    --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.05); /* Adicionado para consistência */
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.1); /* Adicionado para consistência */
+    --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 0, 0, 0.05); /* Adicionado para consistência */
+    --transition-fast: 0.2s ease-out; /* Adicionado para consistência */
+    --transition-default: 0.3s ease-in-out; /* Adicionado para consistência */
+    --transition-slow: 0.5s ease-in-out; /* Adicionado para consistência */
+}
+
+
+/* --- Estilos específicos para o slideshow --- */
+.slideshow-container {
+    position: relative;
+    max-width: 850px;
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.slides-wrapper {
+    position: relative;
+    width: 100%;
+    height: 520px; /* Ajuste esta altura conforme suas imagens e legendas */
+    overflow: hidden;
+}
+
+/* Botão de Voltar */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color var(--transition-default), transform var(--transition-fast), box-shadow var(--transition-default);
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.02);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+}
+
+.slide img {
+    max-width: 100%;
+    height: calc(100% - 100px); 
+    object-fit: contain; 
+    border-radius: var(--border-radius-md);
+    margin-bottom: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.slide img:hover {
+    transform: scale(1.01);
+}
+
+.slide-caption {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.slide-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.9em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Botões de navegação fixos */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 32px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    border-radius: 50%;
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    z-index: 3;
+}
+
+.next {
+    right: 15px;
+}
+
+.prev {
+    left: 15px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--primary-color);
+    transform: scale(1.15) translateY(-50%);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+}
+
+/* --- ESTILOS DO PLAYER DE MÚSICA ESTILO SPOTIFY --- */
+.audio-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background-color: #121212;
+    padding: 20px 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    margin-top: 40px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 420px; /* Aumentado para acomodar o volume e info da música */
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.player-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaço entre capa/info e controles */
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+}
+
+.music-cover {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    color: #b3b3b3;
+    text-align: left;
+    flex-grow: 1; /* Permite que ocupe o espaço disponível */
+    min-width: 80px; /* Garante que não encolha demais */
+}
+
+.song-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: white;
+}
+
+.song-artist {
+    font-size: 0.9em;
+    color: #b3b3b3;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-shrink: 0; /* Impede que os controles encolham */
+}
+
+.control-button {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    outline: none;
+}
+
+.control-button:hover {
+    color: white;
+    transform: translateY(-2px) scale(1.1);
+}
+
+.control-button.active {
+    color: #1DB954;
+    transform: scale(1.1);
+}
+
+.play-pause-button {
+    background-color: #1DB954;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: #121212;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.4);
+    line-height: 1;
+    padding-top: 2px;
+    flex-shrink: 0;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.play-pause-button:hover {
+    background-color: #1ed760;
+    transform: scale(1.08);
+    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.6);
+}
+
+.play-pause-button:active {
+    transform: scale(0.96);
+}
+
+.progress-bar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #b3b3b3;
+    font-size: 0.85em;
+}
+
+.progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #535353;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background var(--transition-default);
+}
+.progress-bar::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #1DB954 var(--progress, 0%), #535353 var(--progress, 0%));
+    border-radius: 3px;
+}
+.progress-bar::-moz-range-track {
+    background: linear-gradient(to right, #1DB954 var(--progress, 0%), #535353 var(--progress, 0%));
+    border-radius: 3px;
+}
+
+.progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    margin-top: -4.5px;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.progress-bar::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.progress-bar:hover::-webkit-slider-thumb,
+.progress-bar:active::-webkit-slider-thumb {
+    background: #1DB954;
+    transform: scale(1.1);
+}
+.progress-bar:hover::-moz-range-thumb,
+.progress-bar:active::-moz-range-thumb {
+    background: #1DB954;
+    transform: scale(1.1);
+}
+
+/* Controle de volume */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    color: #b3b3b3;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #535353;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    margin-top: -4px;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.volume-slider:hover::-webkit-slider-thumb,
+.volume-slider:active::-webkit-slider-thumb {
+    background: #1DB954;
+    transform: scale(1.1);
+}
+.volume-slider:hover::-moz-range-thumb,
+.volume-slider:active::-moz-range-thumb {
+    background: #1DB954;
+    transform: scale(1.1);
+}
+
+
+/* Estilos para o background de corações caindo */
+.heart-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+@keyframes fallSlow {
+    0% {
+        transform: translateY(-5vh) translateX(var(--random-x, 0));
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--random-x, 0));
+        opacity: 0;
+    }
+}
+
+.falling-heart {
+    position: absolute;
+    color: #ff8c9a;
+    font-size: 2.2em;
+    animation: fallSlow linear infinite;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* --- Responsive adjustments --- */
+@media (max-width: 768px) {
+    .slideshow-container {
+        padding: 20px;
+    }
+    .slides-wrapper {
+        height: 450px;
+    }
+    .slide img {
+        height: calc(100% - 90px);
+    }
+    .prev, .next {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+    header h1 {
+        font-size: 2.8em;
+    }
+    header p {
+        font-size: 1em;
+    }
+    .audio-player-container {
+        max-width: 380px; /* Reduz de volta para tablets */
+    }
+    .player-top-row {
+        flex-direction: column; /* Coloca capa e controles em colunas */
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .player-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    .song-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .audio-player-container {
+        padding: 15px 20px;
+        width: 95%;
+    }
+    .music-cover {
+        width: 60px;
+        height: 60px;
+    }
+    .player-controls {
+        gap: 20px;
+    }
+    .play-pause-button {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+    }
+    .progress-bar-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .slide-caption {
+        font-size: 1em;
+    }
+    .slide-date {
+        font-size: 1.6em;
+    }
+    .back-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+        top: 15px;
+        left: 15px;
+    }
+    .slideshow-container {
+        padding: 15px;
+    }
+    .slides-wrapper {
+        height: 350px;
+    }
+    .slide img {
+        height: calc(100% - 80px);
+    }
+    .volume-control {
+        flex-direction: column;
+        align-items: center;
+    }
+    .volume-slider {
+        width: 100%;
+    }
+}
+/* ... (seu CSS existente, incluindo as variáveis :root e estilos gerais) ... */
+
+/* Estilos para o background de corações caindo (mantidos como antes) */
+.heart-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+@keyframes fallSlow {
+    0% {
+        transform: translateY(-5vh) translateX(var(--random-x, 0));
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--random-x, 0));
+        opacity: 0;
+    }
+}
+
+.falling-heart {
+    position: absolute;
+    color: #ff8c9a;
+    font-size: 2.2em;
+    animation: fallSlow linear infinite;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* --- ESTILOS GERAIS DA APRESENTAÇÃO IMERSIVA (NOVO) --- */
+body {
+    /* Removido `flex-direction: column; align-items: center; min-height: 100vh;` se estiver aqui.
+       Esses são mais para a estrutura da galeria. */
+    background-color: var(--bg-light); /* Cor de fundo padrão do body */
+    color: var(--text-color);
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Para o `slideshow.html`, o body deve preencher a tela e ter o fundo escuro */
+html, body {
+    height: 100%; /* Garante que o html e body ocupem a altura total */
+    margin: 0;
+    padding: 0;
+}
+
+body.slideshow-page-body { /* Uma classe que você pode adicionar ao body do slideshow.html se quiser */
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semitransparente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Esconde barras de rolagem */
+    position: fixed; /* Fixa na tela para cobrir tudo */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999; /* Garante que esteja acima de todo o resto */
+}
+
+
+/* Botão "Fechar Apresentação" */
+.close-slideshow-button {
+    position: fixed; /* Fixo na viewport */
+    top: 20px;
+    left: 20px; /* Posicionado no canto superior esquerdo */
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil */
+    color: var(--light-text-color); /* Texto claro */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px; /* Mais arredondado */
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10001; /* Acima de tudo */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.close-slideshow-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Player de Áudio no Overlay */
+.audio-player-container.overlay-player-fixed {
+    position: fixed; /* Fixo na tela */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza horizontalmente */
+    width: 90%; /* Ocupa uma boa largura */
+    max-width: 450px; /* Limite de largura */
+    background-color: rgba(18, 18, 18, 0.9); /* Fundo mais escuro e opaco */
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 10000; /* Acima do slideshow, mas abaixo do botão de fechar */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideInUp 0.8s forwards; /* Animação de entrada */
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Oculta o header e footer padrão do slideshow, se existirem (para esta versão, eles foram removidos do HTML) */
+.slideshow-page-body header,
+.slideshow-page-body footer {
+    display: none;
+}
+
+/* Estilo do Slideshow Container para a Apresentação */
+.slideshow-container.full-screen-presentation {
+    width: 100vw; /* Ocupa a largura total da viewport */
+    height: 100vh; /* Ocupa a altura total da viewport */
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent; /* A cor de fundo será a do body */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative; /* Essencial para os slides absolutos */
+}
+
+.slideshow-container.full-screen-presentation .slides-wrapper {
+    width: 100%;
+    height: 100%; /* Ocupa 100% da altura e largura da apresentação */
+    display: flex; /* Para centralizar o slide atual */
+    justify-content: center;
+    align-items: center;
+}
+
+.slideshow-container.full-screen-presentation .slide {
+    position: absolute; /* Para sobrepor e animar */
+    width: 100%;
+    height: 100%;
+    padding: 20px; /* Padding interno para as imagens */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slideshow-container.full-screen-presentation .slide img {
+    max-width: 95%; /* Um pouco de margem */
+    max-height: 80%; /* Para deixar espaço para o texto e player */
+    object-fit: contain; /* Garante que a imagem inteira seja visível */
+    border-radius: var(--border-radius-lg); /* Mantém cantos arredondados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
+    transition: transform 0.5s ease-out; /* Transição mais suave no hover */
+}
+
+.slideshow-container.full-screen-presentation .slide img:hover {
+    transform: scale(1.02); /* Leve zoom no hover */
+}
+
+.slideshow-container.full-screen-presentation .slide-caption,
+.slideshow-container.full-screen-presentation .slide-date {
+    position: relative; /* Relativo ao slide para fluxo normal */
+    margin-top: 15px; /* Espaço entre imagem e texto */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente para o texto */
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: var(--light-text-color); /* Texto claro */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    max-width: 80%;
+    word-wrap: break-word; /* Quebra texto longo */
+}
+
+.slideshow-container.full-screen-presentation .slide-date {
+    font-size: 2.2em; /* Data maior */
+    margin-bottom: 10px;
+}
+
+.slideshow-container.full-screen-presentation .slide-caption {
+    font-size: 1.2em; /* Legenda maior */
+    font-weight: 400;
+}
+
+
+/* Botões de navegação no modo apresentação */
+.slideshow-container.full-screen-presentation .prev,
+.slideshow-container.full-screen-presentation .next {
+    background-color: rgba(255, 255, 255, 0.1); /* Mais sutil */
+    color: rgba(255, 255, 255, 0.6);
+    width: 55px;
+    height: 55px;
+    font-size: 38px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.slideshow-container.full-screen-presentation .prev:hover,
+.slideshow-container.full-screen-presentation .next:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: white;
+    transform: scale(1.18) translateY(-50%); /* Aumenta um pouco mais no hover */
+}
+
+/* Mensagens de carregamento e erro dentro da apresentação */
+.loading-slides {
+    color: var(--light-text-color);
+    font-size: 1.5em;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.loading-slides.error-loading {
+    color: #ff6f61; /* Cor de erro em fundo escuro */
+}
+
+
+/* --- Responsive adjustments for the slideshow.html --- */
+@media (max-width: 768px) {
+    .close-slideshow-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        top: 15px;
+        left: 15px;
+    }
+    .audio-player-container.overlay-player-fixed {
+        max-width: 95%; /* Ocupa quase toda a largura em telas menores */
+        padding: 12px 15px;
+        bottom: 10px; /* Mais perto da borda inferior */
+    }
+    .audio-player-container.overlay-player-fixed .player-top-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .audio-player-container.overlay-player-fixed .player-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    .audio-player-container.overlay-player-fixed .song-info {
+        margin-top: 10px; /* Espaço entre capa e info da música */
+    }
+    .slideshow-container.full-screen-presentation .slide img {
+        max-height: 70%; /* Mais espaço para o player em mobile */
+    }
+    .slideshow-container.full-screen-presentation .slide-date {
+        font-size: 1.8em;
+    }
+    .slideshow-container.full-screen-presentation .slide-caption {
+        font-size: 1em;
+    }
+    .slideshow-container.full-screen-presentation .prev,
+    .slideshow-container.full-screen-presentation .next {
+        width: 45px;
+        height: 45px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .close-slideshow-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    .audio-player-container.overlay-player-fixed {
+        padding: 10px 10px;
+    }
+    .audio-player-container.overlay-player-fixed .music-cover {
+        width: 50px;
+        height: 50px;
+    }
+    .audio-player-container.overlay-player-fixed .play-pause-button {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+    .slideshow-container.full-screen-presentation .slide img {
+        max-height: 65%; /* Ainda mais ajuste para telas muito pequenas */
+    }
+    .slideshow-container.full-screen-presentation .slide-date {
+        font-size: 1.5em;
+    }
+    .slideshow-container.full-screen-presentation .slide-caption {
+        font-size: 0.9em;
+    }
+    .slideshow-container.full-screen-presentation .prev,
+    .slideshow-container.full-screen-presentation .next {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+}
