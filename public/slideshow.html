@@ -3,66 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossas Memórias em Slideshow ❤️</title>
+    <title>Nossos Momentos ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="slideshow-header">
-        <h1>Nossos Momentos</h1>
-    </div>
-    <a href="gallery.html" class="close-slideshow-button top-left-button">
-        <i class="fas fa-times"></i> Fechar Apresentação
-    </a>
+    <center>
     <div class="heart-background-container" id="slideshow-heart-container"></div>
 
-    <a href="gallery.html" class="close-slideshow-button top-left-button">
-        <i class="fas fa-times"></i> Fechar Apresentação
-    </a>
-
-    <div class="audio-player-container overlay-player-fixed">
-        <audio id="background-music" loop>
-            <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
-            <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta o elemento de áudio.
-        </audio>
-
-        <div class="player-top-row">
-            <img src="capa.jpg" alt="Capa da Música" class="music-cover">
-            <div class="song-info">
-                <span id="song-title" class="song-title">Perfect</span>
-                <span id="song-artist" class="song-artist">Ed Sheeran</span>
-            </div>
-            <div class="player-controls">
-                <button class="control-button" id="shuffle-button" title="Embaralhar"><i class="fa-solid fa-shuffle"></i></button>
-                <button class="control-button" id="prev-button" title="Música Anterior"><i class="fa-solid fa-backward-step"></i></button>
-                <button class="control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fa-solid fa-play"></i></button>
-                <button class="control-button" id="next-button" title="Próxima Música"><i class="fa-solid fa-forward-step"></i></button>
-                <button class="control-button" id="repeat-button" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
-            </div>
+    <div class="slideshow-page-wrapper">
+        <div class="slideshow-header">
+            <h1>Nossos Momentos</h1>
         </div>
-        <div class="progress-bar-container">
-            <span id="current-time">0:00</span>
-            <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
-            <span id="duration-time">0:00</span>
-        </div>
-        <div class="volume-control">
-            <i class="fa-solid fa-volume-low"></i>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-            <i class="fa-solid fa-volume-high"></i>
+
+        <a href="gallery.html" class="close-slideshow-button">
+            <i class="fas fa-times"></i> Fechar Apresentação
+        </a>
+
+        <div class="slideshow-content-box">
+            <div class="audio-player-container">
+                <audio id="background-music" loop>
+                    <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
+                    <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta o elemento de áudio.
+                </audio>
+
+                <div class="player-top-row">
+                    <img src="capa.jpg" alt="Capa da Música" class="music-cover">
+                    <div class="song-info">
+                        <span id="song-title" class="song-title">Perfect</span>
+                        <span id="song-artist" class="song-artist">Ed Sheeran</span>
+                    </div>
+                    <div class="player-controls">
+                        <button class="control-button" id="shuffle-button" title="Embaralhar"><i class="fa-solid fa-shuffle"></i></button>
+                        <button class="control-button" id="prev-button" title="Música Anterior"><i class="fa-solid fa-backward-step"></i></button>
+                        <button class="control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fa-solid fa-play"></i></button>
+                        <button class="control-button" id="next-button" title="Próxima Música"><i class="fa-solid fa-forward-step"></i></button>
+                        <button class="control-button" id="repeat-button" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <span id="current-time">0:00</span>
+                    <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
+                    <span id="duration-time">0:00</span>
+                </div>
+                <div class="volume-control">
+                    <i class="fa-solid fa-volume-low"></i>
+                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                    <i class="fa-solid fa-volume-high"></i>
+                </div>
+            </div>
+
+            <div class="slideshow-container">
+                <div id="slides-wrapper" class="slides-wrapper">
+                    <p id="loadingSlides" class="loading-slides">Carregando fotos para a apresentação...</p>
+                </div>
+                <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+                <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
         </div>
     </div>
 
-    <main class="slideshow-container full-screen-presentation">
-        <div id="slides-wrapper" class="slides-wrapper">
-            <p id="loadingSlides" class="loading-slides">Carregando fotos para a apresentação...</p>
-        </div>
-        <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
-        <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
-    </main>
-
-    <script src="script.js"></script>
     <script>
         // --- LÓGICA DO PLAYER DE MÚSICA ---
         const music = document.getElementById('background-music');
@@ -81,7 +83,7 @@
         // Playlist de exemplo - adicione mais músicas conforme necessário
         const playlist = [
             { src: "Ed Sheeran - Perfect.mp3", cover: "capa.jpg", title: "Perfect", artist: "Ed Sheeran" },
-            { src: "music2.mp3", cover: "capa2.jpg", title: "Nome da Música 2", artist: "Artista 2" }, // Exemplo
+            // { src: "music2.mp3", cover: "capa2.jpg", title: "Nome da Música 2", artist: "Artista 2" }, // Exemplo
             // { src: "caminho/para/sua/mais_uma_musica.mp3", cover: "caminho/para/sua/mais_uma_capa.jpg", title: "Título", artist: "Artista" }
         ];
         let currentSongIndex = 0;
@@ -223,7 +225,7 @@
         let slideIndex = 0;
         let memoriesData = [];
         let slideshowInterval;
-        const RENDER_API_URL = 'https://web-production-14bba.up.railway.app'; // Certifique-se que esta URL é pública e acessível.
+        const RENDER_API_URL = 'https://web-production-14bba.up.railway.app';
 
         function showSlides(n) {
             let slides = document.getElementsByClassName("slide");
@@ -231,7 +233,7 @@
             const nextButton = document.querySelector('.slideshow-container .next');
 
             if (slides.length === 0) {
-                document.getElementById('loadingSlides').textContent = 'Nenhuma memória para o slideshow. Adicione algumas na galeria!';
+                document.getElementById('loadingSlides').textContent = 'Nenhuma memória para a apresentação. Adicione algumas na galeria!';
                 document.getElementById('loadingSlides').style.color = 'red';
                 prevButton.style.display = 'none';
                 nextButton.style.display = 'none';
@@ -245,7 +247,6 @@
             else if (n < 0) {slideIndex = slides.length - 1}
             else {slideIndex = n;}
 
-            // Animação de saída para o slide atual
             const currentActiveSlide = document.querySelector('.slide.active');
             if (currentActiveSlide) {
                 anime({
@@ -256,7 +257,6 @@
                     easing: 'easeInQuad',
                     complete: () => {
                         currentActiveSlide.classList.remove('active');
-                        // Animação de entrada para o próximo slide
                         anime({
                             targets: slides[slideIndex],
                             opacity: [0, 1],
@@ -270,7 +270,6 @@
                     }
                 });
             } else {
-                 // Caso seja o primeiro slide a ser exibido
                 slides[slideIndex].classList.add('active');
                 anime({
                     targets: slides[slideIndex],
@@ -285,7 +284,7 @@
         function plusSlides(n) {
             stopSlideshowInterval();
             showSlides(slideIndex += n);
-            startSlideshowInterval(); // Reinicia o autoplay após navegação manual
+            startSlideshowInterval();
         }
 
         function startSlideshowInterval() {
@@ -293,7 +292,7 @@
             clearInterval(slideshowInterval);
             slideshowInterval = setInterval(() => {
                 plusSlides(1);
-            }, 6000); // Avança a cada 6 segundos
+            }, 6000);
         }
 
         function stopSlideshowInterval() {
@@ -321,10 +320,9 @@
                 }
                 memoriesData = await response.json();
 
-                // Garante que as fotos sejam exibidas na ordem cronológica
                 memoriesData.sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
 
-                slidesWrapper.innerHTML = ''; // Limpa a mensagem de carregamento
+                slidesWrapper.innerHTML = '';
 
                 if (memoriesData.length === 0) {
                     slidesWrapper.innerHTML = '<p id="loadingSlides" class="loading-slides error-loading">Nenhuma memória para a apresentação. Adicione algumas na galeria!</p>';
@@ -339,8 +337,8 @@
                         `;
                         slidesWrapper.appendChild(slideDiv);
                     });
-                    showSlides(slideIndex); // Exibe o primeiro slide
-                    startSlideshowInterval(); // Inicia o intervalo
+                    showSlides(slideIndex);
+                    startSlideshowInterval();
                 }
             } catch (error) {
                 console.error('Erro ao carregar memórias para slideshow:', error);
@@ -348,19 +346,18 @@
             }
         }
 
-        // Pause/Resume slideshow on hover on the slideshow container
-        const slideshowMainContainer = document.querySelector('.slideshow-container');
-        slideshowMainContainer.addEventListener('mouseover', stopSlideshowInterval);
-        slideshowMainContainer.addEventListener('mouseleave', () => {
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        slideshowContainer.addEventListener('mouseover', stopSlideshowInterval);
+        slideshowContainer.addEventListener('mouseleave', () => {
             if (memoriesData.length > 0) {
                 startSlideshowInterval();
             }
         });
 
-        // Pause/Resume slideshow on interaction with audio player
+        // Este player agora está dentro da caixa, então o hover deve ser na própria caixa ou no player
         document.querySelector('.audio-player-container').addEventListener('mouseover', stopSlideshowInterval);
         document.querySelector('.audio-player-container').addEventListener('mouseleave', () => {
-            if (memoriesData.length > 0 && !music.paused) { // Só retoma se a música estiver tocando
+            if (memoriesData.length > 0 && !music.paused) {
                 startSlideshowInterval();
             }
         });
@@ -392,8 +389,8 @@
 
         let heartInterval = setInterval(createFallingHeart, 800);
 
-        // Carrega as memórias ao carregar a página
         document.addEventListener('DOMContentLoaded', loadSlideshowMemories);
     </script>
+    </center>
 </body>
 </html>
