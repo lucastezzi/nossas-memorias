@@ -7,12 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     
     <div class="heart-background-container" id="heartBackgroundContainer"></div>
-
 
     <header>
         <h1>Para o Meu Amor Eterno ❤️</h1>
@@ -67,6 +66,64 @@
         });
     </script>
 
+        <section class="love-reasons-section">
+            <h2>Porque Eu Te Amo ❤️</h2>
+            <div class="reasons-list">
+                <p>Eu te amo porque você tira meu sorriso mais genuíno.</p>
+                <p>Eu te amo pela sua inteligência e como você me desafia.</p>
+                <p>Eu te amo porque você é incrível.</p>
+                <p>Eu te amo pela forma como você me enxerga.</p>
+                <p>Eu te amo pela forma como você me faz sentir especial.</p>
+                <p>Eu te amo porque você é minha primeira e única.</p>
+                <p>Eu te amo por você gostar dos meus defeitos.</p>
+                <p>Eu te amo pela sua alegria contagiante.</p>
+                <p>Eu te amo pela forma como você come.</p>
+                <p>Eu te amo pela sua delicadeza.</p>
+                <p>Eu te amo pela forma como me olha.</p>
+                <p>Eu te amo por estar presente em meus pensamentos.</p>
+                <p>Eu te amo pela forma como você sorri.</p>
+                <p>Eu te amo por completo.</p>
+                <p>Eu te amo simplesmente por ser você.</p>
+                <p>Poderia citar infinitos motivos que me faz te amar. E a cada dia, descubro um novo motivo para te amar ainda mais.</p>
+            </div>
+        </section>
+
+        <section class="coupons-section">
+            <h2>Seus Vales Especiais ✨</h2>
+            <p>Clique no botão abaixo para revelar seus cupons de amor!</p>
+            <button class="open-coupons-button" id="openCouponsButton">Abrir Meus Vales!</button>
+        </section>
+
+        <section class="improvement-diary-section">
+            <div class="diary-header">
+                <i class="fas fa-book-heart diary-icon"></i> 
+                <h2>Diário de Melhorias</h2>
+            </div>
+            <p>Este é um espaço seguro para você registrar o que te chateou ou me decepcionou. É importante para mim saber, para que eu possa crescer e melhorar. Quero que você tenha o melhor de mim</p>
+            <form id="diaryForm">
+                <div class="form-group">
+                    <label for="diaryDate">Data do ocorrido:</label>
+                    <input type="date" id="diaryDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="diaryEntry">O que aconteceu ou me decepcionou?</label>
+                    <textarea id="diaryEntry" rows="6" placeholder="Descreva aqui o que te chateou, com detalhes, se sentir confortável." required></textarea>
+                </div>
+                <button type="submit" class="submit-button diary-submit-button">Registrar no Diário</button>
+            </form>
+            <p id="diaryMessage" class="hidden"></p>
+            
+            <div class="diary-entries-viewer">
+                <h3>Minhas Anotações para Melhorar</h3>
+                <button id="viewDiaryButton" class="open-coupons-button">Ver Diário (Apenas para mim)</button>
+                <div id="diaryList" class="hidden">
+                    <p class="no-entries-message">Nenhum registro no diário ainda.</p>
+                    </div>
+                <button id="clearDiaryButton" class="delete-button hidden">Limpar Diário (Cuidado!)</button>
+            </div>
+        </section>
+
+
         <section class="upload-section">
             <div class="upload-section-header">
                 <img src="loopy.png" alt="Loopy Personagem" class="loopy-header-icon">
@@ -103,6 +160,50 @@
         <p>Feito com todo o meu amor para você, neste Dia dos Namorados! 🥰</p>
         <p>&copy; Nosso Amor Eterno 2025</p>
     </footer>
+
+    <div id="couponModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeCouponModal">&times;</span>
+            <h2>Seus Cupons FMV (Faz Minhas Vontades) ❤️</h2>
+            <p>Clique e "raspe" para revelar seu vale!</p>
+            <div class="coupon-grid">
+                <div class="coupon-card" data-coupon="massagem">
+                    <h3>Vale Massagem Relaxante</h3>
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="coupon-reveal">
+                        <p>Um momento de relaxamento total para o meu amor!</p>
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                </div>
+                <div class="coupon-card" data-coupon="jantar">
+                    <h3>Vale Jantar Romântico</h3>
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="coupon-reveal">
+                        <p>Uma noite deliciosa e especial, feita por mim, só para você!</p>
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                </div>
+                <div class="coupon-card" data-coupon="filme">
+                    <h3>Vale Noite de Cinema</h3>
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="coupon-reveal">
+                        <p>Sua escolha de filme, muitos abraços e pipoca sem fim!</p>
+                        <i class="fas fa-film"></i>
+                    </div>
+                </div>
+                <div class="coupon-card" data-coupon="personalizado">
+                    <h3>Vale Personalizado</h3>
+                    <canvas class="scratch-canvas"></canvas>
+                    <div class="coupon-reveal">
+                        <p id="personalizedCouponDisplay">Raspe para revelar seu vale e escreva seu desejo!</p>
+                        <textarea id="customCouponText" placeholder="Escreva seu desejo aqui!" rows="3"></textarea>
+                        <button id="saveCustomCoupon">Salvar Desejo</button>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>
@@ -178,6 +279,337 @@
         }
     });
     
+    // --- Lógica do Modal de Cupons ---
+    const openCouponsButton = document.getElementById('openCouponsButton');
+    const couponModal = document.getElementById('couponModal');
+    const closeCouponModal = document.getElementById('closeCouponModal');
+    const couponCards = document.querySelectorAll('.coupon-card');
+    const customCouponText = document.getElementById('customCouponText');
+    const saveCustomCouponButton = document.getElementById('saveCustomCoupon');
+    const personalizedCouponDisplay = document.getElementById('personalizedCouponDisplay');
+
+    openCouponsButton.addEventListener('click', () => {
+        couponModal.style.display = 'flex'; // Exibe o modal
+        // Reinicializa a raspadinha quando o modal é aberto
+        couponCards.forEach(card => {
+            const canvas = card.querySelector('.scratch-canvas');
+            const ctx = canvas.getContext('2d');
+            const couponReveal = card.querySelector('.coupon-reveal');
+            const couponTitle = card.querySelector('h3'); // O título h3
+
+            // Redefine o estado
+            card.classList.remove('revealed');
+            couponReveal.style.opacity = '0';
+            couponReveal.style.transform = 'translateY(20px)';
+            couponTitle.style.opacity = '0'; // Esconde o título novamente
+            couponTitle.style.zIndex = '0'; // Garante que o título esteja abaixo do canvas
+
+            // Desenha a cobertura na canvas
+            drawScratchCover(canvas, ctx, card); // Passa o card para a função
+
+            // Reseta o vale personalizado se for o caso
+            if (card.dataset.coupon === 'personalizado') {
+                customCouponText.style.display = 'none';
+                saveCustomCouponButton.style.display = 'none';
+                personalizedCouponDisplay.textContent = 'Raspe para revelar seu vale e escreva seu desejo!';
+                customCouponText.value = '';
+            }
+        });
+    });
+
+    closeCouponModal.addEventListener('click', () => {
+        couponModal.style.display = 'none'; // Esconde o modal
+    });
+
+    // Fechar modal ao clicar fora dele
+    window.addEventListener('click', (event) => {
+        if (event.target == couponModal) {
+            couponModal.style.display = 'none';
+        }
+    });
+
+    // Lógica da Raspadinha
+    couponCards.forEach(card => {
+        const canvas = card.querySelector('.scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        let isScratching = false;
+        let revealedPercentage = 0;
+        const revealThreshold = 70; // Porcentagem de raspagem para revelar
+
+        // Garante que o canvas tenha o mesmo tamanho do pai
+        function resizeCanvas() {
+            canvas.width = card.offsetWidth;
+            canvas.height = card.offsetHeight;
+            if (!card.classList.contains('revealed')) { // Redesenha a cobertura se não estiver revelado
+                drawScratchCover(canvas, ctx, card); // Passa o card para obter o título
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Chama no carregamento
+
+        // Modificada para aceitar o card como argumento
+        function drawScratchCover(canvas, ctx, currentCard) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = getComputedStyle(currentCard).getPropertyValue('--coupon-bg-closed'); // Pega a cor do CSS
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Adiciona o texto "Raspe aqui!" no canvas
+            ctx.font = `bold ${canvas.width * 0.08}px 'Dancing Script', cursive`; // Tamanho responsivo
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = getComputedStyle(currentCard).getPropertyValue('--coupon-text-closed');
+            ctx.fillText('Raspe aqui!', canvas.width / 2, canvas.height / 2);
+        }
+
+
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function getTouchPos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.touches[0].clientX - rect.left,
+                y: evt.touches[0].clientY - rect.top
+            };
+        }
+
+        function calculateRevealedPercentage() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            let transparentPixels = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+                if (pixels[i + 3] < 128) { // Se o canal alfa for menor que 128 (meio transparente)
+                    transparentPixels++;
+                }
+            }
+            return (transparentPixels / (pixels.length / 4)) * 100;
+        }
+
+        function revealCoupon() {
+            if (!card.classList.contains('revealed')) {
+                card.classList.add('revealed');
+                const couponReveal = card.querySelector('.coupon-reveal');
+                const couponTitle = card.querySelector('h3'); // Pega o título h3
+
+                anime({
+                    targets: couponReveal,
+                    opacity: [0, 1],
+                    translateY: [-20, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                });
+                // Anima o título também
+                anime({
+                    targets: couponTitle,
+                    opacity: [0, 1],
+                    translateY: [-10, 0], // Pequeno movimento para cima
+                    duration: 600,
+                    easing: 'easeOutQuad',
+                    delay: 200, // Um leve delay para aparecer depois do reveal
+                    complete: () => {
+                        couponTitle.style.zIndex = '3'; // Garante que o título fique visível após a animação
+                    }
+                });
+
+
+                // Lógica específica para o vale personalizado
+                if (card.dataset.coupon === 'personalizado') {
+                    customCouponText.style.display = 'block';
+                    saveCustomCouponButton.style.display = 'block';
+                    customCouponText.focus();
+                } else {
+                    customCouponText.style.display = 'none';
+                    saveCustomCouponButton.style.display = 'none';
+                }
+            }
+        }
+
+        // Eventos para desktop
+        canvas.addEventListener('mousedown', (e) => {
+            if (card.classList.contains('revealed')) return;
+            isScratching = true;
+            ctx.globalCompositeOperation = 'destination-out'; // Apaga o que for desenhado
+            ctx.lineWidth = 30; // Largura do "apagador"
+            ctx.lineCap = 'round';
+            const pos = getMousePos(canvas, e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isScratching || card.classList.contains('revealed')) return;
+            const pos = getMousePos(canvas, e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            revealedPercentage = calculateRevealedPercentage();
+            if (revealedPercentage > revealThreshold) {
+                isScratching = false;
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas completamente
+                revealCoupon();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isScratching = false;
+            // Se soltar o mouse e já tiver revelado o suficiente, revela o cupom
+            if (revealedPercentage > revealThreshold) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas completamente
+                revealCoupon();
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => { // Caso o mouse saia do canvas enquanto está raspando
+            isScratching = false;
+        });
+
+        // Eventos para mobile (touch)
+        canvas.addEventListener('touchstart', (e) => {
+            if (card.classList.contains('revealed')) return;
+            isScratching = true;
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineWidth = 40; // Um pouco maior para toque
+            ctx.lineCap = 'round';
+            const pos = getTouchPos(canvas, e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            e.preventDefault(); // Evita scroll da página
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isScratching || card.classList.contains('revealed')) return;
+            const pos = getTouchPos(canvas, e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            revealedPercentage = calculateRevealedPercentage();
+            if (revealedPercentage > revealThreshold) {
+                isScratching = false;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                revealCoupon();
+            }
+            e.preventDefault(); // Evita scroll da página
+        });
+
+        canvas.addEventListener('touchend', () => {
+            isScratching = false;
+            if (revealedPercentage > revealThreshold) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                revealCoupon();
+            }
+        });
+    });
+
+    saveCustomCouponButton.addEventListener('click', () => {
+        const text = customCouponText.value.trim();
+        if (text) {
+            personalizedCouponDisplay.textContent = `Seu desejo: "${text}"! Guardado com carinho! ❤️`;
+            alert(`Seu vale personalizado foi salvo: "${text}"!`);
+            // Você pode esconder a textarea e o botão novamente se quiser
+            customCouponText.style.display = 'none';
+            saveCustomCouponButton.style.display = 'none';
+        } else {
+            alert('Por favor, escreva seu desejo antes de salvar!');
+        }
+    });
+
+    // --- Lógica do Diário de Melhorias ---
+    const diaryForm = document.getElementById('diaryForm');
+    const diaryDateInput = document.getElementById('diaryDate');
+    const diaryEntryTextarea = document.getElementById('diaryEntry');
+    const diaryMessageElement = document.getElementById('diaryMessage');
+    const viewDiaryButton = document.getElementById('viewDiaryButton');
+    const diaryListContainer = document.getElementById('diaryList');
+    const clearDiaryButton = document.getElementById('clearDiaryButton');
+    const noEntriesMessage = document.querySelector('.no-entries-message');
+
+    // Carregar entradas do diário ao iniciar
+    function loadDiaryEntries() {
+        const entries = JSON.parse(localStorage.getItem('improvementDiary')) || [];
+        diaryListContainer.innerHTML = ''; // Limpa antes de carregar
+
+        if (entries.length === 0) {
+            noEntriesMessage.style.display = 'block'; // Mostra mensagem se não houver entradas
+            clearDiaryButton.classList.add('hidden'); // Esconde o botão de limpar
+        } else {
+            noEntriesMessage.style.display = 'none'; // Esconde a mensagem
+            clearDiaryButton.classList.remove('hidden'); // Mostra o botão de limpar
+            
+            // Ordena as entradas da mais recente para a mais antiga
+            entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            entries.forEach(entry => {
+                const entryDiv = document.createElement('div');
+                entryDiv.classList.add('diary-entry-item');
+                entryDiv.innerHTML = `
+                    <p class="diary-item-date">${new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                    <p class="diary-item-text">${entry.text}</p>
+                `;
+                diaryListContainer.appendChild(entryDiv);
+            });
+        }
+    }
+
+    // Exibir mensagem de sucesso/erro para o diário
+    function showDiaryMessage(msg, type = 'success') {
+        diaryMessageElement.textContent = msg;
+        diaryMessageElement.className = ''; // Limpa classes anteriores
+        diaryMessageElement.classList.add(type);
+        diaryMessageElement.classList.remove('hidden');
+        setTimeout(() => {
+            diaryMessageElement.classList.add('hidden');
+        }, 5000); // Esconde a mensagem após 5 segundos
+    }
+
+    // Evento de envio do formulário do diário
+    diaryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const date = diaryDateInput.value;
+        const entryText = diaryEntryTextarea.value.trim();
+
+        if (!date || !entryText) {
+            showDiaryMessage('Por favor, preencha a data e o que aconteceu.', 'error');
+            return;
+        }
+
+        const newEntry = { date, text: entryText };
+        let entries = JSON.parse(localStorage.getItem('improvementDiary')) || [];
+        entries.push(newEntry);
+        localStorage.setItem('improvementDiary', JSON.stringify(entries));
+
+        showDiaryMessage('Registro adicionado ao diário com sucesso!', 'success');
+        diaryForm.reset(); // Limpa o formulário
+        // Não recarrega as entradas aqui, pois o diário estará oculto para ela
+    });
+
+    // Evento para o botão "Ver Diário" (apenas para você)
+    viewDiaryButton.addEventListener('click', () => {
+        if (diaryListContainer.classList.contains('hidden')) {
+            loadDiaryEntries(); // Carrega as entradas apenas quando o botão é clicado
+            diaryListContainer.classList.remove('hidden');
+            viewDiaryButton.textContent = 'Esconder Diário';
+        } else {
+            diaryListContainer.classList.add('hidden');
+            viewDiaryButton.textContent = 'Ver Diário (Apenas para mim)';
+        }
+    });
+
+    // Evento para o botão "Limpar Diário"
+    clearDiaryButton.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja limpar todo o diário? Esta ação é irreversível!')) {
+            localStorage.removeItem('improvementDiary');
+            loadDiaryEntries(); // Recarrega para mostrar que está vazio
+            showDiaryMessage('Diário limpo com sucesso!', 'success');
+        }
+    });
+
+    // Inicializa a data do diário com a data atual por padrão (opcional)
+    diaryDateInput.valueAsDate = new Date();
+
 </script>
 </body>
 </html>

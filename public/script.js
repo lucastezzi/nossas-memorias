@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
     // Estas variáveis só existem se estivermos na página gallery.html
     const uploadForm = document.getElementById('uploadForm');
     const galleryContainer = document.getElementById('galleryContainer');
@@ -140,3 +141,4 @@ document.addEventListener('DOMContentLoaded', () => {
         loadMemories();
     }
 });
+

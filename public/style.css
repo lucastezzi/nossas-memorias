@@ -12,6 +12,13 @@
     --border-radius: 12px;
     --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     --transition: all 0.3s ease-in-out;
+
+    /* Novas variáveis para cupons */
+    --coupon-bg-closed: #ffe0e6; /* Fundo do cupom fechado */
+    --coupon-text-closed: #d1495b; /* Cor do texto "Raspe aqui!" */
+    --coupon-bg-open: #fefefe; /* Fundo do cupom revelado */
+    --coupon-border-open: #f0c3d0; /* Borda do cupom revelado */
+    --coupon-icon-color: #ff6f61; /* Cor dos ícones dos cupons */
 }
 
 body {
@@ -24,11 +31,9 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* --- ADICIONE ESTAS LINHAS --- */
     flex-direction: column; /* Organiza os filhos em coluna (um abaixo do outro) */
     align-items: center; /* Centraliza os filhos horizontalmente */
     min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da viewport */
-    /* --- FIM DAS LINHAS ADICIONADAS --- */
 }
 
 /* --- ESTILOS DA PÁGINA INICIAL (LANDING PAGE) --- */
@@ -196,9 +201,7 @@ header::after {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     border: 1px solid #eee;
-    /* Remover display: flex e align-items: center daqui se você quiser que o formulário ocupe a largura total */
-    /* Para centralizar o FORM, faça isso no próprio FORM ou mantenha o text-align: center na SECTION */
-    text-align: center; /* Centraliza h2 e o formulário como um bloco */
+    text-align: center; 
 }
 
 /* --- ESTILOS PARA ALINHAR H2 E LOOPY (REAJUSTADOS) --- */
@@ -219,10 +222,9 @@ header::after {
 }
 
 .loopy-header-icon {
-    /* Removida a margin-top aqui para evitar deslocamento vertical */
     width: 70px;
     height: auto;
-    margin-left: 0; /* Remove margem desnecessária */
+    margin-left: 0; 
 }
 
 /* --- Formulário (AJUSTES) --- */
@@ -230,26 +232,23 @@ form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 500px; /* Limita a largura máxima do formulário para não ficar muito esticado */
-    width: 100%; /* Garante que ocupe a largura total disponível dentro do max-width */
-    margin: 0 auto; /* Centraliza o formulário */
-    text-align: left; /* Garante que labels e inputs se alinhem à esquerda dentro do formulário */
+    max-width: 500px; 
+    width: 100%; 
+    margin: 0 auto; 
+    text-align: left; 
 }
 
 .form-group {
-    margin-bottom: 0; /* Remover margin-bottom aqui, já que o gap do form lida com o espaçamento */
+    margin-bottom: 0; 
     text-align: left;
-    /* Ajustes para flexbox em form-group */
     display: flex;
-    flex-direction: column; /* Coloca label e input/textarea em colunas */
-    /* remove align-items: center se quiser que a label e input comecem na esquerda */
-    /* justify-content: flex-start; */ /* Desnecessário se for column */
+    flex-direction: column; 
 }
 
 .form-group label {
-    margin-bottom: 8px; /* Adiciona margem de volta entre label e input */
-    margin-right: 0; /* Remove margem desnecessária */
-    white-space: normal; /* Permite que o texto da label quebre se for longo */
+    margin-bottom: 8px; 
+    margin-right: 0; 
+    white-space: normal; 
 }
 
 .form-group input::file-selector-button {
@@ -268,14 +267,13 @@ form {
 
 .form-group input,
 .form-group textarea {
-    /* Use width: 100% para preencher o form-group */
     width: 100%; 
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+    box-sizing: border-box; 
     transition: border-color var(--transition);
 }
 
@@ -294,10 +292,9 @@ form {
     color: var(--light-text-color);
     border: none;
     padding: 15px;
-    /* Remover margens fixas e usar width: 100% ou max-width para controle */
-    width: 100%; /* Ocupa a largura total do formulário */
-    max-width: 250px; /* Define uma largura máxima para o botão */
-    margin: 20px auto 0 auto; /* Centraliza o botão */
+    width: 100%; 
+    max-width: 250px; 
+    margin: 20px auto 0 auto; 
     border-radius: 8px;
     font-size: 1.2em;
     font-weight: 600;
@@ -514,11 +511,10 @@ footer p {
     }
 
     /* Ajustes para Loopy */
-    .loopy-label-icon { /* Note: this class doesn't exist in your HTML, assuming it's for the small Loopy icon by labels */
+    .loopy-label-icon { 
         width: 25px; 
         margin-right: 10px;
     }
-    /* Removi a margin-top do .loopy-header-icon nas media queries menores também, já que foi removida da versão principal */
     .loopy-header-icon {
         margin-top: 0;
     }
@@ -562,13 +558,13 @@ footer p {
     }
 
     .form-group {
-        margin-bottom: 15px; /* Reduz um pouco o espaçamento entre os grupos em telas menores */
+        margin-bottom: 15px; 
     }
 
     .gallery-container {
         padding: 15px;
         gap: 20px;
-        grid-template-columns: 1fr; /* Força uma coluna única em telas pequenas */
+        grid-template-columns: 1fr; 
     }
 
     .gallery-item img {
@@ -589,15 +585,15 @@ footer p {
         margin-right: 8px;
     }
     .loopy-header-icon {
-        margin-top: 0; /* Garante que a margem superior seja 0 também aqui */
-        width: 50px; /* Reduz o tamanho do Loopy no cabeçalho em telas pequenas */
+        margin-top: 0; 
+        width: 50px; 
     }
 
     /* Ajustes finos para o submit button em telas pequenas */
     .submit-button {
         padding: 12px;
         font-size: 1em;
-        max-width: 200px; /* Limita a largura máxima do botão em telas pequenas */
+        max-width: 200px; 
     }
 }
 
@@ -939,145 +935,137 @@ footer p {
     }
 }
 :root{
-  --primary: #fff;
-  --bg-color: rgb(5, 53, 61);
-  --bg-envelope-color: #f5edd1;
-  --envelope-tab: #ecdeb8;
-  --envelope-cover: #e6cfa7;
-  --shadow-color: rgba(0, 0, 0, 0.2);
-  --txt-color: #444;
-  --heart-color: rgb(252, 8, 231);
+    --primary: #fff;
+    --bg-color: rgb(5, 53, 61);
+    --bg-envelope-color: #f5edd1;
+    --envelope-tab: #ecdeb8;
+    --envelope-cover: #e6cfa7;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --txt-color: #444;
+    --heart-color: rgb(252, 8, 231);
 }
 .container {
     margin-top: 150px;
-  display: grid;
-  place-items: center;
+    display: grid;
+    place-items: center;
 }
 .container > .envelope-wrapper {
-  background: var(--bg-envelope-color);
-  box-shadow: 0 0 40px var(--shadow-color);
+    background: var(--bg-envelope-color);
+    box-shadow: 0 0 40px var(--shadow-color);
 }
 .envelope-wrapper > .envelope {
-  position: relative;
-  width: 300px;
-  height: 230px;
+    position: relative;
+    width: 300px;
+    height: 230px;
 }
 .envelope-wrapper > .envelope::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  z-index: 2;
-  border-top: 130px solid var(--envelope-tab);
-  border-right: 150px solid transparent;
-  border-left: 150px solid transparent;
-  transform-origin: top;
-  transition: all 0.5s ease-in-out 0.7s;
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    border-top: 130px solid var(--envelope-tab);
+    border-right: 150px solid transparent;
+    border-left: 150px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
 }
 .envelope-wrapper > .envelope::after {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  width: 0px;
-  height: 0px;
-  border-top: 130px solid transparent;
-  border-right: 150px solid var(--envelope-cover);
-  border-bottom: 100px solid var(--envelope-cover);
-  border-left: 150px solid var(--envelope-cover);
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 0px;
+    height: 0px;
+    border-top: 130px solid transparent;
+    border-right: 150px solid var(--envelope-cover);
+    border-bottom: 100px solid var(--envelope-cover);
+    border-left: 150px solid var(--envelope-cover);
 }
 .envelope > .letter {
-  position: absolute;
-  right: 20%;
-  bottom: 0;
-  width: 54%;
-  height: 80%;
-  background: var(--primary);
-  text-align: center;
-  transition: all 1s ease-in-out;
-  box-shadow: 0 0 5px var(--shadow-color);
-  padding: 20px 10px;
+    position: absolute;
+    right: 20%;
+    bottom: 0;
+    width: 54%;
+    height: 80%;
+    background: var(--primary);
+    text-align: center;
+    transition: all 1s ease-in-out;
+    box-shadow: 0 0 5px var(--shadow-color);
+    padding: 20px 10px;
 }
 
 .envelope > .letter > .text {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: var(--txt-color);
-  text-align: left;
-  font-size: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--txt-color);
+    text-align: left;
+    font-size: 10px;
 }
 .heart {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 15px;
-  height: 15px;
-  background: var(--heart-color);
-  z-index: 4;
-  transform: translate(-50%, -20%) rotate(45deg);
-  transition: transform 0.5s ease-in-out 1s;
-  box-shadow: 0 1px 6px var(--shadow-color);
-  cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: var(--heart-color);
+    z-index: 4;
+    transform: translate(-50%, -20%) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    box-shadow: 0 1px 6px var(--shadow-color);
+    cursor: pointer;
 }
 .heart:before, 
 .heart:after {
-  content: "";
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background-color: var(--heart-color);
-  border-radius: 50%;
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--heart-color);
+    border-radius: 50%;
 }
 .heart:before {
-  top: -7.5px;
+    top: -7.5px;
 }
 .heart:after {
-  right: 7.5px;
+    right: 7.5px;
 }
 .flap > .envelope:before {
-  transform: rotateX(180deg);
-  z-index: 0;
+    transform: rotateX(180deg);
+    z-index: 0;
 }
 .flap > .envelope > .letter {
-  bottom: 200px;
-  transform: scale(1.5);
-  transition-delay: 1s;
+    bottom: 200px;
+    transform: scale(1.5);
+    transition-delay: 1s;
 }
 .flap > .heart {
-  transform: rotate(90deg);
-  transition-delay: 0.4s;
+    transform: rotate(90deg);
+    transition-delay: 0.4s;
 }
 /* style.css */
 
-/* ... (seus estilos existentes) ... */
-
 /* --- ESTILOS DO QUIZ DE RELACIONAMENTO --- */
 /* (Mantenha todos os estilos do quiz que eu te dei na resposta anterior,
-   como .quiz-section, .quiz-section-header, .quiz-header-icon,
-   .quiz-question, .quiz-options label, input[type="radio"], etc.) */
+    como .quiz-section, .quiz-section-header, .quiz-header-icon,
+    .quiz-question, .quiz-options label, input[type="radio"], etc.) */
 
 /* Adicione/Ajuste estas classes para feedback visual das respostas */
-.quiz-options.correct label input[type="radio"]:checked + span::after { /* Adicione um span ao lado do input para estilização mais fácil */
-    /* Exemplo: Um checkmark verde ou borda verde */
+.quiz-options.correct label input[type="radio"]:checked + span::after { 
     border: 2px solid green;
     box-shadow: 0 0 5px green;
 }
 
 .quiz-options.incorrect label input[type="radio"]:checked + span::after {
-    /* Exemplo: Um X vermelho ou borda vermelha */
     border: 2px solid red;
     box-shadow: 0 0 5px red;
 }
 
-/* Para destacar a opção correta, você pode adicionar uma classe 'highlight-correct'
-   dinamicamente via JS e estilizá-la aqui.
-   Por enquanto, o feedback é apenas visual nas caixas de rádio. */
-
 .quiz-result .score-message.perfect {
-    color: #1DB954; /* Verde Spotify para sucesso total */
+    color: #1DB954; 
     font-size: 1.4em;
-    animation: bounceIn 0.8s; /* Animação para o resultado perfeito */
+    animation: bounceIn 0.8s; 
 }
 
 .quiz-result .score-message.error {
-    color: var(--accent-color); /* A cor de destaque para erro */
+    color: var(--accent-color); 
     font-size: 1.2em;
 }
 
@@ -1112,4 +1100,381 @@ footer p {
 /* Classes para esconder/mostrar elementos */
 .hidden {
     display: none;
+}
+
+/* --- NOVOS ESTILOS PARA A SEÇÃO "Porque eu Te Amo" --- */
+.love-reasons-section {
+    background-color: var(--card-bg);
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 700px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.love-reasons-section h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 3em;
+    margin-bottom: 25px;
+}
+
+.reasons-list {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.reasons-list p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 25px; /* Espaço para o ícone */
+}
+
+.reasons-list p::before {
+    content: '💖'; /* Ícone de coração para cada motivo */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1em;
+    color: var(--secondary-color);
+}
+
+/* --- NOVOS ESTILOS PARA A SEÇÃO "Vales/Cupons" --- */
+.coupons-section {
+    background-color: var(--card-bg);
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 700px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.coupons-section h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.coupons-section p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+
+.open-coupons-button {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition), transform 0.2s ease, box-shadow var(--transition);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.open-coupons-button:hover {
+    background-color: #e06054;
+    transform: translateY(-2px);
+}
+
+/* --- ESTILOS PARA O MODAL DE CUPONS --- */
+#couponModal .modal-content {
+    max-width: 800px; /* Ajuste para caber os cupons em grade */
+    padding: 40px;
+}
+
+.coupon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.coupon-card {
+    background-color: var(--coupon-bg-closed); /* Cor de fundo quando "fechado" */
+    border: 2px solid var(--coupon-text-closed); /* Borda sólida */
+    border-radius: var(--border-radius);
+    padding: 10px; /* Reduzi o padding para o canvas ter mais espaço */
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Importante para o canvas */
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+    align-items: center;
+    height: 200px; /* Altura fixa para os cartões */
+}
+
+.coupon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.coupon-card h3 {
+    /* Certifique-se que o título esteja posicionado para não interferir com a raspadinha */
+    position: absolute; /* Torna o título absoluto em relação ao card */
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centralização perfeita */
+    opacity: 0; /* Torna o título invisível por padrão */
+    transition: opacity 0.5s ease-in-out; /* Adiciona transição para a opacidade */
+    z-index: 0; /* Coloca o título abaixo da canvas inicialmente */
+    color: var(--coupon-text-closed); /* Mantém a cor do texto "raspável" */
+    font-size: 1.8em; /* Aumenta o tamanho para destaque ao ser revelado */
+    font-family: 'Dancing Script', cursive; /* Fonte especial para o título revelado */
+}
+
+.coupon-card.revealed h3 {
+    opacity: 1; /* Torna o título visível quando o card é revelado */
+    z-index: 3; /* Coloca o título acima da canvas e do reveal, se necessário */
+    color: var(--primary-color); /* Muda a cor para o tom principal */
+}
+
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Abaixo do título, acima do reveal */
+    touch-action: none; /* Previne scroll/zoom em mobile ao raspar */
+}
+
+.coupon-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: var(--coupon-bg-open);
+    border: 2px solid var(--coupon-border-open);
+    border-radius: var(--border-radius);
+    color: var(--text-color); /* Cor padrão para o texto revelado */
+    z-index: 0; /* Começa por baixo */
+}
+
+.coupon-card.revealed .coupon-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2; /* Sobe quando revelado */
+}
+
+.coupon-reveal p {
+    font-size: 1em;
+    margin-bottom: 15px;
+    font-style: italic;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.coupon-reveal .fas {
+    font-size: 2.5em;
+    color: var(--coupon-icon-color);
+    margin-top: 10px;
+}
+
+/* Estilos para o Vale Personalizado */
+.coupon-card[data-coupon="personalizado"] .coupon-reveal {
+    background-color: #fce6ff; /* Um rosa claro diferente */
+    border-color: #f7a8e2;
+}
+
+.coupon-card[data-coupon="personalizado"] .coupon-reveal textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid var(--coupon-border-open);
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    resize: vertical;
+    display: block; /* Visível por padrão ao revelar o card personalizado */
+    min-height: 60px; /* Altura mínima para o textarea */
+}
+
+.coupon-card[data-coupon="personalizado"] .coupon-reveal button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+    display: block; /* Visível por padrão ao revelar o card personalizado */
+}
+
+.coupon-card[data-coupon="personalizado"] .coupon-reveal button:hover {
+    background-color: #c83d63;
+}
+
+/* Responsividade para os Cupons */
+@media (max-width: 768px) {
+    .coupon-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+    .coupon-card {
+        height: 180px; /* Ajuste para tablets */
+    }
+    .coupon-card h3 {
+        font-size: 1.1em;
+    }
+    .scratch-canvas {
+        font-size: 1.5em; /* Ajusta o tamanho do texto "Raspe aqui!" na tela menor */
+    }
+    .coupon-reveal p {
+        font-size: 0.9em;
+    }
+    .coupon-reveal .fas {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    #couponModal .modal-content {
+        padding: 25px;
+        width: 95%;
+    }
+    .coupon-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+        gap: 15px;
+    }
+    .coupon-card {
+        height: auto; /* Altura flexível para que o conteúdo se ajuste */
+        min-height: 150px;
+    }
+    .coupon-card h3 {
+        font-size: 1.3em; /* Voltou um pouco para um tamanho legível */
+    }
+    .coupon-card[data-coupon="personalizado"] .coupon-reveal textarea {
+        width: 95%;
+    }
+    .coupon-card[data-coupon="personalizado"] .coupon-reveal button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* --- NOVOS ESTILOS PARA A SEÇÃO DO DIÁRIO DE MELHORIAS --- */
+.improvement-diary-section {
+    background-color: var(--card-bg);
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 700px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.diary-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.diary-header h2 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--primary-color);
+    font-size: 3em;
+    margin-bottom: 0;
+    margin-left: 15px; /* Espaço entre o ícone e o título */
+}
+
+.diary-icon {
+    font-size: 3.5em;
+    color: var(--secondary-color);
+}
+
+.improvement-diary-section p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.diary-submit-button {
+    margin-top: 25px; /* Espaço maior para o botão de enviar do diário */
+}
+
+.diary-entries-viewer {
+    margin-top: 50px;
+    border-top: 1px dashed #ddd;
+    padding-top: 30px;
+    text-align: center; /* Centraliza o título e o botão de visualização */
+}
+
+.diary-entries-viewer h3 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--accent-color); /* Uma cor de destaque para o título do visualizador */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#diaryList {
+    background-color: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-top: 20px;
+    max-height: 400px; /* Limita a altura para permitir scroll */
+    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for maior */
+    text-align: left;
+}
+
+.diary-entry-item {
+    background-color: #ffffff;
+    border: 1px solid var(--coupon-border-open);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.diary-entry-item:hover {
+    transform: translateY(-3px);
+}
+
+.diary-item-date {
+    font-size: 0.9em;
+    color: var(--muted-text-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.diary-item-text {
+    font-size: 1em;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.no-entries-message {
+    font-style: italic;
+    color: #777;
+    padding: 20px;
 }
