@@ -113,300 +113,7 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-        /* --- ESTILOS DO QUIZ DE RELACIONAMENTO (INÍCIO) --- */
-        .quiz-section {
-            background-color: var(--card-bg); /* Assume que var(--card-bg) está definida no style.css ou aqui. Se não estiver, defina-a. */
-            padding: 40px;
-            margin: 40px auto;
-            max-width: 800px;
-            border-radius: var(--border-radius); /* Assume que var(--border-radius) está definida. */
-            box-shadow: var(--shadow); /* Assume que var(--shadow) está definida. */
-            border: 1px solid #eee;
-            text-align: center;
-        }
-
-        .quiz-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .quiz-header-icon {
-            width: 60px; /* Reduzindo de 100px para 60px para melhor proporção */
-            height: auto;
-            margin-right: 15px;
-        }
-
-        .quiz-section h2 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-color); /* Assume que var(--primary-color) está definida. */
-            font-size: 3em;
-            margin-bottom: 0;
-        }
-
-        .quiz-intro {
-            font-size: 1.1em;
-            color: var(--text-color); /* Assume que var(--text-color) está definida. */
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .quiz-container {
-            text-align: left;
-            margin-bottom: 30px;
-        }
-
-        .quiz-question {
-            background-color: var(--bg-light); /* Assume que var(--bg-light) está definida. */
-            padding: 25px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #f0f0f0;
-        }
-
-        .quiz-question p {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 15px;
-        }
-
-        .quiz-options label {
-            display: block;
-            background-color: #fcfcfc;
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-            border: 1px solid #eee;
-            font-size: 1em;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-        }
-
-        .quiz-options label:hover {
-            background-color: #f0f0f0;
-            border-color: var(--secondary-color); /* Assume que var(--secondary-color) está definida. */
-        }
-
-        .quiz-options input[type="radio"] {
-            margin-right: 12px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            outline: none;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .quiz-options input[type="radio"]:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .quiz-options input[type="radio"]:checked::before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Feedback visual para respostas (adicionados spans no JS para isso) */
-        .quiz-options label.correct-option {
-            background-color: #e6ffe6; /* Verde claro */
-            border-color: #2e8b57; /* Verde escuro */
-            box-shadow: 0 0 5px #2e8b57;
-        }
-
-        .quiz-options label.incorrect-option {
-            background-color: #ffe6e6; /* Vermelho claro */
-            border-color: #b22222; /* Vermelho escuro */
-            box-shadow: 0 0 5px #b22222;
-        }
-
-        .submit-quiz-button {
-            background-color: var(--accent-color); /* Assume que var(--accent-color) está definida. */
-            color: var(--light-text-color); /* Assume que var(--light-text-color) está definida. */
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.3em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color var(--transition), transform 0.2s ease, box-shadow var(--transition);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-
-        .submit-quiz-button:hover {
-            background-color: #e06054;
-            transform: translateY(-2px);
-        }
-
-        .quiz-result {
-            margin-top: 40px;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            background-color: var(--bg-light);
-            border: 1px solid #eee;
-        }
-
-        .quiz-result h3 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.5em;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .quiz-result p {
-            font-size: 1.1em;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-
-        .quiz-result .score-message {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-top: 20px;
-        }
-
-        .quiz-result .score-message.perfect {
-            color: #1DB954; /* Verde Spotify */
-            font-size: 1.4em;
-            animation: bounceIn 0.8s;
-        }
-
-        .quiz-result .score-message.error {
-            color: var(--accent-color);
-            font-size: 1.2em;
-        }
-
-        /* Mensagem de Carregamento para o Quiz */
-        .loading-quiz {
-            text-align: center;
-            font-style: italic;
-            color: #777;
-            padding: 20px;
-        }
-
-        /* Animação para o resultado perfeito (opcional) */
-        @keyframes bounceIn {
-            0%, 20%, 40%, 60%, 80%, 100% {
-                transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-            }
-            0% {
-                opacity: 0;
-                transform: scale3d(0.3, 0.3, 0.3);
-            }
-            20% {
-                transform: scale3d(1.1, 1.1, 1.1);
-            }
-            40% {
-                transform: scale3d(0.9, 0.9, 0.9);
-            }
-            60% {
-                opacity: 1;
-                transform: scale3d(1.03, 1.03, 1.03);
-            }
-            80% {
-                transform: scale3d(0.97, 0.97, 0.97);
-            }
-            100% {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
-        }
-
-        /* Classe para esconder/mostrar elementos */
-        .hidden {
-            display: none;
-        }
-
-        /* Responsividade para o Quiz */
-        @media (max-width: 768px) {
-            .quiz-section {
-                padding: 30px;
-                margin: 30px auto;
-            }
-            .quiz-section h2 {
-                font-size: 2.5em;
-            }
-            .quiz-intro {
-                font-size: 1em;
-            }
-            .quiz-question p {
-                font-size: 1.1em;
-            }
-            .quiz-options label {
-                padding: 10px 15px;
-                font-size: 0.95em;
-            }
-            .submit-quiz-button {
-                font-size: 1.2em;
-                padding: 12px 25px;
-            }
-            .quiz-result h3 {
-                font-size: 2em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .quiz-section {
-                padding: 20px;
-                margin: 20px auto;
-            }
-            .quiz-section h2 {
-                font-size: 2em;
-            }
-            .quiz-header-icon {
-                width: 50px; /* Ajustado de volta para 50px em telas pequenas */
-            }
-            .quiz-question p {
-                font-size: 1em;
-            }
-            .quiz-options label {
-                padding: 8px 12px;
-                font-size: 0.9em;
-            }
-            .quiz-options input[type="radio"] {
-                width: 18px;
-                height: 18px;
-            }
-            .quiz-options input[type="radio"]:checked::before {
-                width: 9px;
-                height: 9px;
-            }
-            .submit-quiz-button {
-                font-size: 1em;
-                padding: 10px 20px;
-            }
-            .quiz-result h3 {
-                font-size: 1.8em;
-            }
-            .quiz-result p {
-                font-size: 0.95em;
-            }
-            .quiz-result .score-message {
-                font-size: 1.1em;
-            }
-        }
+        /* AQUI TERMINAM OS ESTILOS ESPECÍFICOS DO QUIZ QUE AGORA ESTÃO NO STYLE.CSS */
     </style>
 </head>
 <body class="landing-page-body">
@@ -417,20 +124,6 @@
         <p>Preparei uma pequena surpresa para nós neste Dia dos Namorados.</p>
         <button id="surpriseButton" class="surprise-button">Clique aqui para a surpresa!</button>
     </div>
-
-    <section class="quiz-section hidden" id="quizSection">
-        <div class="quiz-section-header">
-            <img src="loopy.png" alt="Loopy Personagem" class="quiz-header-icon"> <h2>Você conhece a gente mais que eu? ❤️</h2>
-        </div>
-        <p class="quiz-intro">Vamos ver o quanto você lembra dos nossos momentos e detalhes especiais! Você precisa acertar tudo para desbloquear a próxima surpresa!</p>
-
-        <div id="quizContainer" class="quiz-container">
-            <p id="quizLoading" class="loading-quiz">Carregando nosso quiz de amor...</p>
-        </div>
-
-        <button id="submitQuiz" class="submit-quiz-button hidden">Ver Resultado</button>
-        <div id="quizResult" class="quiz-result hidden"></div>
-    </section>
 
     <div class="rose-animation-container" id="roseAnimationContainer"></div>
 
@@ -443,7 +136,6 @@
     </div>
 
     <script>
-        
         // --- MENSAGENS DE AMOR ---
         const loveMessages = [
             { date: "06-05", message: "Hoje é o dia de lançamento do nosso cantinho especial! Que este seja o primeiro de muitos Dias dos Namorados que passaremos juntos, criando memórias lindas. Eu te amo muito, meu amor! ❤️" },
@@ -485,147 +177,12 @@
         // --- LÓGICA DO BOTÃO DA SURPRESA E ANIMAÇÃO DE FLORES (TULIPAS) ---
         document.getElementById('surpriseButton').addEventListener('click', function() {
             const landingContainer = document.getElementById('landingContainer');
-            const quizSection = document.getElementById('quizSection');
+            const roseContainer = document.getElementById('roseAnimationContainer');
 
             landingContainer.classList.add('hidden');
-            quizSection.classList.remove('hidden');
-
-            buildQuiz();
-        });
-
-        // --- LÓGICA DO QUIZ DE RELACIONAMENTO ---
-        const quizContainer = document.getElementById('quizContainer');
-        const submitQuizButton = document.getElementById('submitQuiz');
-        const quizResult = document.getElementById('quizResult');
-        const quizLoading = document.getElementById('quizLoading');
-
-        const quizQuestions = [
-            {
-                question: "Qual foi o tamanho da primeira aliança que te dei?",
-                options: ["14", "13", "15", "12"],
-                answer: "14"
-            },
-            {
-                question: "Qual foi o primeiro dia em que trocamos mensagem?",
-                options: ["19 de Agosto", "02 de Setembro", "01 de Setembro", "18 de Agosto"],
-                answer: "19 de Agosto"
-            },
-            {
-                question: "Primeira vez em que saímos fora da escola?",
-                options: ["25 de Outubro", "20 de Setembro", "18 de Outubro", "02 de Novembro"],
-                answer: "25 de Outubro"
-            },
-            {
-                question: "Meu desenho favorito?",
-                options: ["Gumball", "Hora de Aventura", "Apenas um Show", "Bob Esponja"],
-                answer: "Gumball"
-            },
-            {
-                question: "Minha data de aniversário (acerte dessa vez bê)",
-                options: ["06 de Janeiro", "2 de Janeiro", "1 de Janeiro", "31 de Dezembro"],
-                answer: "31 de Dezembro"
-            }
-        ];
-
-        function buildQuiz() {
-            quizLoading.style.display = 'none';
-            const output = [];
-
-            quizQuestions.forEach((currentQuestion, questionNumber) => {
-                const options = [];
-                const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
-
-                shuffledOptions.forEach((option) => {
-                    options.push(
-                        `<label>
-                            <input type="radio" name="question${questionNumber}" value="${option}" required>
-                            <span>${option}</span>
-                        </label>`
-                    );
-                });
-
-                output.push(
-                    `<div class="quiz-question">
-                        <p>${currentQuestion.question}</p>
-                        <div class="quiz-options">${options.join('')}</div>
-                    </div>`
-                );
-            });
-
-            quizContainer.innerHTML = output.join('');
-            submitQuizButton.classList.remove('hidden');
-            submitQuizButton.textContent = 'Ver Resultado';
-            submitQuizButton.disabled = false;
-            quizResult.classList.add('hidden');
-        }
-
-        function showResults() {
-            const answerContainers = quizContainer.querySelectorAll('.quiz-options');
-            let numCorrect = 0;
-            let allAnswered = true;
-
-            quizQuestions.forEach((currentQuestion, questionNumber) => {
-                const answerContainer = answerContainers[questionNumber];
-                const selector = `input[name=question${questionNumber}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-
-                answerContainer.querySelectorAll('label').forEach(label => {
-                    label.classList.remove('correct-option', 'incorrect-option');
-                });
-
-                if (userAnswer === currentQuestion.answer) {
-                    numCorrect++;
-                    const correctLabel = answerContainer.querySelector(`input[value="${currentQuestion.answer}"]`).closest('label');
-                    correctLabel.classList.add('correct-option');
-                } else {
-                    if (userAnswer) {
-                        const incorrectLabel = answerContainer.querySelector(`input[value="${userAnswer}"]`).closest('label');
-                        incorrectLabel.classList.add('incorrect-option');
-                    }
-                    const correctLabel = answerContainer.querySelector(`input[value="${currentQuestion.answer}"]`).closest('label');
-                    correctLabel.classList.add('correct-option');
-                    allAnswered = false;
-                }
-
-                if (!userAnswer) {
-                    allAnswered = false;
-                }
-            });
-
-            quizResult.classList.remove('hidden');
-
-            if (numCorrect === quizQuestions.length && allAnswered) {
-                quizResult.innerHTML = `
-                    <h3>Parabéns, meu amor! 🎉</h3>
-                    <p class="score-message perfect">Você acertou todas as ${quizQuestions.length} perguntas! 💖</p>
-                    <p>Você realmente me conhece muito bem! Prepare-se para a próxima surpresa...</p>
-                `;
-                animateFlowersAndRedirect();
-                submitQuizButton.classList.add('hidden');
-            } else {
-                let message = '';
-                if (!allAnswered) {
-                    message = `Ah não bê, fiquei muito triste agora, olha pra mim pra você ver...`;
-                } else {
-                    message = `Você acertou ${numCorrect} de ${quizQuestions.length} algumas, mas queria que tivesse acertado todas...`;
-                }
-
-                quizResult.innerHTML = `
-                    <h3>Continue Tentando, Meu Amor!</h3>
-                    <p class="score-message error">${message}</p>
-                `;
-                submitQuizButton.textContent = 'Tentar Novamente';
-                answerContainers.forEach(container => {
-                    container.classList.remove('correct', 'incorrect');
-                    const radios = container.querySelectorAll('input[type="radio"]');
-                    radios.forEach(radio => radio.checked = false);
-                });
-            }
-        }
-
-        function animateFlowersAndRedirect() {
-            const roseContainer = document.getElementById('roseAnimationContainer');
-            roseContainer.innerHTML = '';
+            
+            // Inicia a animação de flores e redireciona
+            roseContainer.innerHTML = ''; // Limpa qualquer flor anterior
             roseContainer.style.display = 'block';
             document.body.classList.add('overflow-hidden');
 
@@ -635,10 +192,10 @@
 
             for (let i = 0; i < numberOfFlowers; i++) {
                 const flower = document.createElement('img');
-                flower.src = 'tulipa-removebg-preview.png';
+                flower.src = 'tulipa-removebg-preview.png'; // Caminho para sua imagem de tulipa
                 flower.classList.add('animated-flower');
 
-                const offset = (Math.random() - 0.5) * 50;
+                const offset = (Math.random() - 0.5) * 50; // Para espalhar um pouco
                 const positionX = (i / numberOfFlowers) * 100 + offset / window.innerWidth * 100;
                 flower.style.left = `${positionX}vw`;
 
@@ -648,14 +205,11 @@
                 roseContainer.appendChild(flower);
             }
 
+            // Redireciona para a galeria após um tempo
             setTimeout(() => {
                 window.location.href = 'gallery.html';
-            }, 2000);
-        }
-
-        submitQuizButton.addEventListener('click', showResults);
-
-
+            }, 2000); // Redireciona após 2 segundos
+        });
         
     </script>
 </body>

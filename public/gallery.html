@@ -69,22 +69,17 @@
         <section class="love-reasons-section">
             <h2>Porque Eu Te Amo ❤️</h2>
             <div class="reasons-list">
-                <p>Eu te amo porque você tira meu sorriso mais genuíno.</p>
+                <p>Eu te amo porque seu sorriso ilumina meu dia.</p>
                 <p>Eu te amo pela sua inteligência e como você me desafia.</p>
-                <p>Eu te amo porque você é incrível.</p>
-                <p>Eu te amo pela forma como você me enxerga.</p>
+                <p>Eu te amo pela sua gentileza e paciência.</p>
+                <p>Eu te amo pela sua determinação e força.</p>
                 <p>Eu te amo pela forma como você me faz sentir especial.</p>
-                <p>Eu te amo porque você é minha primeira e única.</p>
-                <p>Eu te amo por você gostar dos meus defeitos.</p>
-                <p>Eu te amo pela sua alegria contagiante.</p>
-                <p>Eu te amo pela forma como você come.</p>
-                <p>Eu te amo pela sua delicadeza.</p>
-                <p>Eu te amo pela forma como me olha.</p>
-                <p>Eu te amo por estar presente em meus pensamentos.</p>
-                <p>Eu te amo pela forma como você sorri.</p>
-                <p>Eu te amo por completo.</p>
+                <p>Eu te amo por cada risada que compartilhamos.</p>
+                <p>Eu te amo por você ser a melhor parte de mim.</p>
+                <p>Eu te amo pela sua paixão e alegria de viver.</p>
+                <p>Eu te amo por todos os nossos momentos, grandes e pequenos.</p>
                 <p>Eu te amo simplesmente por ser você.</p>
-                <p>Poderia citar infinitos motivos que me faz te amar. E a cada dia, descubro um novo motivo para te amar ainda mais.</p>
+                <p>E a cada dia, descubro um novo motivo para te amar ainda mais.</p>
             </div>
         </section>
 
@@ -99,7 +94,7 @@
                 <i class="fas fa-book-heart diary-icon"></i> 
                 <h2>Diário de Melhorias</h2>
             </div>
-            <p>Este é um espaço seguro para você registrar o que eu fiz que te chateou ou te decepcionou. É importante para mim saber, para que eu possa crescer e melhorar. Quero que você tenha o melhor de mim</p>
+            <p>Este é um espaço seguro para você registrar o que te chateou ou me decepcionou. É importante para mim saber, para que eu possa crescer e melhorar.</p>
             <form id="diaryForm">
                 <div class="form-group">
                     <label for="diaryDate">Data do ocorrido:</label>
@@ -123,6 +118,19 @@
             </div>
         </section>
 
+        <section class="quiz-section" id="quizSection">
+            <div class="quiz-section-header">
+                <img src="loopy.png" alt="Loopy Personagem" class="quiz-header-icon"> <h2>Você conhece a gente mais que eu? ❤️</h2>
+            </div>
+            <p class="quiz-intro">Vamos ver o quanto você lembra dos nossos momentos e detalhes especiais! Você precisa acertar tudo para desbloquear a próxima surpresa!</p>
+
+            <div id="quizContainer" class="quiz-container">
+                <p id="quizLoading" class="loading-quiz">Carregando nosso quiz de amor...</p>
+            </div>
+
+            <button id="submitQuiz" class="submit-quiz-button hidden">Ver Resultado</button>
+            <div id="quizResult" class="quiz-result hidden"></div>
+        </section>
 
         <section class="upload-section">
             <div class="upload-section-header">
@@ -164,7 +172,7 @@
     <div id="couponModal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="closeCouponModal">&times;</span>
-            <h2>Seus Cupons FMV (Faz Minhas Vontades) ❤️</h2>
+            <h2>Seus Cupons de Amor ❤️</h2>
             <p>Clique e "raspe" para revelar seu vale!</p>
             <div class="coupon-grid">
                 <div class="coupon-card" data-coupon="massagem">
@@ -609,6 +617,147 @@
 
     // Inicializa a data do diário com a data atual por padrão (opcional)
     diaryDateInput.valueAsDate = new Date();
+
+    // --- LÓGICA DO QUIZ DE RELACIONAMENTO (MOVIDA DO index.html) ---
+    const quizContainer = document.getElementById('quizContainer');
+    const submitQuizButton = document.getElementById('submitQuiz');
+    const quizResult = document.getElementById('quizResult');
+    const quizLoading = document.getElementById('quizLoading'); // Certifique-se de que este elemento exista
+
+    const quizQuestions = [
+        {
+            question: "Qual foi o tamanho da primeira aliança que te dei?",
+            options: ["14", "13", "15", "12"],
+            answer: "14"
+        },
+        {
+            question: "Qual foi o primeiro dia em que trocamos mensagem?",
+            options: ["19 de Agosto", "02 de Setembro", "01 de Setembro", "18 de Agosto"],
+            answer: "19 de Agosto"
+        },
+        {
+            question: "Primeira vez em que saímos fora da escola?",
+            options: ["25 de Outubro", "20 de Setembro", "18 de Outubro", "02 de Novembro"],
+            answer: "25 de Outubro"
+        },
+        {
+            question: "Meu desenho favorito?",
+            options: ["Gumball", "Hora de Aventura", "Apenas um Show", "Bob Esponja"],
+            answer: "Gumball"
+        },
+        {
+            question: "Minha data de aniversário (acerte dessa vez bê)",
+            options: ["06 de Janeiro", "2 de Janeiro", "1 de Janeiro", "31 de Dezembro"],
+            answer: "31 de Dezembro"
+        }
+    ];
+
+    function buildQuiz() {
+        quizLoading.style.display = 'none'; // Esconde a mensagem de carregamento
+        const output = [];
+
+        quizQuestions.forEach((currentQuestion, questionNumber) => {
+            const options = [];
+            const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach((option) => {
+                options.push(
+                    `<label>
+                        <input type="radio" name="question${questionNumber}" value="${option}" required>
+                        <span>${option}</span>
+                    </label>`
+                );
+            });
+
+            output.push(
+                `<div class="quiz-question">
+                    <p>${currentQuestion.question}</p>
+                    <div class="quiz-options">${options.join('')}</div>
+                </div>`
+            );
+        });
+
+        quizContainer.innerHTML = output.join('');
+        submitQuizButton.classList.remove('hidden');
+        submitQuizButton.textContent = 'Ver Resultado';
+        submitQuizButton.disabled = false;
+        quizResult.classList.add('hidden');
+    }
+
+    function showResults() {
+        const answerContainers = quizContainer.querySelectorAll('.quiz-options');
+        let numCorrect = 0;
+        let allAnswered = true;
+
+        quizQuestions.forEach((currentQuestion, questionNumber) => {
+            const answerContainer = answerContainers[questionNumber];
+            const selector = `input[name=question${questionNumber}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+            // Remove feedback de opções anteriores
+            answerContainer.querySelectorAll('label').forEach(label => {
+                label.classList.remove('correct-option', 'incorrect-option');
+            });
+
+            if (userAnswer === currentQuestion.answer) {
+                numCorrect++;
+                const correctLabel = answerContainer.querySelector(`input[value="${currentQuestion.answer}"]`).closest('label');
+                correctLabel.classList.add('correct-option');
+            } else {
+                if (userAnswer) {
+                    const incorrectLabel = answerContainer.querySelector(`input[value="${userAnswer}"]`).closest('label');
+                    incorrectLabel.classList.add('incorrect-option');
+                }
+                const correctLabel = answerContainer.querySelector(`input[value="${currentQuestion.answer}"]`).closest('label');
+                correctLabel.classList.add('correct-option'); // Sempre mostra a resposta correta
+                allAnswered = false;
+            }
+
+            if (!userAnswer) { // Verifica se a pergunta foi respondida
+                allAnswered = false;
+            }
+        });
+
+        quizResult.classList.remove('hidden');
+
+        if (numCorrect === quizQuestions.length && allAnswered) {
+            quizResult.innerHTML = `
+                <h3>Parabéns, meu amor! 🎉</h3>
+                <p class="score-message perfect">Você acertou todas as ${quizQuestions.length} perguntas! 💖</p>
+                <p>Você realmente me conhece muito bem!</p>
+            `;
+            // A animação de flores e redirecionamento era para a landing page.
+            // Aqui você pode decidir o que acontece quando ela acerta tudo no gallery.
+            // Por exemplo, uma mensagem de parabéns animada, ou um novo cupom!
+            // Por enquanto, apenas uma mensagem de sucesso.
+            submitQuizButton.classList.add('hidden');
+        } else {
+            let message = '';
+            if (!allAnswered) {
+                message = `Ops! Você não respondeu a todas as perguntas. Tente novamente!`;
+            } else {
+                message = `Você acertou ${numCorrect} de ${quizQuestions.length} perguntas, mas ainda faltou um pouquinho! Tente novamente!`;
+            }
+
+            quizResult.innerHTML = `
+                <h3>Continue Tentando, Meu Amor!</h3>
+                <p class="score-message error">${message}</p>
+            `;
+            submitQuizButton.textContent = 'Tentar Novamente';
+            // Limpa as seleções para uma nova tentativa
+            answerContainers.forEach(container => {
+                container.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            });
+        }
+    }
+
+    submitQuizButton.addEventListener('click', showResults);
+    
+    // Inicia o quiz ao carregar a página (se estiver na galeria)
+    // Se a intenção é que o quiz só apareça depois de alguma interação,
+    // remova esta linha e adicione uma função que chame buildQuiz()
+    // quando essa interação acontecer.
+    buildQuiz(); 
 
 </script>
 </body>
