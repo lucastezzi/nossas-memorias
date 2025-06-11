@@ -1806,22 +1806,22 @@ footer p {
 
 /* --- Estilos específicos para o slideshow --- */
 .slideshow-container {
+    /* Remova margin-top: 200px; - pode empurrar o conteúdo para fora */
+    margin-top: 0;
+    margin-bottom: 0; /* Certifique-se de que não há margens estranhas */
+
+    width: 100%;
+    flex-grow: 1; /* ESSENCIAL: Ocupa o espaço restante verticalmente dentro de slideshow-content-box */
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
     position: relative;
-    max-width: 850px;
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
-    background-color: rgba(255, 255, 255, 0.98);
-    padding: 30px;
-    margin-top: 50px;
-    margin-bottom: 50px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    perspective: 1000px;
+    align-items: center;
+    overflow: hidden; /* Mantenha hidden para evitar scroll dentro do container do slideshow */
+    box-sizing: border-box;
 }
 
 .slides-wrapper {
@@ -2421,21 +2421,18 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 }
 
 .slideshow-page-wrapper {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente visível da caixa principal */
     border-radius: var(--border-radius);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 95%;
-    max-width: 1000px;
-    position: relative;
-    /* REMOVA OU COMENTE ESTAS LINHAS: */
-    /* height: 95vh; */
-    /* max-height: 800px; */
-    /* Deixe-o ajustar naturalmente. Você pode adicionar um min-height se quiser um tamanho mínimo. */
-    min-height: 600px; /* Exemplo: Garante uma altura mínima para a caixa */
-    overflow: hidden; /* Mantenha o overflow hidden aqui para a caixa em si */
+    width: 95%; /* Largura da caixa principal */
+    max-width: 1000px; /* Largura máxima */
+    position: relative; /* Para posicionar elementos filhos fixos ou absolutos */
+    height: 95vh; /* Altura da caixa, ajustável */
+    max-height: 800px; /* Altura máxima da caixa */
+    overflow: hidden; /* Esconde overflow da caixa */
     box-sizing: border-box;
 }
 
@@ -2489,17 +2486,19 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 }
 
 .slideshow-content-box {
-    display: flex;
+   display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    flex-grow: 1; /* Habilite esta linha para que ele ocupe o espaço disponível */
+    /* justify-content: space-between; */ /* Pode causar problemas se o conteúdo for maior que o espaço */
+    /* Remova justify-content: space-between para permitir que o conteúdo se ajuste naturalmente */
+    
+    flex-grow: 1; /* Permite que ocupe o espaço restante do pai (slideshow-page-wrapper) */
     width: 100%;
-    /* REMOVA OU COMENTE ESTAS LINHAS: */
-    /* height: 100%; */
-    /* min-height: fit-content; */ /* fit-content é bom, mas flex-grow já resolve se o pai tiver flex */
     padding: 20px;
     box-sizing: border-box;
+    /* Remover min-height: fit-content; ou height: 100%; se estiver aqui */
+    /* Não defina altura fixa aqui, deixe-o crescer */
+    overflow-y: auto; /* Adicione scroll se o conteúdo exceder a altura disponível
 }
 
 /* Player de Áudio agora solid e dentro da caixa de conteúdo */
@@ -2521,12 +2520,11 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 
 /* Slideshow Container */
 .slideshow-container { /* Removido .full-screen-presentation */
-   /* REMOVA OU COMENTE ESTA LINHA (se estiver no seu CSS para o slideshow.html): */
-    /* margin-top: 200px; */ /* Isso pode estar empurrando o conteúdo para baixo e cortando */
+    margin-top: 200px;
     width: 100%;
-    flex-grow: 1; /* Isso é crucial para que ele ocupe o espaço restante */
-    background-color: transparent;
-    margin: 0; /* Garante que não há margens adicionais */
+    flex-grow: 1; /* Ocupa o espaço restante verticalmente */
+    background-color: transparent; /* Fundo transparente para o container */
+    margin: 0;
     padding: 0;
     border-radius: 0;
     box-shadow: none;
@@ -2534,13 +2532,12 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    box-sizing: border-box;
+    overflow: hidden; /* Garante que os slides não vazem */
 }
 
 .slideshow-container .slides-wrapper {
-  width: 100%;
-    height: 100%; /* Mantenha 100% aqui, pois ele vai ocupar o que .slideshow-container oferecer */
+    width: 100%;
+    height: 100%; /* Ocupa a altura total do slideshow-container (que agora é flex-grow) */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2548,30 +2545,32 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 }
 
 .slideshow-container .slide {
-    position: absolute;
+    position: absolute; /* Mantenha absoluto para as transições anime.js */
     width: 100%;
-    height: 100%;
-    padding: 20px; /* Padding interno para a imagem e legendas */
+    height: 100%; /* Isso faz com que cada slide ocupe a altura do wrapper */
+    padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente a imagem e legendas */
+    justify-content: center; /* Centraliza verticalmente os itens do slide */
     align-items: center;
     text-align: center;
+    /* Adicione overflow-y: auto se um slide individual pode ter muito conteúdo e precisar de scroll */
+    overflow-y: auto;
 }
 
 .slideshow-container .slide img {
-    max-width: 95%;
-    /* Ajuste fino da altura máxima da imagem */
-    /* `calc(100% - 120px)` pode ser muito restritivo. Tente deixar mais flexível. */
-    max-height: 80%; /* Exemplo: A imagem ocupa até 80% da altura do slide */
-    /* Ou, se a imagem for o principal, você pode tentar: */
-    /* height: auto; */
-    /* max-height: calc(100% - var(--espaco-legenda-data)); */ /* Defina uma variável com o espaço total da legenda e data */
-    object-fit: contain;
+    max-width: 100%; /* Permite que a imagem ocupe a largura total disponível */
+    /* A altura é o ponto crucial. Vamos dar flexibilidade. */
+    max-height: 70%; /* Comece com uma porcentagem, por exemplo, 70% da altura do slide */
+    /* OU, se você tiver uma altura total para legenda+data, use isso: */
+    /* max-height: calc(100% - var(--total-height-of-caption-and-date)); */
+    /* Ajuste o valor 70% (ou o calc) conforme o tamanho médio das suas legendas e imagens */
+    object-fit: contain; /* ESSENCIAL: Redimensiona a imagem para caber na caixa mantendo a proporção */
     border-radius: var(--border-radius-lg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     transition: transform 0.5s ease-out;
+    margin-bottom: 15px; /* Espaço entre imagem e legenda */
 }
 
 .slideshow-container .slide img:hover {
@@ -2580,22 +2579,23 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 
 .slideshow-container .slide-caption,
 .slideshow-container .slide-date {
-    position: relative;
-    margin-top: 15px;
+    position: relative; /* Mantenha relative */
+    margin-top: 0; /* Remova margens que empurram o conteúdo */
     background-color: rgba(0, 0, 0, 0.6);
     padding: 8px 15px;
     border-radius: 8px;
     color: var(--light-text-color);
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     max-width: 90%;
-    word-wrap: break-word;
+    word-wrap: break-word; /* ESSENCIAL: Quebra palavras longas */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o texto encolha se houver pouco espaço */
 }
 
 .slideshow-container .slide-date {
     font-size: 2.2em;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Espaço entre data e legenda */
 }
-
 .slideshow-container .slide-caption {
     font-size: 1.2em;
     font-weight: 400;
@@ -2861,12 +2861,36 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 /* --- Responsive adjustments for the slideshow.html --- */
 @media (max-width: 768px) {
     body.slideshow-page-body {
-        padding: 10px; /* Reduz padding em telas menores */
+         background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Mantenha isso para o body para evitar scroll indesejado */
+    box-sizing: border-box;
     }
     .slideshow-page-wrapper {
-        width: 98%; /* Mais largura */
-        height: 98vh; /* Mais altura */
-        max-height: none; /* Remove max-height */
+         background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    max-width: 1000px;
+    position: relative;
+    /* REMOVA estas linhas se ainda estiverem aqui */
+    /* height: 95vh; */
+    /* max-height: 800px; */
+    /* Em vez de altura fixa/máxima, use min-height e deixe o conteúdo determinar a altura */
+    min-height: 600px; /* Garante uma altura mínima razoável */
+    /* Se o conteúdo for muito alto e você QUISER rolagem dentro do wrapper, mude para: */
+    /* overflow-y: auto; */
+    /* Caso contrário, se a intenção é que ele se ajuste, mantenha overflow: hidden ou remova */
+    overflow: hidden; /* Mantenha hidden se não quiser scroll dentro da caixa */
+    box-sizing: border-box;
     }
     .slideshow-header h1 {
         font-size: 2.5em;
