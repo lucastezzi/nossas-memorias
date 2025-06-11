@@ -199,7 +199,7 @@ html, body {
 
 .slide-image-new {
     max-width: 90%; /* Deixa margens nas laterais */
-    max-height: calc(100% - 140px); /* Altura máxima para a imagem, deixando espaço para texto */
+    /* max-height: calc(100% - 140px); Removido para flexbox gerenciar a altura, ver slide-details-new */
     height: auto; /* Garante que a altura seja ajustada proporcionalmente */
     object-fit: contain; /* Redimensiona a imagem para caber sem cortar */
     border-radius: var(--border-radius-lg);
@@ -209,7 +209,7 @@ html, body {
     padding: 5px;
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que a imagem encolha se a descrição for muito longa */
-    margin-bottom: 15px; /* Espaço entre a imagem e os detalhes (data/descrição) */
+    /* margin-bottom: 15px; // Movido para o .slide-details-new como margin-top */
 }
 
 .slide-image-new:hover {
@@ -217,7 +217,7 @@ html, body {
 }
 
 .slide-details-new {
-    /* Não precisa de margin-top aqui, já que o slide-image-new tem margin-bottom */
+    margin-top: 15px; /* Espaço entre imagem e detalhes */
     padding: 5px 15px;
     background-color: var(--bg-element-light); /* Fundo claro para o texto */
     border-radius: var(--border-radius-md);
@@ -226,15 +226,16 @@ html, body {
     word-wrap: break-word; /* Quebra palavras longas */
     box-sizing: border-box;
     text-align: center;
-    min-height: 50px; /* Altura mínima para a área de texto */
+    /* min-height: 50px; // Pode ser flexível, dependendo do conteúdo */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Descrição e data em coluna */
     justify-content: center;
     align-items: center;
     flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
     overflow-y: auto; /* ADICIONADO: Adiciona scroll vertical se a descrição for muito longa */
     -webkit-overflow-scrolling: touch; /* Suaviza o scroll em dispositivos iOS */
     padding-right: 10px; /* Espaço extra para a barra de rolagem */
+    /* A altura máxima é implicitamente controlada pelo flex-grow e pelo container pai */
 }
 
 /* Estilização da barra de rolagem para navegadores WebKit (Chrome, Safari) */
@@ -258,22 +259,23 @@ html, body {
 }
 
 
-.slide-date-new {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2em;
-    color: var(--primary-color-soft);
-    margin-bottom: 5px;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    flex-shrink: 0; /* Impede que a data encolha */
-}
-
 .slide-caption-new {
     font-size: 1.1em;
     color: var(--text-color-dark);
     line-height: 1.4;
-    margin: 0;
+    margin: 0; /* Remove margem superior e inferior */
+    margin-bottom: 5px; /* Espaço abaixo da descrição */
     flex-shrink: 0; /* Impede que a descrição encolha se houver mais conteúdo */
+}
+
+.slide-date-new {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    color: var(--primary-color-soft);
+    margin: 0; /* Remove margens extras */
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    flex-shrink: 0; /* Impede que a data encolha */
 }
 
 /* Botões de navegação do Slideshow */
