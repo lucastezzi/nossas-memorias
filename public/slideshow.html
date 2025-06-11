@@ -8,59 +8,59 @@
     <link rel="stylesheet" href="slideshow-style.css"> <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="slideshow-body">
+<body class="slideshow-body-new">
 
     <div class="background-hearts-container"></div>
 
-    <header class="slideshow-header">
-        <h1 class="slideshow-title">Nossos Momentos</h1>
-        <a href="gallery.html" class="slideshow-close-button">
-            <i class="fas fa-times"></i> Voltar
+    <header class="slideshow-header-new">
+        <h1 class="slideshow-title-new">Nossos Momentos</h1>
+        <a href="gallery.html" class="slideshow-close-button-new">
+            <i class="fas fa-times"></i> Voltar à Galeria
         </a>
     </header>
 
-    <main class="slideshow-content-area">
-        <div class="slideshow-main-container">
-            <div id="slides-wrapper" class="slides-wrapper">
-                <p id="loadingSlides" class="loading-message">Carregando memórias...</p>
+    <main class="slideshow-content-area-new">
+        <div class="slideshow-main-container-new">
+            <div id="slides-wrapper" class="slides-wrapper-new">
+                <p id="loadingSlides" class="loading-message-new">Carregando memórias...</p>
             </div>
-            <button class="nav-button prev-slide" onclick="plusSlides(-1)"><i class="fas fa-chevron-left"></i></button>
-            <button class="nav-button next-slide" onclick="plusSlides(1)"><i class="fas fa-chevron-right"></i></button>
+            <button class="nav-button-new prev-slide-new" onclick="plusSlides(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-button-new next-slide-new" onclick="plusSlides(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
     </main>
 
-    <footer class="slideshow-footer">
-        <div class="audio-player">
+    <footer class="slideshow-footer-new">
+        <div class="audio-player-new">
             <audio id="background-music" loop>
                 <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
                 <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
             </audio>
 
-            <div class="player-info-controls">
-                <img src="capa.jpg" alt="Capa da Música" class="player-cover">
-                <div class="song-details">
-                    <span id="song-title" class="song-title">Perfect</span>
-                    <span id="song-artist" class="song-artist">Ed Sheeran</span>
+            <div class="player-info-controls-new">
+                <img src="capa.jpg" alt="Capa da Música" class="player-cover-new">
+                <div class="song-details-new">
+                    <span id="song-title" class="song-title-new">Perfect</span>
+                    <span id="song-artist" class="song-artist-new">Ed Sheeran</span>
                 </div>
-                <div class="player-buttons">
-                    <button class="player-control-button" id="shuffle-button" title="Embaralhar"><i class="fas fa-shuffle"></i></button>
-                    <button class="player-control-button" id="prev-button" title="Música Anterior"><i class="fas fa-backward-step"></i></button>
-                    <button class="player-control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fas fa-play"></i></button>
-                    <button class="player-control-button" id="next-button" title="Próxima Música"><i class="fas fa-forward-step"></i></button>
-                    <button class="player-control-button" id="repeat-button" title="Repetir"><i class="fas fa-repeat"></i></button>
+                <div class="player-buttons-new">
+                    <button class="player-control-button-new" id="shuffle-button" title="Embaralhar"><i class="fas fa-shuffle"></i></button>
+                    <button class="player-control-button-new" id="prev-button" title="Música Anterior"><i class="fas fa-backward-step"></i></button>
+                    <button class="player-control-button-new play-pause-button-new" id="play-pause-player" title="Reproduzir/Pausar"><i class="fas fa-play"></i></button>
+                    <button class="player-control-button-new" id="next-button" title="Próxima Música"><i class="fas fa-forward-step"></i></button>
+                    <button class="player-control-button-new" id="repeat-button" title="Repetir"><i class="fas fa-repeat"></i></button>
                 </div>
             </div>
 
-            <div class="player-progress-volume">
-                <div class="progress-bar-group">
-                    <span id="current-time" class="time-display">0:00</span>
-                    <input type="range" id="progress-bar" class="progress-slider" min="0" max="100" value="0">
-                    <span id="duration-time" class="time-display">0:00</span>
+            <div class="player-progress-volume-new">
+                <div class="progress-bar-group-new">
+                    <span id="current-time" class="time-display-new">0:00</span>
+                    <input type="range" id="progress-bar" class="progress-slider-new" min="0" max="100" value="0">
+                    <span id="duration-time" class="time-display-new">0:00</span>
                 </div>
-                <div class="volume-control-group">
-                    <i class="fas fa-volume-low volume-icon"></i>
-                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-                    <i class="fas fa-volume-high volume-icon"></i>
+                <div class="volume-control-group-new">
+                    <i class="fas fa-volume-low volume-icon-new"></i>
+                    <input type="range" id="volume-slider" class="volume-slider-new" min="0" max="1" step="0.01" value="0.5">
+                    <i class="fas fa-volume-high volume-icon-new"></i>
                 </div>
             </div>
         </div>
@@ -171,7 +171,7 @@
 
         function loadAndPlaySong(song) {
             music.src = song.src;
-            document.querySelector('.player-cover').src = song.cover; // Alterado para a nova classe
+            document.querySelector('.player-cover-new').src = song.cover; // Nova classe
             songTitleElement.textContent = song.title;
             songArtistElement.textContent = song.artist;
             music.load();
@@ -222,20 +222,20 @@
         }
         // --- FIM Lógica do Player de Música ---
 
-        // --- Lógica do Slideshow ---
+        // --- LÓGICA DO SLIDESHOW ---
         let slideIndex = 0;
         let memoriesData = [];
         let slideshowInterval;
         const RENDER_API_URL = 'https://web-production-14bba.up.railway.app'; // Sua API URL
 
         function showSlides(n) {
-            let slides = document.getElementsByClassName("slide");
-            const prevNavButton = document.querySelector('.nav-button.prev-slide');
-            const nextNavButton = document.querySelector('.nav-button.next-slide');
+            let slides = document.getElementsByClassName("slide-new"); // Nova classe
+            const prevNavButton = document.querySelector('.nav-button-new.prev-slide-new'); // Nova classe
+            const nextNavButton = document.querySelector('.nav-button-new.next-slide-new'); // Nova classe
 
             if (slides.length === 0) {
                 document.getElementById('loadingSlides').textContent = 'Nenhuma memória para a apresentação. Adicione algumas na galeria!';
-                document.getElementById('loadingSlides').classList.add('error-message'); // Adiciona classe para estilização de erro
+                document.getElementById('loadingSlides').classList.add('error-message-new'); // Nova classe
                 prevNavButton.style.display = 'none';
                 nextNavButton.style.display = 'none';
                 return;
@@ -248,7 +248,7 @@
             else if (n < 0) {slideIndex = slides.length - 1}
             else {slideIndex = n;}
 
-            const currentActiveSlide = document.querySelector('.slide.active');
+            const currentActiveSlide = document.querySelector('.slide-new.active'); // Nova classe
             if (currentActiveSlide) {
                 anime({
                     targets: currentActiveSlide,
@@ -303,13 +303,13 @@
         async function loadSlideshowMemories() {
             const loadingMessage = document.getElementById('loadingSlides');
             const slidesWrapper = document.getElementById('slides-wrapper');
-            const prevNavButton = document.querySelector('.nav-button.prev-slide');
-            const nextNavButton = document.querySelector('.nav-button.next-slide');
+            const prevNavButton = document.querySelector('.nav-button-new.prev-slide-new');
+            const nextNavButton = document.querySelector('.nav-button-new.next-slide-new');
 
             if (loadingMessage) {
                 loadingMessage.textContent = 'Carregando memórias...';
                 loadingMessage.style.display = 'block';
-                loadingMessage.classList.remove('error-message'); // Remove classe de erro se existir
+                loadingMessage.classList.remove('error-message-new'); // Nova classe
             }
             
             prevNavButton.style.display = 'none';
@@ -327,15 +327,17 @@
                 slidesWrapper.innerHTML = '';
 
                 if (memoriesData.length === 0) {
-                    slidesWrapper.innerHTML = '<p id="loadingSlides" class="loading-message error-message">Nenhuma memória para a apresentação. Adicione algumas na galeria!</p>';
+                    slidesWrapper.innerHTML = '<p id="loadingSlides" class="loading-message-new error-message-new">Nenhuma memória para a apresentação. Adicione algumas na galeria!</p>';
                 } else {
                     memoriesData.forEach(memory => {
                         const slideDiv = document.createElement('div');
-                        slideDiv.classList.add('slide');
+                        slideDiv.classList.add('slide-new'); // Nova classe
                         slideDiv.innerHTML = `
-                            <img src="${memory.image_path}" alt="Memória de ${memory.event_date}">
-                            <div class="slide-caption">${memory.description}</div>
-                            <div class="slide-date">${new Date(memory.event_date).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                            <img src="${memory.image_path}" alt="Memória de ${memory.event_date}" class="slide-image-new">
+                            <div class="slide-details-new">
+                                <div class="slide-date-new">${new Date(memory.event_date).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                                <div class="slide-caption-new">${memory.description}</div>
+                            </div>
                         `;
                         slidesWrapper.appendChild(slideDiv);
                     });
@@ -344,12 +346,12 @@
                 }
             } catch (error) {
                 console.error('Erro ao carregar memórias para slideshow:', error);
-                slidesWrapper.innerHTML = '<p id="loadingSlides" class="loading-message error-message">Não foi possível carregar as memórias para a apresentação.</p>';
+                slidesWrapper.innerHTML = '<p id="loadingSlides" class="loading-message-new error-message-new">Não foi possível carregar as memórias para a apresentação.</p>';
             }
         }
 
         // Os listeners de mouseover/mouseleave
-        const slideshowMainContainer = document.querySelector('.slideshow-main-container');
+        const slideshowMainContainer = document.querySelector('.slideshow-main-container-new'); // Nova classe
         slideshowMainContainer.addEventListener('mouseover', stopSlideshowInterval);
         slideshowMainContainer.addEventListener('mouseleave', () => {
             if (memoriesData.length > 0 && !music.paused) {
@@ -357,7 +359,7 @@
             }
         });
 
-        const audioPlayer = document.querySelector('.audio-player');
+        const audioPlayer = document.querySelector('.audio-player-new'); // Nova classe
         audioPlayer.addEventListener('mouseover', stopSlideshowInterval);
         audioPlayer.addEventListener('mouseleave', () => {
             if (memoriesData.length > 0 && !music.paused) {
@@ -383,15 +385,18 @@
             heart.style.animationDelay = `${randomDelay}s`;
             heart.style.setProperty('--random-x', `${(Math.random() - 0.5) * 100}px`);
 
-            document.querySelector('.background-hearts-container').appendChild(heart); // Nova classe para o container de corações
-
+            document.querySelector('.background-hearts-container').appendChild(heart);
+            
+            // Remove o coração quando a animação termina para evitar acúmulo de elementos
             heart.addEventListener('animationend', () => {
                 heart.remove();
             });
         }
 
+        // Inicia a geração de corações a cada 800ms
         let heartInterval = setInterval(createFallingHeart, 800);
 
+        // Carrega as memórias quando a página é totalmente carregada
         document.addEventListener('DOMContentLoaded', loadSlideshowMemories);
     </script>
 </body>
