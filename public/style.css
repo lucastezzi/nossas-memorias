@@ -2515,6 +2515,7 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 
 /* Slideshow Container */
 .slideshow-container { /* Removido .full-screen-presentation */
+    margin-top: 200px;
     width: 100%;
     flex-grow: 1; /* Ocupa o espaço restante verticalmente */
     background-color: transparent; /* Fundo transparente para o container */
@@ -2539,7 +2540,6 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 }
 
 .slideshow-container .slide {
-    margin-top: 200px;
     position: absolute;
     width: 100%;
     height: 100%;
