@@ -651,8 +651,10 @@ footer p {
     font-family: 'Dancing Script', cursive;
     color: var(--primary-color);
     font-size: 2.5em;
-    margin-top: 0;
+    margin-top: 0px;
     margin-bottom: 15px;
+    padding-top: 50px;
+    
 }
 
 .modal-content p {
@@ -667,7 +669,7 @@ footer p {
     font-size: 28px;
     font-weight: bold;
     position: absolute;
-    top: 10px;
+    top: 150px;
     right: 15px;
     cursor: pointer;
 }
@@ -1204,7 +1206,7 @@ footer p {
     background-color: var(--coupon-bg-closed); /* Cor de fundo quando "fechado" */
     border: 2px solid var(--coupon-text-closed); /* Borda sólida */
     border-radius: var(--border-radius);
-    padding: 10px; /* Reduzi o padding para o canvas ter mais espaço */
+    padding: 15px; /* Reduzi o padding para o canvas ter mais espaço */
     text-align: center;
     cursor: pointer;
     position: relative;
@@ -1215,7 +1217,7 @@ footer p {
     flex-direction: column;
     justify-content: flex-start; /* Alinha o conteúdo ao topo */
     align-items: center;
-    height: 200px; /* Altura fixa para os cartões */
+    height: 120px; /* Altura fixa para os cartões */
 }
 
 .coupon-card:hover {
