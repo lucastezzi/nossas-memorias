@@ -2490,11 +2490,13 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
     flex-direction: column;
     align-items: center;
     justify-content: space-between; /* Espaço entre player e slideshow */
-    flex-grow: 1; /* Faz esta caixa ocupar o espaço restante */
+    /* flex-grow: 1; Removido para que o container se ajuste ao conteúdo */
     width: 100%; /* Ocupa a largura do wrapper */
-    height: 100%;
+    /* height: 100%; Removido para que o container se ajuste ao conteúdo */
     padding: 20px; /* Padding interno da caixa */
     box-sizing: border-box;
+    /* Adicione um min-height se desejar um tamanho mínimo mesmo com pouco conteúdo */
+    min-height: fit-content; /* Garante que ele se ajuste, mas pode usar um valor fixo se preferir um mínimo */
 }
 
 /* Player de Áudio agora solid e dentro da caixa de conteúdo */
