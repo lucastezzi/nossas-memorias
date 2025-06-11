@@ -1,19 +1,20 @@
-/* slideshow-style.css - Estilos para a página de apresentação de slides (NOVO DESIGN) */
+/* slideshow-style.css - Estilos para a página de apresentação de slides (DESIGN ATUALIZADO E PLAYER COM FAB) */
 
 /* Importação de fontes */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
-/* Variáveis CSS para um tema mais suave */
+/* Variáveis CSS para um tema mais suave e elegante */
 :root {
     --primary-color-soft: #e44d7d; /* Rosa principal suave */
-    --secondary-color-light: #fbebf1; /* Fundo claro rosado */
+    --secondary-color-light: #fbebf1; /* Fundo claro rosado para corações, etc. */
     --accent-color-vibrant: #ff6f61; /* Coral vibrante para destaque */
     --text-color-dark: #4a4a4a; /* Texto escuro suave */
-    --text-color-light: #ffffff; /* Texto claro */
-    --bg-page-soft: #fbf0f4; /* Fundo geral da página, muito claro */
-    --bg-header-footer-soft: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente claro para header/footer */
-    --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
-    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra média */
+    --text-color-light: #ffffff; /* Texto claro (em botões, etc.) */
+    --bg-page-soft: #fbf0f4; /* Fundo geral da página, muito claro e suave */
+    --bg-element-light: rgba(255, 255, 255, 0.95); /* Fundo quase opaco para elementos centrais */
+    --bg-header-footer-translucent: rgba(255, 255, 255, 0.7); /* Fundo mais transparente para header/footer */
+    --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra mais suave */
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.12); /* Sombra média para elementos principais */
     --border-radius-sm: 8px;
     --border-radius-md: 12px;
     --border-radius-lg: 18px;
@@ -30,6 +31,7 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color-dark);
     overflow: hidden; /* Garante que não haja barras de rolagem no body/html */
+    box-sizing: border-box; /* Para que padding e border sejam incluídos na largura/altura */
 }
 
 .slideshow-body-new {
@@ -39,19 +41,19 @@ html, body {
     justify-content: space-between; /* Espaço entre eles */
     align-items: center; /* Centraliza horizontalmente o conteúdo */
     min-height: 100vh; /* Ocupa a altura total da viewport */
-    position: relative;
+    position: relative; /* Para o z-index dos elementos fixos */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Corações de fundo (mantidos, mas podem ser ajustados para o novo fundo) */
+/* Corações de fundo */
 .background-hearts-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    pointer-events: none; /* Permite cliques através */
     z-index: -1; /* Fica no fundo */
     overflow: hidden;
 }
@@ -59,7 +61,7 @@ html, body {
 @keyframes fallSlow {
     0% {
         transform: translateY(-5vh) translateX(var(--random-x, 0));
-        opacity: 0.4; /* Menos opaco para um fundo suave */
+        opacity: 0.4;
     }
     100% {
         transform: translateY(110vh) translateX(var(--random-x, 0));
@@ -74,7 +76,7 @@ html, body {
     animation: fallSlow linear infinite;
     user-select: none;
     pointer-events: none;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Leve sombra para destacar em fundo claro */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 /* Header Fixo */
@@ -83,19 +85,19 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    background: var(--bg-header-footer-soft); /* Fundo suave e semi-transparente */
-    backdrop-filter: blur(5px); /* Efeito de blur elegante */
+    background: var(--bg-header-footer-translucent);
+    backdrop-filter: blur(8px); /* Blur mais pronunciado para o efeito de vidro */
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    color: var(--primary-color-soft); /* Título na cor principal */
+    color: var(--primary-color-soft);
     padding: 20px 40px;
     text-align: center;
-    z-index: 1000;
+    z-index: 1000; /* Fica acima de outros elementos */
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
     box-shadow: var(--shadow-subtle);
-    pointer-events: none; /* Permite cliques através dele, exceto no botão */
+    pointer-events: none; /* Permite cliques através, exceto no botão */
 }
 
 .slideshow-title-new {
@@ -108,7 +110,7 @@ html, body {
 }
 
 .slideshow-close-button-new {
-    background-color: var(--accent-color-vibrant); /* Botão de destaque */
+    background-color: var(--accent-color-vibrant);
     color: var(--text-color-light);
     border: none;
     padding: 10px 20px;
@@ -136,15 +138,15 @@ html, body {
 .slideshow-content-area-new {
     flex-grow: 1; /* Ocupa todo o espaço vertical disponível */
     width: 100%;
-    max-width: 1600px; /* Maior largura para o slideshow */
+    max-width: 1600px; /* Largura máxima para o slideshow */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-    /* Margens para evitar sobreposição com header e footer fixos */
+    /* Margens para evitar sobreposição com header fixo */
     margin-top: 100px; /* Ajuste conforme altura real do header */
-    margin-bottom: 150px; /* Ajuste conforme altura real do footer */
+    margin-bottom: 20px; /* Espaço para o player arrastável, se estiver no canto inferior */
 }
 
 .slideshow-main-container-new {
@@ -156,7 +158,7 @@ html, body {
     align-items: center;
     overflow: hidden;
     border-radius: var(--border-radius-lg);
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo claro para o slideshow */
+    background-color: var(--bg-element-light); /* Fundo claro para o slideshow */
     box-shadow: var(--shadow-medium);
     border: 1px solid rgba(0,0,0,0.05);
 }
@@ -197,13 +199,13 @@ html, body {
 
 .slide-image-new {
     max-width: 90%; /* Deixa margens nas laterais */
-    max-height: calc(100% - 100px); /* Altura máxima para a imagem, deixando espaço para texto */
+    max-height: calc(100% - 140px); /* Ajustado: altura da imagem para deixar mais espaço para texto */
     object-fit: contain; /* Redimensiona a imagem para caber sem cortar */
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-medium);
     transition: transform var(--transition-speed);
     background-color: rgba(255,255,255,0.7); /* Fundo claro para imagens PNG com transparência */
-    padding: 5px; /* Pequeno padding para imagens */
+    padding: 5px;
     box-sizing: border-box;
 }
 
@@ -214,7 +216,7 @@ html, body {
 .slide-details-new {
     margin-top: 15px; /* Espaço entre imagem e texto */
     padding: 5px 15px;
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente para o texto */
+    background-color: var(--bg-element-light); /* Fundo claro para o texto */
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-subtle);
     max-width: 90%;
@@ -222,7 +224,7 @@ html, body {
     box-sizing: border-box;
     text-align: center;
     min-height: 50px; /* Altura mínima para a área de texto */
-    display: flex; /* Flexbox para alinhar data e legenda */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -252,9 +254,9 @@ html, body {
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    color: var(--primary-color-soft); /* Setas na cor principal */
+    color: var(--primary-color-soft);
     font-size: 2.5em;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo claro para os botões */
+    background-color: var(--bg-element-light);
     border: none;
     border-radius: 50%;
     display: flex;
@@ -269,7 +271,7 @@ html, body {
 .nav-button-new.next-slide-new { right: 20px; }
 
 .nav-button-new:hover {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 1);
     transform: translateY(-50%) scale(1.1);
     box-shadow: var(--shadow-medium);
 }
@@ -288,45 +290,110 @@ html, body {
     font-weight: bold;
 }
 
-/* Footer Fixo (Player de Música) */
-.slideshow-footer-new {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+/* Rodapé "Vazio" (para manter o espaço na parte inferior, se necessário) */
+.slideshow-empty-footer {
+    height: 20px; /* Espaço mínimo para não ter elementos flutuantes muito perto da borda */
     width: 100%;
-    background-color: var(--bg-header-footer-soft);
-    backdrop-filter: blur(5px); /* Efeito de blur elegante */
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 15px 20px;
-    box-shadow: var(--shadow-subtle);
+}
+
+/* --- Player de Música: Wrapper principal (para arrastar) e conteúdo --- */
+
+/* Wrapper que contém o player completo E o botão minimizar */
+.audio-player-wrapper {
+    position: fixed;
+    /* Posição inicial definida por JS: bottom, right ou centralizado */
     z-index: 1000;
+    cursor: grab; /* Indica que é arrastável */
+    box-shadow: var(--shadow-medium);
+    border-radius: var(--border-radius-md);
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo externo (visível apenas quando expandido) */
+    padding: 15px; /* Padding ao redor do player */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Botão minimizar acima do player */
+    align-items: flex-end; /* Alinha o botão minimizar à direita */
+    transition: opacity var(--transition-speed), transform var(--transition-speed), left var(--transition-speed), top var(--transition-speed); /* Transições para aparecer/sumir e arrastar */
+}
+
+/* Conteúdo interno do player (que será escondido/mostrado) */
+.audio-player-content {
+    width: 100%;
+    max-width: 450px; /* Largura máxima */
+    background-color: var(--bg-element-light); /* Fundo interno */
+    padding: 20px 25px;
+    border-radius: var(--border-radius-md);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: #555;
+    /* Controlado por JS para height, opacity e padding */
+    overflow: hidden; /* Importante para esconder conteúdo que transborda em height:0 */
+    transition: height var(--transition-speed), opacity var(--transition-speed), padding var(--transition-speed), margin var(--transition-speed); /* Transição para esconder/mostrar conteúdo */
+}
+
+/* Botão de minimizar/maximizar (sempre visível no player completo) */
+.minimize-player-button {
+    background-color: var(--primary-color-soft);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    margin-bottom: 10px; /* Espaço entre o botão e o player */
+    flex-shrink: 0;
+    pointer-events: all; /* Garante que possa ser clicado */
+    z-index: 2; /* Acima do conteúdo do player */
 }
 
-/* Estilos do Player de Música */
-.audio-player-new {
-    width: 100%;
-    max-width: 750px; /* Maior largura para o player */
-    background-color: var(--text-color-light); /* Fundo branco sólido para o player */
-    padding: 15px 25px;
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-medium);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    color: #888; /* Cor padrão para textos menores no player */
+.minimize-player-button:hover {
+    background-color: #d1305f;
+    transform: scale(1.1);
 }
 
+/* Botão flutuante minimizado (FAB) */
+.minimized-player-fab {
+    position: fixed;
+    bottom: 20px; /* Posição inicial */
+    right: 20px; /* Posição inicial */
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-color-soft);
+    color: var(--text-color-light);
+    font-size: 1.8em;
+    display: none; /* Escondido por padrão, mostrado via JS */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: opacity var(--transition-speed), transform var(--transition-speed), left var(--transition-speed), top var(--transition-speed), box-shadow var(--transition-speed);
+    pointer-events: all; /* Garante que possa ser clicado e arrastado */
+}
+
+.minimized-player-fab:hover {
+    background-color: #d1305f;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Estilos do Player de Música (internos ao audio-player-content) */
 .player-info-controls-new {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-wrap: nowrap;
+    gap: 20px;
     width: 100%;
 }
 
@@ -336,7 +403,7 @@ html, body {
     border-radius: var(--border-radius-sm);
     object-fit: cover;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .song-details-new {
@@ -344,41 +411,42 @@ html, body {
     flex-direction: column;
     text-align: left;
     flex-grow: 1;
-    min-width: 120px; /* Garante que tenha espaço */
+    min-width: 100px;
 }
 
 .song-title-new {
     font-size: 1.1em;
     font-weight: 600;
     color: var(--text-color-dark);
+    margin-bottom: 3px;
 }
 
 .song-artist-new {
     font-size: 0.9em;
-    color: #666;
+    color: #777;
 }
 
 .player-buttons-new {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     flex-shrink: 0;
 }
 
 .player-control-button-new {
+    font-size: 22px;
+    color: #777;
     background: none;
     border: none;
-    color: #888;
-    font-size: 24px;
     cursor: pointer;
-    transition: var(--transition-speed);
+    transition: color var(--transition-speed), transform var(--transition-speed);
     outline: none;
 }
 
 .player-control-button-new:hover {
     color: var(--text-color-dark);
-    transform: translateY(-2px) scale(1.1);
+    transform: scale(1.05);
 }
 
 .player-control-button-new.active {
@@ -389,12 +457,12 @@ html, body {
 .play-pause-button-new {
     background-color: var(--spotify-green);
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 30px;
     color: var(--text-color-light);
     box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
     line-height: 1;
@@ -420,32 +488,29 @@ html, body {
     gap: 10px;
 }
 
-.progress-bar-group-new {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #888;
-    font-size: 0.85em;
+.progress-bar-group-new, .volume-control-group-new {
+    gap: 8px;
+    color: #777;
+    font-size: 0.9em;
 }
 
 .progress-slider-new {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 5px;
-    background: #ccc; /* Barra de progresso mais clara */
+    height: 6px;
+    background: #ddd;
     outline: none;
     border-radius: 3px;
     cursor: pointer;
     transition: background var(--transition-speed);
 }
 .progress-slider-new::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, var(--primary-color-soft) var(--progress, 0%), #ccc var(--progress, 0%)); /* Progresso rosa, resto cinza */
+    background: linear-gradient(to right, var(--primary-color-soft) var(--progress, 0%), #ddd var(--progress, 0%));
     border-radius: 3px;
 }
 .progress-slider-new::-moz-range-track {
-    background: linear-gradient(to right, var(--primary-color-soft) var(--progress, 0%), #ccc var(--progress, 0%));
+    background: linear-gradient(to right, var(--primary-color-soft) var(--progress, 0%), #ddd var(--progress, 0%));
     border-radius: 3px;
 }
 
@@ -454,7 +519,7 @@ html, body {
     appearance: none;
     width: 14px;
     height: 14px;
-    background: var(--primary-color-soft); /* Thumb rosa */
+    background: var(--primary-color-soft);
     border-radius: 50%;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     margin-top: -4.5px;
@@ -494,8 +559,8 @@ html, body {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4px;
-    background: #ccc;
+    height: 6px;
+    background: #ddd;
     outline: none;
     border-radius: 2px;
     cursor: pointer;
@@ -504,8 +569,8 @@ html, body {
 .volume-slider-new::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     background: var(--primary-color-soft);
     border-radius: 50%;
     cursor: pointer;
@@ -515,8 +580,8 @@ html, body {
 }
 
 .volume-slider-new::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     background: var(--primary-color-soft);
     border-radius: 50%;
     cursor: pointer;
@@ -537,93 +602,54 @@ html, body {
 
 /* --- Responsividade para a página slideshow.html --- */
 @media (max-width: 1024px) { /* Tablets grandes e laptops */
-    .slideshow-header-new {
-        padding: 15px 30px;
+    .slideshow-header-new { padding: 15px 30px; }
+    .slideshow-title-new { font-size: 3em; }
+    .slideshow-close-button-new { padding: 8px 15px; font-size: 0.9em; }
+    .slideshow-content-area-new { margin-top: 90px; margin-bottom: 20px; padding: 15px; }
+    .slide-image-new { max-height: calc(100% - 120px); } /* Ajuste para ter espaço para texto em tablets */
+    .slide-date-new { font-size: 1.8em; }
+    .slide-caption-new { font-size: 1em; }
+    .nav-button-new { width: 45px; height: 45px; font-size: 2em; }
+
+    /* Player flutuante em tablets */
+    .audio-player-wrapper {
+        max-width: 380px; /* Um pouco maior para tablets */
+        padding: 10px;
     }
-    .slideshow-title-new {
-        font-size: 3em;
-    }
-    .slideshow-close-button-new {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-    .slideshow-content-area-new {
-        margin-top: 90px;
-        margin-bottom: 140px;
-        padding: 15px;
-    }
-    .slide-image-new {
-        max-height: calc(100% - 80px);
-    }
-    .slide-date-new {
-        font-size: 1.8em;
-    }
-    .slide-caption-new {
-        font-size: 1em;
-    }
-    .nav-button-new {
-        width: 45px;
-        height: 45px;
-        font-size: 2em;
-    }
-    .slideshow-footer-new {
-        padding: 10px 15px;
-    }
-    .audio-player-new {
-        max-width: 600px;
-        padding: 12px 20px;
-    }
-    .player-cover-new {
-        width: 60px;
-        height: 60px;
-    }
-    .play-pause-button-new {
+    .audio-player-content { padding: 15px 20px; }
+    .player-cover-new { width: 60px; height: 60px; }
+    .play-pause-button-new { width: 45px; height: 45px; font-size: 26px; }
+    .player-control-button-new { font-size: 20px; }
+    .song-title-new { font-size: 0.95em; }
+    .song-artist-new { font-size: 0.85em; }
+
+    .minimized-player-fab {
         width: 50px;
         height: 50px;
-        font-size: 28px;
+        font-size: 1.5em;
     }
 }
 
 @media (max-width: 768px) { /* Tablets e celulares maiores */
-    .slideshow-header-new {
-        padding: 10px 20px;
-    }
-    .slideshow-title-new {
-        font-size: 2.5em;
-    }
-    .slideshow-close-button-new {
-        padding: 6px 12px;
-        font-size: 0.8em;
-    }
-    .slideshow-content-area-new {
-        margin-top: 80px;
-        margin-bottom: 120px;
-        padding: 10px;
-    }
-    .slide-image-new {
-        max-height: calc(100% - 60px);
-    }
-    .slide-date-new {
-        font-size: 1.6em;
-    }
-    .slide-caption-new {
-        font-size: 0.9em;
-    }
-    .nav-button-new {
-        width: 40px;
-        height: 40px;
-        font-size: 1.8em;
-    }
+    .slideshow-header-new { padding: 10px 20px; }
+    .slideshow-title-new { font-size: 2.5em; }
+    .slideshow-close-button-new { padding: 6px 12px; font-size: 0.8em; }
+    .slideshow-content-area-new { margin-top: 80px; margin-bottom: 10px; padding: 10px; }
+    .slide-image-new { max-height: calc(100% - 100px); } /* Ajuste para ter espaço para texto em mobile */
+    .slide-date-new { font-size: 1.6em; }
+    .slide-caption-new { font-size: 0.9em; }
+    .nav-button-new { width: 40px; height: 40px; font-size: 1.8em; }
     .nav-button-new.prev-slide-new { left: 10px; }
     .nav-button-new.next-slide-new { right: 10px; }
 
-    .slideshow-footer-new {
-        padding: 8px 10px;
+    /* Player flutuante em celulares maiores */
+    .audio-player-wrapper {
+        max-width: calc(100% - 20px); /* Ocupa quase toda a largura em mobile */
+        padding: 5px;
     }
-    .audio-player-new {
-        max-width: 500px;
+    .audio-player-content {
         padding: 10px 15px;
-        flex-direction: column; /* Quebra em coluna */
+        flex-direction: column; /* Quebra em coluna para economizar espaço */
         gap: 10px;
     }
     .player-info-controls-new {
@@ -638,67 +664,13 @@ html, body {
     .player-buttons-new {
         width: 100%;
         justify-content: center;
+        gap: 15px;
     }
-    .player-cover-new {
-        margin-bottom: 5px;
-    }
-}
-
-@media (max-width: 480px) { /* Celulares pequenos */
-    .slideshow-header-new {
-        padding: 8px 15px;
-    }
-    .slideshow-title-new {
-        font-size: 1.8em;
-    }
-    .slideshow-close-button-new {
-        padding: 5px 10px;
-        font-size: 0.7em;
-        gap: 5px;
-    }
-    .slideshow-content-area-new {
-        margin-top: 70px;
-        margin-bottom: 100px;
-        padding: 5px;
-    }
-    .slide-image-new {
-        max-height: calc(100% - 50px);
-    }
-    .slide-date-new {
-        font-size: 1.4em;
-    }
-    .slide-caption-new {
-        font-size: 0.8em;
-    }
-    .nav-button-new {
-        width: 35px;
-        height: 35px;
-        font-size: 1.5em;
-    }
-    .nav-button-new.prev-slide-new { left: 5px; }
-    .nav-button-new.next-slide-new { right: 5px; }
-    .slideshow-footer-new {
-        padding: 5px 8px;
-    }
-    .audio-player-new {
-        padding: 8px 10px;
-        max-width: 95%;
-    }
-    .player-cover-new {
-        width: 50px;
-        height: 50px;
-    }
-    .play-pause-button-new {
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-    }
-    .song-title-new {
-        font-size: 1em;
-    }
-    .song-artist-new {
-        font-size: 0.8em;
-    }
+    .player-cover-new { width: 50px; height: 50px; margin-bottom: 5px; }
+    .play-pause-button-new { width: 35px; height: 35px; font-size: 20px; }
+    .player-control-button-new { font-size: 16px; }
+    .song-title-new { font-size: 0.9em; }
+    .song-artist-new { font-size: 0.75em; }
     .progress-bar-group-new, .volume-control-group-new {
         flex-direction: column;
         gap: 5px;
@@ -706,4 +678,35 @@ html, body {
     .progress-slider-new, .volume-slider-new {
         width: 90%;
     }
+
+    .minimized-player-fab {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) { /* Celulares pequenos */
+    .slideshow-header-new { padding: 8px 15px; }
+    .slideshow-title-new { font-size: 1.8em; }
+    .slideshow-close-button-new { padding: 5px 10px; font-size: 0.7em; gap: 5px; }
+    .slideshow-content-area-new { margin-top: 60px; margin-bottom: 5px; padding: 5px; }
+    .slide-image-new { max-height: calc(100% - 90px); } /* Ajuste fino para não cortar imagem com texto */
+    .slide-date-new { font-size: 1.4em; }
+    .slide-caption-new { font-size: 0.8em; }
+    .nav-button-new { width: 35px; height: 35px; font-size: 1.5em; }
+    .nav-button-new.prev-slide-new { left: 5px; }
+    .nav-button-new.next-slide-new { right: 5px; }
+
+    /* Player flutuante menor para celulares bem pequenos */
+    .audio-player-wrapper {
+        padding: 3px;
+        max-width: calc(100% - 10px);
+    }
+    .audio-player-content { padding: 5px 8px; }
+    .player-cover-new { width: 40px; height: 40px; }
+    .play-pause-button-new { width: 30px; height: 30px; font-size: 18px; }
+    .player-control-button-new { font-size: 14px; }
+    .song-title-new { font-size: 0.85em; }
+    .song-artist-new { font-size: 0.7em; }
 }

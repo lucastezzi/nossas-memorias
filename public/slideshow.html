@@ -29,8 +29,11 @@
         </div>
     </main>
 
-    <footer class="slideshow-footer-new">
-        <div class="audio-player-new">
+    <div class="audio-player-wrapper" id="audioPlayerWrapper">
+        <button class="minimize-player-button" id="minimizePlayerButton" title="Minimizar Player">
+            <i class="fas fa-minus"></i>
+        </button>
+        <div class="audio-player-content" id="audioPlayerContent">
             <audio id="background-music" loop>
                 <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
                 <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
@@ -64,7 +67,14 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <button class="minimized-player-fab" id="minimizedPlayerFab" title="Maximizar Player">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <footer class="slideshow-empty-footer">
+        </footer>
 
     <script>
         // --- LÓGICA DO PLAYER DE MÚSICA ---
@@ -85,7 +95,7 @@
         const playlist = [
             { src: "Ed Sheeran - Perfect.mp3", cover: "capa.jpg", title: "Perfect", artist: "Ed Sheeran" },
             // { src: "music2.mp3", cover: "capa2.jpg", title: "Nome da Música 2", artist: "Artista 2" }, // Exemplo
-            // { src: "caminho/para/sua/mais_uma_musica.mp3", cover: "caminho/para/sua/mais_uma_capa.jpg", title: "Título", artist: "Artista" }
+            // { src: "caminho/para/sua/mais_uma_musica.mp3", cover: "caminho/para/sua/mais_una_capa.jpg", title: "Título", artist: "Artista" }
         ];
         let currentSongIndex = 0;
         let isShuffled = false;
@@ -171,7 +181,7 @@
 
         function loadAndPlaySong(song) {
             music.src = song.src;
-            document.querySelector('.player-cover-new').src = song.cover; // Nova classe
+            document.querySelector('.player-cover-new').src = song.cover;
             songTitleElement.textContent = song.title;
             songArtistElement.textContent = song.artist;
             music.load();
@@ -229,13 +239,13 @@
         const RENDER_API_URL = 'https://web-production-14bba.up.railway.app'; // Sua API URL
 
         function showSlides(n) {
-            let slides = document.getElementsByClassName("slide-new"); // Nova classe
-            const prevNavButton = document.querySelector('.nav-button-new.prev-slide-new'); // Nova classe
-            const nextNavButton = document.querySelector('.nav-button-new.next-slide-new'); // Nova classe
+            let slides = document.getElementsByClassName("slide-new");
+            const prevNavButton = document.querySelector('.nav-button-new.prev-slide-new');
+            const nextNavButton = document.querySelector('.nav-button-new.next-slide-new');
 
             if (slides.length === 0) {
                 document.getElementById('loadingSlides').textContent = 'Nenhuma memória para a apresentação. Adicione algumas na galeria!';
-                document.getElementById('loadingSlides').classList.add('error-message-new'); // Nova classe
+                document.getElementById('loadingSlides').classList.add('error-message-new');
                 prevNavButton.style.display = 'none';
                 nextNavButton.style.display = 'none';
                 return;
@@ -248,7 +258,7 @@
             else if (n < 0) {slideIndex = slides.length - 1}
             else {slideIndex = n;}
 
-            const currentActiveSlide = document.querySelector('.slide-new.active'); // Nova classe
+            const currentActiveSlide = document.querySelector('.slide-new.active');
             if (currentActiveSlide) {
                 anime({
                     targets: currentActiveSlide,
@@ -309,7 +319,7 @@
             if (loadingMessage) {
                 loadingMessage.textContent = 'Carregando memórias...';
                 loadingMessage.style.display = 'block';
-                loadingMessage.classList.remove('error-message-new'); // Nova classe
+                loadingMessage.classList.remove('error-message-new');
             }
             
             prevNavButton.style.display = 'none';
@@ -331,7 +341,7 @@
                 } else {
                     memoriesData.forEach(memory => {
                         const slideDiv = document.createElement('div');
-                        slideDiv.classList.add('slide-new'); // Nova classe
+                        slideDiv.classList.add('slide-new');
                         slideDiv.innerHTML = `
                             <img src="${memory.image_path}" alt="Memória de ${memory.event_date}" class="slide-image-new">
                             <div class="slide-details-new">
@@ -351,7 +361,7 @@
         }
 
         // Os listeners de mouseover/mouseleave
-        const slideshowMainContainer = document.querySelector('.slideshow-main-container-new'); // Nova classe
+        const slideshowMainContainer = document.querySelector('.slideshow-main-container-new');
         slideshowMainContainer.addEventListener('mouseover', stopSlideshowInterval);
         slideshowMainContainer.addEventListener('mouseleave', () => {
             if (memoriesData.length > 0 && !music.paused) {
@@ -359,9 +369,10 @@
             }
         });
 
-        const audioPlayer = document.querySelector('.audio-player-new'); // Nova classe
-        audioPlayer.addEventListener('mouseover', stopSlideshowInterval);
-        audioPlayer.addEventListener('mouseleave', () => {
+        // O audioPlayerWrapper é o novo container arrastável
+        const audioPlayerWrapper = document.getElementById('audioPlayerWrapper');
+        audioPlayerWrapper.addEventListener('mouseover', stopSlideshowInterval);
+        audioPlayerWrapper.addEventListener('mouseleave', () => {
             if (memoriesData.length > 0 && !music.paused) {
                 startSlideshowInterval();
             }
@@ -387,17 +398,210 @@
 
             document.querySelector('.background-hearts-container').appendChild(heart);
             
-            // Remove o coração quando a animação termina para evitar acúmulo de elementos
             heart.addEventListener('animationend', () => {
                 heart.remove();
             });
         }
 
-        // Inicia a geração de corações a cada 800ms
         let heartInterval = setInterval(createFallingHeart, 800);
 
-        // Carrega as memórias quando a página é totalmente carregada
         document.addEventListener('DOMContentLoaded', loadSlideshowMemories);
+
+        // --- Lógica para arrastar e minimizar/maximizar o player ---
+        let isDragging = false;
+        let offset = { x: 0, y: 0 };
+
+        const playerHandle = document.getElementById('audioPlayerContent'); // A área do player será a "alça" para arrastar
+        const minimizeButton = document.getElementById('minimizePlayerButton');
+        const minimizedPlayerFab = document.getElementById('minimizedPlayerFab'); // O novo botão FAB minimizado
+        const audioPlayerContent = document.getElementById('audioPlayerContent'); // Conteúdo visível do player
+
+        let isMinimized = false;
+        let originalPlayerDimensions = { width: 0, height: 0, top: 0, left: 0 }; // Para guardar dimensões e posição
+
+        // Listener para o botão de minimizar
+        minimizeButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Impede que o clique no botão inicie o arrasto
+            toggleMinimizePlayer();
+        });
+
+        // Listener para o botão FAB minimizado (para maximizar)
+        minimizedPlayerFab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMinimizePlayer();
+        });
+
+        function toggleMinimizePlayer() {
+            if (!isMinimized) { // Vai minimizar
+                // Captura as dimensões e posição atuais do player COMPLETO
+                originalPlayerDimensions = {
+                    width: audioPlayerWrapper.offsetWidth,
+                    height: audioPlayerWrapper.offsetHeight,
+                    top: audioPlayerWrapper.offsetTop,
+                    left: audioPlayerWrapper.offsetLeft
+                };
+
+                // Anima o player para sumir e o FAB para aparecer
+                anime({
+                    targets: audioPlayerWrapper,
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 300,
+                    easing: 'easeOutQuad',
+                    complete: () => {
+                        audioPlayerWrapper.style.display = 'none'; // Esconde o player completo
+                        minimizedPlayerFab.style.display = 'flex'; // Mostra o FAB
+                        anime({
+                            targets: minimizedPlayerFab,
+                            opacity: 1,
+                            scale: 1,
+                            duration: 300,
+                            easing: 'easeOutQuad',
+                            complete: () => {
+                                // Posiciona o FAB no canto inferior direito
+                                minimizedPlayerFab.style.left = `${window.innerWidth - minimizedPlayerFab.offsetWidth - 20}px`;
+                                minimizedPlayerFab.style.top = `${window.innerHeight - minimizedPlayerFab.offsetHeight - 20}px`;
+                                minimizedPlayerFab.style.transform = 'none'; // Remove transform para posicionamento exato
+                            }
+                        });
+                    }
+                });
+            } else { // Vai maximizar
+                // Posiciona o player completo na sua posição original salva, mas de forma invisível
+                audioPlayerWrapper.style.display = 'flex'; // Torna visível para animação
+                audioPlayerWrapper.style.opacity = 0;
+                audioPlayerWrapper.style.left = `${originalPlayerDimensions.left}px`;
+                audioPlayerWrapper.style.top = `${originalPlayerDimensions.top}px`;
+                audioPlayerWrapper.style.transform = 'none'; // Garante posicionamento exato
+
+                // Anima o FAB para sumir e o player completo para aparecer
+                anime({
+                    targets: minimizedPlayerFab,
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 300,
+                    easing: 'easeOutQuad',
+                    complete: () => {
+                        minimizedPlayerFab.style.display = 'none'; // Esconde o FAB
+
+                        anime({
+                            targets: audioPlayerWrapper,
+                            opacity: 1,
+                            scale: 1,
+                            duration: 500,
+                            easing: 'easeOutQuad',
+                            complete: () => {
+                                // Recoloca o player na posição inicial centralizada ou reposicionada
+                                setInitialPlayerPosition();
+                            }
+                        });
+                    }
+                });
+            }
+            isMinimized = !isMinimized;
+        }
+
+
+        // Lógica de arrasto
+        audioPlayerWrapper.addEventListener('mousedown', (e) => {
+            if (isMinimized) return; // Não arrasta o wrapper se estiver minimizado (o FAB é arrastado)
+            
+            // Só arrasta se o clique não for em um controle (botão ou slider)
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
+                isDragging = true;
+                offset = {
+                    x: audioPlayerWrapper.offsetLeft - e.clientX,
+                    y: audioPlayerWrapper.offsetTop - e.clientY
+                };
+                audioPlayerWrapper.style.cursor = 'grabbing';
+                audioPlayerWrapper.style.transition = 'none'; // Desativa transição durante o arrasto
+            }
+        });
+
+        // Arrastar o FAB minimizado
+        minimizedPlayerFab.addEventListener('mousedown', (e) => {
+            if (!isMinimized) return; // Só arrasta o FAB se estiver minimizado
+            isDragging = true;
+            offset = {
+                x: minimizedPlayerFab.offsetLeft - e.clientX,
+                y: minimizedPlayerFab.offsetTop - e.clientY
+            };
+            minimizedPlayerFab.style.cursor = 'grabbing';
+            minimizedPlayerFab.style.transition = 'none'; // Desativa transição durante o arrasto
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+
+            let targetElement = isMinimized ? minimizedPlayerFab : audioPlayerWrapper;
+
+            let newX = e.clientX + offset.x;
+            let newY = e.clientY + offset.y;
+
+            // Limita o movimento dentro da viewport
+            newX = Math.max(0, Math.min(newX, window.innerWidth - targetElement.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - targetElement.offsetHeight));
+
+            targetElement.style.left = `${newX}px`;
+            targetElement.style.top = `${newY}px`;
+            targetElement.style.transform = 'none'; // Remove transform durante o arrasto
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                let targetElement = isMinimized ? minimizedPlayerFab : audioPlayerWrapper;
+                targetElement.style.cursor = 'grab';
+                targetElement.style.transition = 'top 0.3s ease, left 0.3s ease, box-shadow 0.2s ease-in-out'; // Reativa transição
+            }
+        });
+
+        // Posiciona o player (ou FAB) na carga da página e redimensionamento
+        function setInitialPlayerPosition() {
+            if (isMinimized) {
+                minimizedPlayerFab.style.display = 'flex'; // Garante que o FAB esteja visível para cálculo
+                minimizedPlayerFab.style.opacity = 1;
+                minimizedPlayerFab.style.left = `${window.innerWidth - minimizedPlayerFab.offsetWidth - 20}px`;
+                minimizedPlayerFab.style.top = `${window.innerHeight - minimizedPlayerFab.offsetHeight - 20}px`;
+                minimizedPlayerFab.style.transform = 'none';
+                audioPlayerWrapper.style.display = 'none'; // Garante que o player completo esteja escondido
+            } else {
+                audioPlayerWrapper.style.display = 'flex'; // Garante que o player completo esteja visível
+                audioPlayerWrapper.style.opacity = 1;
+                minimizedPlayerFab.style.display = 'none'; // Garante que o FAB esteja escondido
+
+                // Para obter as dimensões corretas, reseta transições/posições temporariamente
+                audioPlayerWrapper.style.transition = 'none';
+                audioPlayerWrapper.style.top = '';
+                audioPlayerWrapper.style.left = '';
+                audioPlayerWrapper.style.transform = '';
+
+                // Força o navegador a recalcular o layout
+                void audioPlayerWrapper.offsetWidth; 
+                void audioPlayerWrapper.offsetHeight;
+
+                const playerWidth = audioPlayerWrapper.offsetWidth;
+                const playerHeight = audioPlayerWrapper.offsetHeight;
+
+                let newX = (window.innerWidth / 2) - (playerWidth / 2);
+                let newY = (window.innerHeight * 0.85) - (playerHeight / 2); // 85% da tela para baixo
+
+                audioPlayerWrapper.style.left = `${newX}px`;
+                audioPlayerWrapper.style.top = `${newY}px`;
+                audioPlayerWrapper.style.transform = 'none';
+
+                // Reativa a transição após o posicionamento
+                setTimeout(() => {
+                    audioPlayerWrapper.style.transition = 'top 0.3s ease, left 0.3s ease, box-shadow 0.2s ease-in-out';
+                }, 10);
+            }
+        }
+
+        // Inicializa a posição na carga da página e redimensionamento
+        window.addEventListener('load', setInitialPlayerPosition);
+        window.addEventListener('resize', setInitialPlayerPosition);
     </script>
 </body>
 </html>
