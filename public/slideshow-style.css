@@ -199,7 +199,7 @@ html, body {
 
 .slide-image-new {
     max-width: 90%; /* Deixa margens nas laterais */
-    /* max-height: calc(100% - 140px); Removido para flexbox gerenciar a altura, ver slide-details-new */
+    /* A altura máxima será gerenciada pelo flexbox, não um calc fixo aqui */
     height: auto; /* Garante que a altura seja ajustada proporcionalmente */
     object-fit: contain; /* Redimensiona a imagem para caber sem cortar */
     border-radius: var(--border-radius-lg);
@@ -209,7 +209,7 @@ html, body {
     padding: 5px;
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que a imagem encolha se a descrição for muito longa */
-    /* margin-bottom: 15px; // Movido para o .slide-details-new como margin-top */
+    /* Removido margin-bottom aqui, será no slide-details-new */
 }
 
 .slide-image-new:hover {
@@ -228,8 +228,8 @@ html, body {
     text-align: center;
     /* min-height: 50px; // Pode ser flexível, dependendo do conteúdo */
     display: flex;
-    flex-direction: column; /* Descrição e data em coluna */
-    justify-content: center;
+    flex-direction: column; /* Ordem: Data, depois Descrição */
+    justify-content: center; /* Centraliza o conteúdo (data e descrição) */
     align-items: center;
     flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
     overflow-y: auto; /* ADICIONADO: Adiciona scroll vertical se a descrição for muito longa */
@@ -259,23 +259,25 @@ html, body {
 }
 
 
-.slide-caption-new {
-    font-size: 1.1em;
-    color: var(--text-color-dark);
-    line-height: 1.4;
-    margin: 0; /* Remove margem superior e inferior */
-    margin-bottom: 5px; /* Espaço abaixo da descrição */
-    flex-shrink: 0; /* Impede que a descrição encolha se houver mais conteúdo */
-}
-
 .slide-date-new {
     font-family: 'Dancing Script', cursive;
     font-size: 2em;
     color: var(--primary-color-soft);
     margin: 0; /* Remove margens extras */
+    margin-bottom: 5px; /* Espaço abaixo da data */
     font-weight: 700;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
     flex-shrink: 0; /* Impede que a data encolha */
+    order: 1; /* Define a ordem: data primeiro */
+}
+
+.slide-caption-new {
+    font-size: 1.1em;
+    color: var(--text-color-dark);
+    line-height: 1.4;
+    margin: 0; /* Remove margem superior e inferior */
+    flex-shrink: 0; /* Impede que a descrição encolha se houver mais conteúdo */
+    order: 2; /* Define a ordem: descrição segundo */
 }
 
 /* Botões de navegação do Slideshow */
