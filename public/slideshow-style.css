@@ -1,4 +1,4 @@
-/* slideshow-style.css - Estilos para a página de apresentação de slides (DESIGN ATUALIZADO E PLAYER COM FAB) */
+/* slideshow-style.css - Estilos para a página de apresentação de slides (DESIGN ATUALIZADO) */
 
 /* Importação de fontes */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -183,9 +183,9 @@ html, body {
     transform: scale(0.95);
     z-index: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Organiza imagem e detalhes em coluna */
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Centraliza verticalmente o conteúdo */
     padding: 20px;
     box-sizing: border-box;
     color: var(--text-color-dark); /* Cor do texto da legenda/data */
@@ -199,7 +199,8 @@ html, body {
 
 .slide-image-new {
     max-width: 90%; /* Deixa margens nas laterais */
-    max-height: calc(100% - 140px); /* Ajustado: altura da imagem para deixar mais espaço para texto */
+    max-height: calc(100% - 140px); /* Altura máxima para a imagem, deixando espaço para texto */
+    height: auto; /* Garante que a altura seja ajustada proporcionalmente */
     object-fit: contain; /* Redimensiona a imagem para caber sem cortar */
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-medium);
@@ -207,6 +208,8 @@ html, body {
     background-color: rgba(255,255,255,0.7); /* Fundo claro para imagens PNG com transparência */
     padding: 5px;
     box-sizing: border-box;
+    flex-shrink: 0; /* Impede que a imagem encolha se a descrição for muito longa */
+    margin-bottom: 15px; /* Espaço entre a imagem e os detalhes (data/descrição) */
 }
 
 .slide-image-new:hover {
@@ -214,7 +217,7 @@ html, body {
 }
 
 .slide-details-new {
-    margin-top: 15px; /* Espaço entre imagem e texto */
+    /* Não precisa de margin-top aqui, já que o slide-image-new tem margin-bottom */
     padding: 5px 15px;
     background-color: var(--bg-element-light); /* Fundo claro para o texto */
     border-radius: var(--border-radius-md);
@@ -228,7 +231,32 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
+    overflow-y: auto; /* ADICIONADO: Adiciona scroll vertical se a descrição for muito longa */
+    -webkit-overflow-scrolling: touch; /* Suaviza o scroll em dispositivos iOS */
+    padding-right: 10px; /* Espaço extra para a barra de rolagem */
 }
+
+/* Estilização da barra de rolagem para navegadores WebKit (Chrome, Safari) */
+.slide-details-new::-webkit-scrollbar {
+    width: 8px; /* Largura da barra */
+}
+
+.slide-details-new::-webkit-scrollbar-track {
+    background: var(--secondary-color-light); /* Fundo da barra */
+    border-radius: 10px;
+}
+
+.slide-details-new::-webkit-scrollbar-thumb {
+    background: var(--primary-color-soft); /* Cor do "thumb" da barra */
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color-light); /* Borda para destacá-lo do fundo */
+}
+
+.slide-details-new::-webkit-scrollbar-thumb:hover {
+    background: #d1305f; /* Cor ao passar o mouse */
+}
+
 
 .slide-date-new {
     font-family: 'Dancing Script', cursive;
@@ -237,6 +265,7 @@ html, body {
     margin-bottom: 5px;
     font-weight: 700;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    flex-shrink: 0; /* Impede que a data encolha */
 }
 
 .slide-caption-new {
@@ -244,6 +273,7 @@ html, body {
     color: var(--text-color-dark);
     line-height: 1.4;
     margin: 0;
+    flex-shrink: 0; /* Impede que a descrição encolha se houver mais conteúdo */
 }
 
 /* Botões de navegação do Slideshow */
@@ -311,7 +341,7 @@ html, body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column; /* Botão minimizar acima do player */
-    align-items: flex-end; /* Alinha o botão minimizar à direita */
+    align-items: flex-end; /* Alinha o botão à direita */
     transition: opacity var(--transition-speed), transform var(--transition-speed), left var(--transition-speed), top var(--transition-speed); /* Transições para aparecer/sumir e arrastar */
 }
 
@@ -324,7 +354,7 @@ html, body {
     border-radius: var(--border-radius-md);
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
+    display: flex; /* Mantém como flex para layout interno */
     flex-direction: column;
     gap: 18px;
     color: #555;
@@ -339,7 +369,7 @@ html, body {
     color: var(--text-color-light);
     border: none;
     border-radius: 50%;
-    width: 30px;
+    width: 30px; /* Tamanho do botão */
     height: 30px;
     font-size: 1.2em;
     display: flex;
