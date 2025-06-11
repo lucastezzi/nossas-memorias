@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Momentos Especiais ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <link rel="stylesheet" href="slideshow-style.css"> <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="slideshow-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="slideshow-body-new">
@@ -74,7 +75,7 @@
     </button>
 
     <footer class="slideshow-empty-footer">
-        </footer>
+    </footer>
 
     <script>
         // --- LÓGICA DO PLAYER DE MÚSICA ---
@@ -344,10 +345,8 @@
                         slideDiv.classList.add('slide-new');
                         slideDiv.innerHTML = `
                             <img src="${memory.image_path}" alt="Memória de ${memory.event_date}" class="slide-image-new">
-                            <div class="slide-details-new">
-                                <div class="slide-date-new">${new Date(memory.event_date).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                                <div class="slide-caption-new">${memory.description}</div>
-                            </div>
+                            <div class="slide-date-display-new">${new Date(memory.event_date).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                            <div class="slide-caption-display-new">${memory.description}</div>
                         `;
                         slidesWrapper.appendChild(slideDiv);
                     });

@@ -183,7 +183,7 @@ html, body {
     transform: scale(0.95);
     z-index: 1;
     display: flex;
-    flex-direction: column; /* Organiza imagem e detalhes em coluna */
+    flex-direction: column; /* Organiza imagem, data e descrição em coluna */
     align-items: center;
     justify-content: center; /* Centraliza verticalmente o conteúdo */
     padding: 20px;
@@ -199,7 +199,6 @@ html, body {
 
 .slide-image-new {
     max-width: 90%; /* Deixa margens nas laterais */
-    /* A altura máxima será gerenciada pelo flexbox, não um calc fixo aqui */
     height: auto; /* Garante que a altura seja ajustada proporcionalmente */
     object-fit: contain; /* Redimensiona a imagem para caber sem cortar */
     border-radius: var(--border-radius-lg);
@@ -209,76 +208,71 @@ html, body {
     padding: 5px;
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que a imagem encolha se a descrição for muito longa */
-    /* Removido margin-bottom aqui, será no slide-details-new */
+    /* Ajuste de altura máxima para deixar espaço para a data e a descrição */
+    max-height: calc(100% - 180px); /* Exemplo: 180px para data + margens + altura mínima da descrição */
 }
 
 .slide-image-new:hover {
     transform: scale(1.01);
 }
 
-.slide-details-new {
-    margin-top: 15px; /* Espaço entre imagem e detalhes */
-    padding: 5px 15px;
+/* NOVO ESTILO para a DATA (agora um elemento separado) */
+.slide-date-display-new {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    color: var(--primary-color-soft);
+    margin-top: 15px; /* Espaço entre a imagem e a data */
+    margin-bottom: 5px; /* Espaço entre a data e a descrição */
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    padding: 0 15px; /* Adiciona padding horizontal para a data */
+    box-sizing: border-box;
+    text-align: center;
+    max-width: 90%; /* Mantém a largura consistente */
+    flex-shrink: 0; /* Impede que a data encolha */
+}
+
+/* NOVO ESTILO para a DESCRIÇÃO (agora um elemento separado e rolável) */
+.slide-caption-display-new {
+    font-size: 1.1em;
+    color: var(--text-color-dark);
+    line-height: 1.4;
+    margin-top: 0; /* Remove margem superior */
+    margin-bottom: 10px; /* Espaço da descrição até o fundo do slide */
+    padding: 10px 20px; /* Padding interno da descrição */
     background-color: var(--bg-element-light); /* Fundo claro para o texto */
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-subtle);
     max-width: 90%;
-    word-wrap: break-word; /* Quebra palavras longas */
+    word-wrap: break-word;
     box-sizing: border-box;
     text-align: center;
-    /* min-height: 50px; // Pode ser flexível, dependendo do conteúdo */
-    display: flex;
-    flex-direction: column; /* Ordem: Data, depois Descrição */
-    justify-content: center; /* Centraliza o conteúdo (data e descrição) */
-    align-items: center;
-    flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
-    overflow-y: auto; /* ADICIONADO: Adiciona scroll vertical se a descrição for muito longa */
-    -webkit-overflow-scrolling: touch; /* Suaviza o scroll em dispositivos iOS */
-    padding-right: 10px; /* Espaço extra para a barra de rolagem */
-    /* A altura máxima é implicitamente controlada pelo flex-grow e pelo container pai */
+    flex-grow: 1; /* Permite que a descrição ocupe o espaço restante */
+    overflow-y: auto; /* Adiciona scroll vertical se a descrição for muito longa */
+    -webkit-overflow-scrolling: touch;
+    max-height: 150px; /* Valor arbitrário, ajuste conforme necessário para sua proporção de imagem/texto */
 }
 
-/* Estilização da barra de rolagem para navegadores WebKit (Chrome, Safari) */
-.slide-details-new::-webkit-scrollbar {
+/* Estilização da barra de rolagem (reaplicar para a nova classe da descrição) */
+.slide-caption-display-new::-webkit-scrollbar {
     width: 8px; /* Largura da barra */
 }
 
-.slide-details-new::-webkit-scrollbar-track {
+.slide-caption-display-new::-webkit-scrollbar-track {
     background: var(--secondary-color-light); /* Fundo da barra */
     border-radius: 10px;
 }
 
-.slide-details-new::-webkit-scrollbar-thumb {
+.slide-caption-display-new::-webkit-scrollbar-thumb {
     background: var(--primary-color-soft); /* Cor do "thumb" da barra */
     border-radius: 10px;
     border: 2px solid var(--secondary-color-light); /* Borda para destacá-lo do fundo */
 }
 
-.slide-details-new::-webkit-scrollbar-thumb:hover {
+.slide-caption-display-new::-webkit-scrollbar-thumb:hover {
     background: #d1305f; /* Cor ao passar o mouse */
 }
 
-
-.slide-date-new {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2em;
-    color: var(--primary-color-soft);
-    margin: 0; /* Remove margens extras */
-    margin-bottom: 5px; /* Espaço abaixo da data */
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    flex-shrink: 0; /* Impede que a data encolha */
-    order: 1; /* Define a ordem: data primeiro */
-}
-
-.slide-caption-new {
-    font-size: 1.1em;
-    color: var(--text-color-dark);
-    line-height: 1.4;
-    margin: 0; /* Remove margem superior e inferior */
-    flex-shrink: 0; /* Impede que a descrição encolha se houver mais conteúdo */
-    order: 2; /* Define a ordem: descrição segundo */
-}
 
 /* Botões de navegação do Slideshow */
 .nav-button-new {
@@ -640,9 +634,9 @@ html, body {
     .slideshow-title-new { font-size: 3em; }
     .slideshow-close-button-new { padding: 8px 15px; font-size: 0.9em; }
     .slideshow-content-area-new { margin-top: 90px; margin-bottom: 20px; padding: 15px; }
-    .slide-image-new { max-height: calc(100% - 120px); } /* Ajuste para ter espaço para texto em tablets */
-    .slide-date-new { font-size: 1.8em; }
-    .slide-caption-new { font-size: 1em; }
+    .slide-image-new { max-height: calc(100% - 150px); } /* Ajuste de altura da imagem */
+    .slide-date-display-new { font-size: 1.8em; } /* Nova classe para data */
+    .slide-caption-display-new { font-size: 1em; max-height: 120px; } /* Nova classe para descrição */
     .nav-button-new { width: 45px; height: 45px; font-size: 2em; }
 
     /* Player flutuante em tablets */
@@ -669,9 +663,9 @@ html, body {
     .slideshow-title-new { font-size: 2.5em; }
     .slideshow-close-button-new { padding: 6px 12px; font-size: 0.8em; }
     .slideshow-content-area-new { margin-top: 80px; margin-bottom: 10px; padding: 10px; }
-    .slide-image-new { max-height: calc(100% - 100px); } /* Ajuste para ter espaço para texto em mobile */
-    .slide-date-new { font-size: 1.6em; }
-    .slide-caption-new { font-size: 0.9em; }
+    .slide-image-new { max-height: calc(100% - 130px); } /* Ajuste de altura da imagem */
+    .slide-date-display-new { font-size: 1.6em; } /* Nova classe para data */
+    .slide-caption-display-new { font-size: 0.9em; max-height: 100px; } /* Nova classe para descrição */
     .nav-button-new { width: 40px; height: 40px; font-size: 1.8em; }
     .nav-button-new.prev-slide-new { left: 10px; }
     .nav-button-new.next-slide-new { right: 10px; }
@@ -725,9 +719,9 @@ html, body {
     .slideshow-title-new { font-size: 1.8em; }
     .slideshow-close-button-new { padding: 5px 10px; font-size: 0.7em; gap: 5px; }
     .slideshow-content-area-new { margin-top: 60px; margin-bottom: 5px; padding: 5px; }
-    .slide-image-new { max-height: calc(100% - 90px); } /* Ajuste fino para não cortar imagem com texto */
-    .slide-date-new { font-size: 1.4em; }
-    .slide-caption-new { font-size: 0.8em; }
+    .slide-image-new { max-height: calc(100% - 110px); } /* Ajuste fino para não cortar imagem com texto */
+    .slide-date-display-new { font-size: 1.4em; } /* Nova classe para data */
+    .slide-caption-display-new { font-size: 0.8em; max-height: 80px; } /* Nova classe para descrição */
     .nav-button-new { width: 35px; height: 35px; font-size: 1.5em; }
     .nav-button-new.prev-slide-new { left: 5px; }
     .nav-button-new.next-slide-new { right: 5px; }
