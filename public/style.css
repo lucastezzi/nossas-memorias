@@ -2409,7 +2409,7 @@ html, body {
 /* --- NOVOS ESTILOS PARA A PÁGINA slideshow.html (CAIXA DE CONTEÚDO) --- */
 
 body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semitransparente para a página */
+    background-color: rgba(255, 255, 255, 0.85); /* Fundo preto semitransparente para a página */
     display: flex;
     justify-content: center;
     align-items: center;

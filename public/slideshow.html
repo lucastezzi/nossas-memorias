@@ -9,61 +9,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <center>
+<body class="slideshow-page-body">
     <div class="heart-background-container" id="slideshow-heart-container"></div>
 
-    <div class="slideshow-page-wrapper">
-        <div class="slideshow-header">
-            <h1>Nossos Momentos</h1>
-        </div>
-
+    <div class="slideshow-header">
+        <h1>Nossos Momentos</h1>
         <a href="gallery.html" class="close-slideshow-button">
             <i class="fas fa-times"></i> Fechar Apresentação
         </a>
+    </div>
 
-        <div class="slideshow-content-box">
-            <div class="audio-player-container">
-                <audio id="background-music" loop>
-                    <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
-                    <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta o elemento de áudio.
-                </audio>
+    <div class="audio-player-container">
+        <audio id="background-music" loop>
+            <source src="Ed Sheeran - Perfect.mp3" type="audio/mpeg">
+            <source src="music2.mp3" type="audio/mpeg"> Seu navegador não suporta o elemento de áudio.
+        </audio>
 
-                <div class="player-top-row">
-                    <img src="capa.jpg" alt="Capa da Música" class="music-cover">
-                    <div class="song-info">
-                        <span id="song-title" class="song-title">Perfect</span>
-                        <span id="song-artist" class="song-artist">Ed Sheeran</span>
-                    </div>
-                    <div class="player-controls">
-                        <button class="control-button" id="shuffle-button" title="Embaralhar"><i class="fa-solid fa-shuffle"></i></button>
-                        <button class="control-button" id="prev-button" title="Música Anterior"><i class="fa-solid fa-backward-step"></i></button>
-                        <button class="control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fa-solid fa-play"></i></button>
-                        <button class="control-button" id="next-button" title="Próxima Música"><i class="fa-solid fa-forward-step"></i></button>
-                        <button class="control-button" id="repeat-button" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
-                    </div>
-                </div>
-                <div class="progress-bar-container">
-                    <span id="current-time">0:00</span>
-                    <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
-                    <span id="duration-time">0:00</span>
-                </div>
-                <div class="volume-control">
-                    <i class="fa-solid fa-volume-low"></i>
-                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-                    <i class="fa-solid fa-volume-high"></i>
-                </div>
+        <div class="player-top-row">
+            <img src="capa.jpg" alt="Capa da Música" class="music-cover">
+            <div class="song-info">
+                <span id="song-title" class="song-title">Perfect</span>
+                <span id="song-artist" class="song-artist">Ed Sheeran</span>
             </div>
-
-            
+            <div class="player-controls">
+                <button class="control-button" id="shuffle-button" title="Embaralhar"><i class="fa-solid fa-shuffle"></i></button>
+                <button class="control-button" id="prev-button" title="Música Anterior"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="control-button play-pause-button" id="play-pause-player" title="Reproduzir/Pausar"><i class="fa-solid fa-play"></i></button>
+                <button class="control-button" id="next-button" title="Próxima Música"><i class="fa-solid fa-forward-step"></i></button>
+                <button class="control-button" id="repeat-button" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
+            </div>
         </div>
-        <div class="slideshow-container">
-                <div id="slides-wrapper" class="slides-wrapper">
-                    <p id="loadingSlides" class="loading-slides">Carregando fotos para a apresentação...</p>
-                </div>
-                <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
-                <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
-            </div>
+        <div class="progress-bar-container">
+            <span id="current-time">0:00</span>
+            <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
+            <span id="duration-time">0:00</span>
+        </div>
+        <div class="volume-control">
+            <i class="fa-solid fa-volume-low"></i>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
+    </div>
+
+    <div class="slideshow-container">
+        <div id="slides-wrapper" class="slides-wrapper">
+            <p id="loadingSlides" class="loading-slides">Carregando fotos para a apresentação...</p>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+        <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
     </div>
 
     <script>
@@ -347,18 +340,20 @@
             }
         }
 
+        // Os listeners de mouseover/mouseleave agora estão mais específicos.
+        // O slideshow-container lida com o hover do slideshow.
         const slideshowContainer = document.querySelector('.slideshow-container');
         slideshowContainer.addEventListener('mouseover', stopSlideshowInterval);
         slideshowContainer.addEventListener('mouseleave', () => {
-            if (memoriesData.length > 0) {
+            if (memoriesData.length > 0 && !music.paused) { // Adicionado verificação se a música não está pausada
                 startSlideshowInterval();
             }
         });
 
-        // Este player agora está dentro da caixa, então o hover deve ser na própria caixa ou no player
+        // O audio-player-container lida com o hover do player.
         document.querySelector('.audio-player-container').addEventListener('mouseover', stopSlideshowInterval);
         document.querySelector('.audio-player-container').addEventListener('mouseleave', () => {
-            if (memoriesData.length > 0 && !music.paused) {
+            if (memoriesData.length > 0 && !music.paused) { // Adicionado verificação se a música não está pausada
                 startSlideshowInterval();
             }
         });
@@ -392,6 +387,5 @@
 
         document.addEventListener('DOMContentLoaded', loadSlideshowMemories);
     </script>
-    </center>
 </body>
 </html>
