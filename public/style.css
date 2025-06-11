@@ -2539,7 +2539,7 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
 }
 
 .slideshow-container .slide {
-    margin-top: 2000px;
+    margin-top: 200px;
     position: absolute;
     width: 100%;
     height: 100%;
