@@ -2499,8 +2499,7 @@ body.slideshow-page-body { /* Aplicar esta classe no body de slideshow.html */
     /* Remover min-height: fit-content; ou height: 100%; se estiver aqui */
     /* Não defina altura fixa aqui, deixe-o crescer */
     overflow-y: auto; /* Adicione scroll se o conteúdo exceder a altura disponível
-}
-
+*/}
 /* Player de Áudio agora solid e dentro da caixa de conteúdo */
 .audio-player-container { /* Removido .overlay-player-fixed */
     position: relative; /* Não é mais fixo na tela, mas sim no fluxo */
